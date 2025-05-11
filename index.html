@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&amp;display=swap" rel="stylesheet"/>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Customer Details</title>
+<style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      max-width: 500px;
+      margin: auto;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+  
+<style>
+  .error {
+    background-color: #ffe6e6 !important;
+    border: 1px solid red !important;
+  }
+
+<style>
+  .arrow-bounce {
+    font-size: 24px;
+    text-align: center;
+    animation: bounce 1s infinite;
+    margin-top: 10px;
+    color: #25D366;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+@keyframes flashBlink {
+  from { opacity: 1; }
+  to { opacity: 0.2; }
+}
+
+@keyframes scrollBanner {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+.scroll-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: scrollBanner 40s linear infinite;
+}
+
+@keyframes waterFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes rainbowWaterFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
+<style>
+  .arrow-bounce {
+    font-size: 24px;
+    text-align: center;
+    animation: bounce 1s infinite;
+    margin-top: 10px;
+    color: #25D366;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+</style>
+<style>
+.scrolling-banner-topline {
+  width: 100%;
+  overflow: hidden;
+  background-color: #000;
+  color: #0f0;
+  font-size: 12px;
+  padding: 3px 0;
+  font-weight: bold;
+}
+.scrolling-text-topline {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: scrollTextTop 40s linear infinite;
+}
+@keyframes scrollTextTop {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+</style>
+</head>
+<body>
+<div class="scrolling-banner-topline">
+<div class="scrolling-text-topline">🎮 Games Planet - Retro to Modern Gaming Solutions 💥</div>
+</div>
+<div id="scrollBannerTop" style="width: 100%; text-align: center; font-size: 12px; color: #fff; background-color: #333; padding: 5px 0; font-weight: bold; position: fixed; z-index: 9998;top: 0;"><span class="scroll-text" id="scrollBannerTopText">अगर आप प्रीपेड फुल पेमेंट पर डिस्काउंट चाहते हैं तो हमारे सभी यूट्यूब चैनल सब्सक्राइब करें और व्हाट्सएप पर शेयर करें, फिर आपको कूपन मिलेगा</span></div><div id="flashMessage" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background: #28a745; color: white; padding: 20px 40px; font-size: 24px; font-weight:bold; border-radius: 10px; z-index: 9999; box-shadow: 0 0 20px rgba(0,0,0,0.4); text-align: center; animation: flashBlink 0.5s alternate ease-in-out 8;">Congratulations! Discount applied.</div>
+<div id="datetime" style="
+  position: fixed;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: gray;
+  font-family: monospace;
+  z-index: 9999;
+"></div>
+<div id="datetime" style="
+  position: fixed;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: gray;
+  font-family: monospace;
+  z-index: 9999;
+"></div>
+<div id="gamesPlanetFlow" style="background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet, red); background-size: 1000% 1000%; -webkit-background-clip: text; color: transparent; text-align: center; font-size: 32px; font-family: 'Orbitron', sans-serif; padding: 14px 0; letter-spacing: 2px; font-weight: bold; margin-bottom: 20px; animation: rainbowWaterFlow 15s ease-in-out infinite;">
+  GAMES PLANET
+</div>
+<div class="container">
+<h2>Customer Details</h2>
+<div class="form-group">
+<label for="name">Name</label>
+<input id="name" required="true" type="text"/>
+</div>
+<div class="form-group">
+<label for="mobile">Mobile <span style="color:red">*</span></label>
+<input id="mobile" maxlength="10" pattern="\d{10}" required="true" title="Enter a valid 10-digit mobile number" type="tel"/>
+</div>
+<div class="form-group">
+<label for="altMobile">Alt Mobile</label>
+<input id="altMobile" type="tel"/>
+</div>
+<div class="form-group">
+<label for="email">Email</label>
+<input id="email" type="email"/>
+</div>
+<div class="form-group">
+<label for="address">Address</label>
+<input id="address" type="text"/>
+</div>
+<div class="form-group">
+<label for="landmark">Landmark</label>
+<input id="landmark" type="text"/>
+</div>
+<div class="form-group">
+<label for="pincode">Pincode <span style="color:red">*</span></label>
+<input id="pincode" onblur="lookupPincode()" type="text"/>
+</div>
+<div class="form-group">
+<label for="state">State</label>
+<input id="state" readonly="" type="text"/>
+</div>
+<div class="form-group">
+<label for="district">District / City</label>
+<input id="district" readonly="" type="text"/>
+</div>
+<div class="form-group">
+<label for="postOffice">Post Office Name (if available)</label>
+<select id="postOffice"></select>
+</div>
+</div>
+<script>
+    async function lookupPincode() {
+      const pincode = document.getElementById('pincode').value.trim();
+      if (!pincode || pincode.length !== 6) return;
+
+      try {
+        const res = await fetch(`https://api.postalpincode.in/pincode/${pincode}`);
+        const data = await res.json();
+        if (data[0].Status === "Success") {
+          const postOffice = data[0].PostOffice[0];
+          document.getElementById('state').value = postOffice.State;
+          document.getElementById('district').value = postOffice.District;
+
+          const poSelect = document.getElementById('postOffice');
+          poSelect.innerHTML = '';
+          data[0].PostOffice.forEach(po => {
+            const option = document.createElement('option');
+            option.value = po.Name;
+            option.textContent = po.Name;
+            poSelect.appendChild(option);
+          });
+        } else {
+          alert("Pincode not found.");
+        }
+      } catch (e) {
+        alert("Failed to fetch pincode details.");
+      }
+    }
+  </script>
+<div class="form-group">
+<label for="product">Product Name <span style="color:red">*</span></label>
+<select id="product" onchange="toggleOtherProductField()"><option value="">Select a product</option><option value="PANDORA GAMESTICK LITE AOKO">PANDORA GAMESTICK LITE AOKO</option><option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option><option value="GAMESTICK GD10 (VAYAVA)">GAMESTICK GD10 (VAYAVA)</option><option value="GAMEBOX PLUS G10 (VAYAVA)">GAMEBOX PLUS G10 (VAYAVA)</option><option value="GAMEBOX PLUS G10 ULTIMATE EDITON">GAMEBOX PLUS G10 ULTIMATE EDITON</option><option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option><option value="OG GPZ M22 (VAYAVA)">OG GPZ M22 (VAYAVA)</option><option value="OG GAMESTICK GD30 (VAYAVA)">OG GAMESTICK GD30 (VAYAVA)</option><option value="GAMEBOX G11 PRO (VAYAVA)">GAMEBOX G11 PRO (VAYAVA)</option><option value="GAMEBOX G11 PRO ULTIMATE EDITION">GAMEBOX G11 PRO ULTIMATE EDITION</option><option value="GAMEBOX G11 PRO SPECIAL EDITION P3">GAMEBOX G11 PRO SPECIAL EDITION P3</option><option value="GD35 10K GAMESTICK (VAYAVA)">GD35 10K GAMESTICK (VAYAVA)</option><option value="GD35 10K GAMESTICK GTA SAN EDITION">GD35 10K GAMESTICK GTA SAN EDITION</option><option value="FMCB CARD + USB">FMCB CARD + USB</option><option value="GPZ R35S">GPZ R35S</option><option value="X7M SUP GAME">X7M SUP GAME</option><option value="other">PRODUCT NOT IN LIST</option></select>
+</div><div class="form-group">
+<label for="gb">Storage (GB)</label>
+<select id="gb">
+<option value="">Not Applicable</option>
+<option value="64">64GB</option>
+<option value="128">128GB</option>
+<option value="256">256GB</option>
+<option value="500">500GB (not for Gamestick Gamebox)</option>
+</select>
+</div>
+<div class="form-group">
+<label for="paymentType">Payment Type <span style="color:red">*</span></label>
+<select id="paymentType" onchange="updatePaymentAmount()">
+<option value="prepaid">Full Prepaid</option>
+<option value="cod">Cash on Delivery (₹500 or 10% Advance)</option>
+</select>
+</div><div class="form-group" id="couponGroup" style="display:none;"><label for="coupon">Discount Coupon (Only for Prepaid)</label><input id="coupon" placeholder="Enter coupon code (e.g., GPZ2025)" type="text"/><div id="discountInfoBox" style="font-size: 14px; color: green; margin-top: 5px; font-weight: bold;"></div></div>
+<div class="form-group">
+<label for="productPrice">Product Price (₹)</label>
+<input id="productPrice" min="0" onchange="updatePaymentAmount()" readonly="true" type="number" value="0"/>
+</div>
+<div class="form-group">
+<label for="advanceAmount" id="advanceLabel"></label>
+<input id="advanceAmount" readonly="" type="text"/>
+<div id="restBoxInline" style="font-size: 14px; color: red; margin-top: 5px; font-weight: bold;"></div></div>
+<div id="productPreview" style="text-align:center; margin-bottom:20px;"><img alt="Product Image" id="previewImage" src="" style="max-width:200px; display:none; margin:10px auto;"/></div><div id="summaryBox" style="margin-bottom: 10px; font-size: 12px; color: #333; padding: 10px; background: #f0f0f0; border-radius: 6px;">Summary will appear here after selecting product and payment type.</div><div style="text-align:center; margin-top: 20px;">
+<button id="payNowBtn" onclick="payAdvanceDynamic()" style="display:none; padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay ₹</button>
+</div><div id="restAmountInfo" style="margin-top: 10px; font-size: 12px; color: red; font-weight: bold; text-align: center;"></div>
+<div class="form-group" id="otherProductGroup" style="display: none;">
+<label for="otherProduct">Enter Product Name <span style="color:red">*</span></label>
+<input id="otherProduct" type="text"/>
+</div>
+<script>
+    function payAdvance() {
+      const upiLink = "upi://pay?pa=paytmqr5hyx5o@ptys&pn=GamesPlanet&am=500&cu=INR";
+      window.location.href = upiLink;
+    }
+  </script>
+<div class="arrow-bounce">⬇️</div>
+<div style="text-align:center; margin-top: 10px; font-size: 14px; color: #333;">
+    After payment, share a screenshot of the payment on WhatsApp and then confirm your order.
+  </div>
+<div style="text-align:center; margin-top: 20px;">
+<button onclick="sendOrderOnWhatsApp()" style="
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #25D366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    ">Place COD Order on WhatsApp</button>
+</div>
+<script>
+  function updateDateTime() {
+    const now = new Date();
+    const formatted = now.toLocaleString('en-IN', {
+      day: '2-digit', month: 'short', year: 'numeric',
+      hour: '2-digit', minute: '2-digit', second: '2-digit',
+      hour12: true
+    });
+    document.getElementById('datetime').textContent = formatted;
+  }
+  setInterval(updateDateTime, 1000);
+  updateDateTime();
+</script>
+<div style="text-align: center; margin-top: 40px; font-size: 20px;">
+<a href="tel:7983624797" style="margin: 0 8px;">📞</a>
+<a href="mailto:gamesplanet.7983624797@gmail.com" style="margin: 0 8px;">✉️</a>
+<a href="https://www.youtube.com/singhtechgaming" style="margin: 0 8px;" target="_blank">▶️</a>
+<a href="https://instagram.com/singhtech1" style="margin: 0 8px;" target="_blank">📷</a>
+</div>
+<div style="text-align: center; font-size: 12px; color: gray; margin-top: 10px;">
+  © All rights reserved 2017 - 2025
+</div>
+<script>
+  function toggleOtherProductField() {
+    const product = document.getElementById('product').value;
+    const otherGroup = document.getElementById('otherProductGroup');
+    otherGroup.style.display = product === 'other' ? 'block' : 'none';
+  }
+</script>
+<script>
+const productPrices = {
+"PANDORA GAMESTICK LITE AOKO": { "64GB": 1599 },
+"PANDORA GAMESTICK PRO WHITEBOX": { "64GB": 1799 },
+"GAMESTICK GD10 (VAYAVA)": { "64GB": 2399, "128GB": 4399 },
+"GAMEBOX PLUS G10 (VAYAVA)": { "64GB": 3599, "128GB": 5599 },
+"GAMEBOX PLUS G10 ULTIMATE EDITON": { "64GB": 4299, "128GB": 5299 },
+"OG GPZ M33 (VAYAVA)": { "64GB": 2699, "128GB": 4999, "256GB": 5999 },
+"OG GPZ M22 (VAYAVA)": { "64GB": 3499, "128GB": 5799, "256GB": 6999 },
+"OG GAMESTICK GD30 (VAYAVA)": { "64GB": 3699, "128GB": 5999, "256GB": 7299 },
+"GAMEBOX G11 PRO (VAYAVA)": { "64GB": 4599, "128GB": 6599, "256GB": 7599 },
+"GAMEBOX G11 PRO ULTIMATE EDITION": { "64GB": 5299, "128GB": 7299, "256GB": 8299 },
+"GAMEBOX G11 PRO SPECIAL EDITION P3": { "64GB": 6499, "128GB": 8299, "256GB": 9299 },
+"GD35 10K GAMESTICK (VAYAVA)": { "64GB": 5299, "128GB": 6999, "256GB": 7999 },
+"GD35 10K GAMESTICK GTA SAN EDITION": { "64GB": 5999, "128GB": 7699, "256GB": 8699 },
+"FMCB CARD + USB": { "64GB (21 TOP GAMES)": 1499, "64GB (OPTIONAL GAMES)": 1699, "128GB (41 TOP GAMES)": 1999, "128GB (OPTIONAL GAMES)": 2399, "256GB (71 TOP GAMES)": 2999, "256GB (OPTIONAL GAMES)": 3699, "500GB (175 TOP GAMES)": 3699, "500GB (OPTIONAL GAMES)": 4699 },
+"GPZ R35S": { "64GB": 4999 },
+"X7M SUP GAME": { "SINGLE PLAYER": 999, "DUAL PLAYER": 1099 },
+};
+
+document.getElementById("product").addEventListener("change", function () {
+  const product = this.value;
+  const gbSelect = document.getElementById("gb");
+  const gbLabel = document.querySelector("label[for='gb']");
+  const priceInput = document.getElementById("productPrice");
+
+  gbSelect.innerHTML = '';
+  gbSelect.style.display = 'inline-block';
+
+  if (productPrices[product]) {
+    const options = Object.keys(productPrices[product]);
+    if (options.length === 1) {
+      const gb = options[0];
+      const opt = document.createElement("option");
+      opt.value = gb;
+      opt.textContent = gb;
+      gbSelect.appendChild(opt);
+      gbSelect.value = gb;
+      priceInput.value = productPrices[product][gb];
+    } else {
+      options.forEach(gb => {
+        const opt = document.createElement("option");
+        opt.value = gb;
+        opt.textContent = gb;
+        gbSelect.appendChild(opt);
+      });
+      gbSelect.value = options.includes("64GB") ? "64GB" : options[0];
+      priceInput.value = productPrices[product][gbSelect.value];
+    }
+    updatePaymentAmount();
+    // Update label text
+    if (options.some(x => x.includes("GB"))) {
+      gbLabel.textContent = "Storage (GB)";
+    } else {
+      gbLabel.textContent = "Variant";
+    }
+  } else {
+    gbSelect.innerHTML = '<option value="">Not Applicable</option>';
+    priceInput.value = '';
+    gbLabel.textContent = "Storage (GB)";
+  }
+});
+
+document.getElementById("gb").addEventListener("change", function () {
+  const product = document.getElementById("product").value;
+  const gb = this.value;
+  const priceInput = document.getElementById("productPrice");
+  if (productPrices[product] && productPrices[product][gb]) {
+    priceInput.value = productPrices[product][gb];
+  } else {
+    priceInput.value = "";
+  }
+  updatePaymentAmount();
+});
+</script><script>
+function showFlashMessage(msg) {
+  const flash = document.getElementById("flashMessage");
+  flash.textContent = msg;
+  flash.style.display = "block";
+  setTimeout(() => {
+    flash.style.display = "none";
+  }, 4000);
+}
+
+function updatePaymentAmount() {
+  const product = document.getElementById("product").value;
+  const priceInput = document.getElementById("productPrice");
+  const gb = document.getElementById("gb").value;
+  const type = document.getElementById("paymentType").value;
+  const coupon = document.getElementById("coupon").value.trim().toUpperCase();
+  const advanceField = document.getElementById("advanceAmount");
+  const payButton = document.querySelector("button[onclick='payAdvanceDynamic()']");
+  const summaryBox = document.getElementById("summaryBox");
+  const restAmountInfo = document.getElementById("restAmountInfo");
+  const restBoxInline = document.getElementById("restBoxInline");
+  const discountInfoBox = document.getElementById("discountInfoBox");
+  const paymentType = document.getElementById("paymentType");
+  const couponGroup = document.getElementById("couponGroup");
+  const advanceLabel = document.getElementById("advanceLabel");
+
+  if (product === "other") {
+    priceInput.removeAttribute("readonly");
+  } else {
+    priceInput.setAttribute("readonly", "true");
+  }
+
+  const price = parseFloat(priceInput.value) || 0;
+
+  Array.from(paymentType.options).forEach(opt => {
+    if (opt.value === "cod") {
+      opt.disabled = price < 1200;
+    }
+  });
+
+  let discount = 0;
+  let finalAmount = price;
+  let restAmount = 0;
+  let paymentModeText = "";
+
+  if (type === "prepaid") {
+    couponGroup.style.display = "block";
+    advanceLabel.textContent = "Amount Need to Pay";
+    paymentModeText = "🟢 Order Type: Prepaid Order";
+
+    if (coupon === "GPZ2025") {
+      if (product.includes("FMCB CARD + USB")) {
+        discount = price * 0.10;
+      } else if (gb === "64GB") discount = 200;
+      else if (gb === "128GB") discount = 400;
+      else if (gb === "256GB") discount = 600;
+      finalAmount = price - discount;
+
+      
+if (discount > 0 && !window.couponFlashed) {
+  showFlashMessage(`🎉 Congratulations! ₹${discount.toFixed(0)} discount applied.`);
+  window.couponFlashed = true;
+}
+
+    }
+
+    advanceField.value = finalAmount.toFixed(0);
+    restAmountInfo.textContent = "";
+    restBoxInline.textContent = "";
+    discountInfoBox.textContent = discount > 0 ? `Discount Applied: ₹${discount.toFixed(0)}` : "";
+
+  } else {
+    couponGroup.style.display = "none";
+    advanceLabel.textContent = "Advance Amount to Pay (₹)";
+    paymentModeText = "🟠 Order Type: Cash on Delivery";
+    const minAdvance = Math.max(500, price * 0.10);
+    finalAmount = Math.ceil(minAdvance);
+    restAmount = price - finalAmount;
+    advanceField.value = finalAmount;
+    restAmountInfo.textContent = "Rest amount on delivery: ₹" + restAmount + (price < 1500 ? ' + ₹99 COD charge' : '');
+    restBoxInline.textContent = "Rest amount on delivery: ₹" + restAmount + (price < 1500 ? ' + ₹99 COD charge' : '');
+    discountInfoBox.textContent = "";
+  }
+
+  if (payButton) {
+    payButton.textContent = "Pay ₹" + advanceField.value;
+  }
+
+  const discountText = discount > 0 
+    ? `Discount Applied: ₹${discount.toFixed(0)} on ${gb} — Final Price: ₹${finalAmount.toFixed(0)}`
+    : "No Discount";
+
+  const name = document.getElementById("name").value;
+  const mobile = document.getElementById("mobile").value;
+  const altMobile = document.getElementById("altMobile").value;
+  const email = document.getElementById("email").value;
+  const address = document.getElementById("address").value;
+  const landmark = document.getElementById("landmark").value;
+  const pincode = document.getElementById("pincode").value;
+  const state = document.getElementById("state").value;
+  const district = document.getElementById("district").value;
+  const postOffice = document.getElementById("postOffice").value;
+
+  summaryBox.innerHTML = `
+${price < 1500 && type === 'cod' ? '<strong>COD Charge:</strong> ₹99<br>' : ''}
+    <div style="font-weight:bold; margin-bottom:5px;">${paymentModeText}</div>
+    <strong>Name:</strong> ${name} <br>
+    Mobile: ${mobile} <br>
+    Alt Mobile: ${altMobile} <br>
+    Email: ${email} <br>
+    Address: ${address}, ${landmark}, ${district}, ${state} - ${pincode} <br>
+    Post Office: ${postOffice} <br><br>
+    Product: ${product === 'other' ? document.getElementById('otherProduct').value : product} <br>
+    Variant: ${gb}<br>
+    Base Price: ₹${price}<br>
+    ${discountText}<br>
+    Amount to Pay Now: ₹${advanceField.value}<br>
+    ${type === "cod" ? `Rest on Delivery: ₹${restAmount}` : ""}
+  `;
+}
+
+['input', 'change'].forEach(evt => {
+  ['coupon', 'paymentType', 'product', 'gb', 'name', 'mobile', 'altMobile', 'email', 'address', 'landmark', 'pincode', 'state', 'district', 'postOffice', 'productPrice', 'otherProduct'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(evt, updatePaymentAmount);
+  });
+});
+
+updatePaymentAmount();
+</script><script>
+document.getElementById("product").addEventListener("change", function () {
+  const selected = this.value;
+  const payBtn = document.getElementById("payNowBtn");
+  if (selected && selected !== "") {
+    payBtn.style.display = "inline-block";
+  } else {
+    payBtn.style.display = "none";
+  }
+});
+</script><script>
+document.getElementById("coupon").addEventListener("input", function () {
+  window.couponFlashed = false;
+});
+</script><script>
+const productImages = {
+  "PANDORA GAMESTICK LITE AOKO": "https://example.com/images/pandora_lite.jpg",
+  "PANDORA GAMESTICK PRO WHITEBOX": "https://example.com/images/pandora_pro.jpg",
+  "Gamestick GD10 (VAYAVA)": "https://example.com/images/gd10.jpg",
+  "Gamebox Plus G10 (VAYAVA)": "https://example.com/images/g10.jpg",
+  "GAMEBOX PLUS G10 ULTIMATE EDITON": "https://example.com/images/g10ultimate.jpg"
+  // Add more mappings as needed
+};
+
+document.getElementById("product").addEventListener("change", function () {
+  const selectedProduct = this.value.toUpperCase();
+  const img = document.getElementById("previewImage");
+  if (productImages[selectedProduct]) {
+    img.src = productImages[selectedProduct];
+    img.style.display = "block";
+  } else {
+    img.style.display = "none";
+  }
+});
+
+// Add image to summary
+const originalUpdate = updatePaymentAmount;
+updatePaymentAmount = function () {
+  originalUpdate();
+
+  const product = document.getElementById("product").value.toUpperCase();
+  const gb = document.getElementById("gb").value;
+  const price = document.getElementById("productPrice").value;
+  const summaryBox = document.getElementById("summaryBox");
+  const img = productImages[product] ? `<br><img src="${productImages[product]}" alt="Product Image" style="max-width:150px; margin-top:10px;">` : "";
+  summaryBox.innerHTML += img;
+};
+</script>
+<header style="position: fixed; top: 0; right: 0; z-index: 10000; padding: 5px;">
+<button id="signBtn" onclick="toggleAdminPanel()" style="padding: 6px 12px; background:#28a745; color:#fff; border:none; border-radius:5px;">Sign</button>
+</header>
+<div class="admin-panel" id="adminPanel" style="display:none; position:fixed; top:10%; left:50%; transform:translateX(-50%); background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.2); max-width:500px; width:90%; z-index:10001;"><button onclick="closeAdminPanel()" style="position:absolute;top:5px;right:10px;background:red;color:white;border:none;padding:5px;border-radius:4px;">X</button>
+<div id="authBox">
+<input id="adminPass" placeholder="Enter password" style="width:100%; padding:8px; margin-bottom:10px;" type="password"/>
+<button onclick="checkAdmin()">Login</button>
+</div>
+<div id="adminTools" style="display:none;">
+<h3>Upload Product Images</h3>
+<select id="productSelect" size="8" style="width:100%; margin-bottom:10px; max-height:150px; overflow-y:auto;">
+<option value="">-- Select Product --</option>
+<option value="PANDORA GAMESTICK LITE AOKO">PANDORA GAMESTICK LITE AOKO</option>
+<option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option>
+<option value="GAMESTICK GD10 (VAYAVA)">GAMESTICK GD10 (VAYAVA)</option>
+</select>
+<select id="variantSelect" style="width:100%; margin-bottom:10px;">
+<option value="">-- Select Variant --</option>
+<option value="64GB">64GB</option>
+<option value="128GB">128GB</option>
+<option value="256GB">256GB</option>
+</select>
+<input accept="image/*" id="imagesInput" multiple="" type="file"/>
+<button onclick="addImages()">Add Images</button>
+<div id="previewBlock" style="margin-top:10px;"></div>
+<button onclick="saveHTML()" style="margin-top:10px;">Save HTML</button>
+</div>
+</div>
+<script>
+const PASSWORD = "gamesplanet1397";
+
+document.addEventListener("DOMContentLoaded", () => {
+  const isLoggedIn = localStorage.getItem("adminLoggedIn") === "true";
+  const panel = document.getElementById("adminPanel");
+  const signBtn = document.getElementById("signBtn");
+
+  if (isLoggedIn) {
+    document.getElementById("authBox").style.display = "none";
+    document.getElementById("adminTools").style.display = "block";
+    signBtn.textContent = "Sign Out";
+  }
+
+  signBtn.addEventListener("click", () => {
+    if (signBtn.textContent === "Sign Out") {
+      localStorage.removeItem("adminLoggedIn");
+      document.getElementById("adminTools").style.display = "none";
+      document.getElementById("authBox").style.display = "block";
+      signBtn.textContent = "Sign In";
+      document.getElementById("adminPanel").style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+});
+
+function checkAdmin() {
+  const pass = document.getElementById("adminPass").value;
+  if (pass === PASSWORD) {
+    localStorage.setItem("adminLoggedIn", "true");
+    document.getElementById("authBox").style.display = "none";
+    document.getElementById("adminTools").style.display = "block";
+    document.getElementById("signBtn").textContent = "Sign Out";
+  } else {
+    alert("Incorrect password");
+  }
+}
+
+function closeAdminPanel() {
+  document.getElementById("adminPanel").style.display = "none";
+}
+</script>
+<div id="scrollBannerBottom" style="width: 100%; text-align: center; font-size: 12px; color: #fff; background-color: #333; padding: 5px 0; font-weight: bold; position: fixed; z-index: 9998;bottom: 0;">
+<span class="scroll-text" id="scrollBannerBottomText">If you want to discount on Prepaid full payment then subscribe our all channels of YouTube and share on WhatsApp, and you will get discount coupon</span>
+</div>
+<script>
+function payAdvanceDynamic() {
+  const amount = document.getElementById("advanceAmount").value.trim();
+  if (!amount || isNaN(amount) || Number(amount) <= 0) {
+    alert("Invalid amount to pay.");
+    return;
+  }
+  const upiLink = `upi://pay?pa=paytmqr5hyx5o@ptys&pn=GamesPlanet&am=${amount}&cu=INR`;
+  window.location.href = upiLink;
+}
+</script><script>
+function sendOrderOnWhatsApp() {
+  const name = document.getElementById('name').value.trim();
+  const mobile = document.getElementById('mobile').value.trim();
+  const altMobile = document.getElementById('altMobile').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const landmark = document.getElementById('landmark').value.trim();
+  const pincode = document.getElementById('pincode').value.trim();
+  const state = document.getElementById('state').value.trim();
+  const district = document.getElementById('district').value.trim();
+  const postOffice = document.getElementById('postOffice').value.trim();
+  const product = document.getElementById('product').value.trim();
+  const otherProduct = document.getElementById('otherProduct')?.value.trim() || '';
+  const gb = document.getElementById('gb').value.trim();
+  const advance = document.getElementById('advanceAmount').value.trim();
+  const price = document.getElementById('productPrice').value.trim();
+  const coupon = document.getElementById('coupon').value.trim().toUpperCase();
+  const type = document.getElementById('paymentType').value;
+
+  let discountValue = 0;
+  let finalAmount = parseFloat(price);
+  if (coupon === "GPZ2025") {
+    if (product.includes("FMCB CARD + USB")) {
+      discountValue = finalAmount * 0.10;
+    } else if (gb === "64GB") discountValue = 200;
+    else if (gb === "128GB") discountValue = 400;
+    else if (gb === "256GB") discountValue = 600;
+    finalAmount -= discountValue;
+  }
+
+  const discountLine = discountValue > 0 ? `Discount Applied: ₹${discountValue.toFixed(0)}\n` : "";
+
+  const now = new Date();
+  const orderId = `${String(now.getDate()).padStart(2, '0')}${String(now.getMonth() + 1).padStart(2, '0')}${now.getFullYear()}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
+  const selectedProduct = product === 'other' ? otherProduct : product;
+  const header = type === 'prepaid' ? "Prepaid Order on WhatsApp*" : "COD Order on WhatsApp*";
+  const restAmount = type === 'cod' ? `\nRest Amount on Delivery:  ₹${(parseInt(price) - parseInt(advance)) + (parseInt(price) < 1500 ? 99 : 0)}` : "";
+
+  const message =
+`${header}
+Order ID: ${orderId}
+Name: ${name}
+Mobile: ${mobile}
+Alt Mobile: ${altMobile}
+Email: ${email}
+Address: ${address}
+Landmark: ${landmark}
+Pincode: ${pincode}
+State: ${state}
+District/City: ${district}
+Post office : ${postOffice}
+
+Product: ${selectedProduct}
+Storage or Variant: ${gb}
+Base Price: ₹${price}
+${discountLine}Amount paid: ₹${advance}${restAmount}`;
+
+  const waURL = "https://wa.me/7983624797?text=" + encodeURIComponent(message);
+  window.location.href = waURL;
+}
+</script></body>
+</html>
