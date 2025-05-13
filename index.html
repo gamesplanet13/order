@@ -154,7 +154,8 @@
   </script>
 <div class="form-group">
 <label for="product">Product Name <span style="color:red">*</span></label>
-<select id="product" onchange="toggleOtherProductField()"><option value="">Select a product</option><option value="PANDORA GAMESTICK LITE AOKO">PANDORA GAMESTICK LITE AOKO</option><option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option><option value="GAMESTICK GD10 (VAYAVA)">GAMESTICK GD10 (VAYAVA)</option><option value="GAMEBOX PLUS G10 (VAYAVA)">GAMEBOX PLUS G10 (VAYAVA)</option><option value="GAMEBOX PLUS G10 ULTIMATE EDITON">GAMEBOX PLUS G10 ULTIMATE EDITON</option><option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option><option value="OG GPZ M22 (VAYAVA)">OG GPZ M22 (VAYAVA)</option><option value="OG GAMESTICK GD30 (VAYAVA)">OG GAMESTICK GD30 (VAYAVA)</option><option value="GAMEBOX G11 PRO (VAYAVA)">GAMEBOX G11 PRO (VAYAVA)</option><option value="GAMEBOX G11 PRO ULTIMATE EDITION">GAMEBOX G11 PRO ULTIMATE EDITION</option><option value="GAMEBOX G11 PRO SPECIAL EDITION P3">GAMEBOX G11 PRO SPECIAL EDITION P3</option><option value="GD35 10K GAMESTICK (VAYAVA)">GD35 10K GAMESTICK (VAYAVA)</option><option value="GD35 10K GAMESTICK GTA SAN EDITION">GD35 10K GAMESTICK GTA SAN EDITION</option><option value="FMCB CARD + USB">FMCB CARD + USB</option><option value="GPZ R35S">GPZ R35S</option><option value="X7M SUP GAME">X7M SUP GAME</option><option value="other">PRODUCT NOT IN LIST</option></select>
+<select id="product" onchange="toggleOtherProductField()"><option value="">Select a product</option><option value="PANDORA GAMESTICK LITE AOKO">PANDORA GAMESTICK LITE AOKO</option><option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option><option value="GAMESTICK GD10 (VAYAVA)">GAMESTICK GD10 (VAYAVA)</option><option value="GAMEBOX PLUS G10 (VAYAVA)">GAMEBOX PLUS G10 (VAYAVA)</option><option value="GAMEBOX PLUS G10 ULTIMATE EDITON">GAMEBOX PLUS G10 ULTIMATE EDITON</option><option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option><option value="OG GPZ M22 (VAYAVA)">OG GPZ M22 (VAYAVA)</option><option value="OG GAMESTICK GD30 (VAYAVA)">OG GAMESTICK GD30 (VAYAVA)</option><option value="GAMEBOX G11 PRO (VAYAVA)">GAMEBOX G11 PRO (VAYAVA)</option><option value="GAMEBOX G11 PRO ULTIMATE EDITION">GAMEBOX G11 PRO ULTIMATE EDITION</option><option value="GAMEBOX G11 PRO SPECIAL EDITION P3">GAMEBOX G11 PRO SPECIAL EDITION P3</option><option value="GD35 10K GAMESTICK (VAYAVA)">GD35 10K GAMESTICK (VAYAVA)</option><option value="GD35 10K GAMESTICK GTA SAN EDITION">GD35 10K GAMESTICK GTA SAN EDITION</option><option value="FMCB CARD + USB">FMCB CARD + USB</option><option value="GPZ R35S">GPZ R35S</option><option value="X7M SUP GAME">X7M SUP GAME</option><option value="PLAYSTATION 2 SLIM">PlayStation 2 Slim</option>
+<option value="other">PRODUCT NOT IN LIST</option></select>
 </div><div class="form-group" id="ps2ModelGroup" style="display:none;">
 <label for="ps2Model">PlayStation 2 Model</label>
 <select id="ps2Model">
@@ -806,5 +807,15 @@ function validateCustomerFields() {
     if (el) el.addEventListener(event, validateCustomerFields);
   });
 });
-</script></body>
+</script>
+<script>
+document.getElementById("product").addEventListener("change", function () {
+  const selectedProduct = this.value;
+  if (selectedProduct === "PLAYSTATION 2 SLIM") {
+    window.location.href = "ps2slim.html";
+  }
+});
+</script>
+</body>
+
 </html>
