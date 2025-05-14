@@ -199,7 +199,19 @@
 <input id="advanceAmount" readonly="" type="text"/>
 <div id="restBoxInline" style="font-size: 14px; color: #f2f2f2; margin-top: 5px; font-weight: bold;"></div><div id="restAmountBelowAdvance" style="font-size: 20px; color: red; margin-top: 5px; font-weight: bold;"></div></div>
 <div id="productPreview" style="text-align:center; margin-bottom:20px;"><img alt="Product Image" id="previewImage" src="" style="max-width:200px; display:none; margin:10px auto;"/></div><div style="text-align:center; margin-top: 20px;">
-<button id="payNowBtn" onclick="payAdvanceDynamic(); showCustomerDetails();" style="display:none; padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay ₹</button><div id="restAmountBelowPay" style="font-size: 20px; color: red; margin-top: 10px; font-weight: bold; text-align: center;"></div>
+
+
+
+<div id="qrSection" style="display:none; text-align:center; margin-top:20px;">
+  <canvas id="upiQrCanvas" width="240" height="280" style="margin-bottom:10px;"></canvas>
+  <br>
+  <button onclick="downloadQR()" style="padding: 5px 15px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;">Download QR</button>
+</div>
+
+<button id="payNowBtn" onclick="payAdvanceDynamic()" style="display:none; padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay ₹</button>
+<button id="fillDetailsBtn" onclick="showCustomerDetails()" style="display:none; margin-top: 10px; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Fill Your Details</button>
+
+<div id="restAmountBelowPay" style="font-size: 20px; color: red; margin-top: 10px; font-weight: bold; text-align: center;"></div>
 </div><div class="container" style="display:none;">
 <h2>Customer Details</h2>
 <div class="form-group">
@@ -346,7 +358,7 @@ document.getElementById("product").addEventListener("change", function () {
       gbSelect.value = options.includes("64GB") ? "64GB" : options[0];
       priceInput.value = productPrices[product][gbSelect.value];
     }
-    updatePaymentAmount();
+    updatePaymentAmount(); updateQRCode();
     // Update label text
     if (options.some(x => x.includes("GB"))) {
       gbLabel.textContent = "Storage (GB)";
@@ -372,7 +384,7 @@ document.getElementById("gb").addEventListener("change", function () {
     document.getElementById("deliveryOptionGroup").style.display = "none";
     priceInput.value = "";
   }
-  updatePaymentAmount();
+  updatePaymentAmount(); updateQRCode();
 });
 </script><script>
 function showFlashMessage(msg) {
@@ -511,16 +523,19 @@ summaryBox.innerHTML = `
   });
 });
 
-updatePaymentAmount();
+updatePaymentAmount(); updateQRCode();
 </script><script>
 document.getElementById("product").addEventListener("change", function () {
   const selected = this.value;
   const payBtn = document.getElementById("payNowBtn");
+  const fillBtn = document.getElementById("fillDetailsBtn");
   if (selected && selected !== "") {
     payBtn.style.display = "inline-block";
+    fillBtn.style.display = "inline-block";
   } else {
     document.getElementById("deliveryOptionGroup").style.display = "none";
     payBtn.style.display = "none";
+    fillBtn.style.display = "none";
   }
 });
 </script><script>
@@ -711,7 +726,7 @@ validateFormFields();
   ['coupon', 'paymentType', 'product', 'gb', 'name', 'mobile', 'altMobile', 'email', 'address', 'landmark', 'pincode', 'state', 'district', 'postOffice', 'productPrice', 'otherProduct'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener(evt, () => {
-      updatePaymentAmount();
+      updatePaymentAmount(); updateQRCode();
       validateFormFields();
     });
   });
@@ -816,6 +831,154 @@ document.getElementById("product").addEventListener("change", function () {
     window.location.href = "ps2slim.html";
   }
 });
+</script>
+<script>
+function updateQRCode() {
+  const amount = document.getElementById("advanceAmount").value.trim();
+  const qrImage = document.getElementById("upiQrImage");
+  const qrSection = document.getElementById("qrSection");
+  if (!amount || isNaN(amount) || Number(amount) <= 0) {
+    qrSection.style.display = "none";
+    return;
+  }
+  const upiLink = `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`;
+  const qrApi = `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encodeURIComponent(upiLink)}`;
+  qrImage.src = qrApi;
+  qrSection.style.display = "block";
+}
+
+function downloadQR() {
+  const qrImage = document.getElementById("upiQrImage");
+  const link = document.createElement("a");
+  link.href = qrImage.src;
+  link.download = "upi_qr.png";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<script>
+function updateQRCode() {
+  const amount = document.getElementById("advanceAmount").value.trim();
+  const qrSection = document.getElementById("qrSection");
+  const canvas = document.getElementById("upiQrCanvas");
+
+  if (!amount || isNaN(amount) || Number(amount) <= 0) {
+    qrSection.style.display = "none";
+    return;
+  }
+
+  const upiLink = `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`;
+  qrSection.style.display = "block";
+
+  const qr = new QRious({
+    element: canvas,
+    value: upiLink,
+    size: 200
+  });
+}
+
+function downloadQR() {
+  const canvas = document.getElementById("upiQrCanvas");
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = "upi_qr.png";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<script>
+function updateQRCode() {
+  const amount = document.getElementById("advanceAmount").value.trim();
+  const qrSection = document.getElementById("qrSection");
+  const canvas = document.getElementById("upiQrCanvas");
+
+  if (!amount || isNaN(amount) || Number(amount) <= 0) {
+    qrSection.style.display = "none";
+    return;
+  }
+
+  qrSection.style.display = "block";
+  const ctx = canvas.getContext("2d");
+  const qr = new QRious({
+    value: `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`,
+    size: 200
+  });
+
+  // Clear and redraw canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const qrImage = new Image();
+  qrImage.onload = function() {
+    ctx.drawImage(qrImage, 0, 0, 200, 200);
+    ctx.font = "14px Arial";
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
+    ctx.fillText(`Pay Rs.${amount} to paytmqr5hyx5o@ptys`, 100, 225);
+  };
+  qrImage.src = qr.toDataURL();
+}
+
+function downloadQR() {
+  const canvas = document.getElementById("upiQrCanvas");
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = "upi_qr.png";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrious@4.0.2/dist/qrious.min.js"></script>
+<script>
+function updateQRCode() {
+  const amount = document.getElementById("advanceAmount").value.trim();
+  const qrSection = document.getElementById("qrSection");
+  const canvas = document.getElementById("upiQrCanvas");
+
+  if (!amount || isNaN(amount) || Number(amount) <= 0) {
+    qrSection.style.display = "none";
+    return;
+  }
+
+  qrSection.style.display = "block";
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const qr = new QRious({
+    value: `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`,
+    size: 200
+  });
+
+  const qrImage = new Image();
+  qrImage.onload = function() {
+    // Top: Surender Kaur
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
+    ctx.fillText("Surender Kaur", canvas.width / 2, 20);
+
+    // Center: QR
+    ctx.drawImage(qrImage, 20, 30, 200, 200);
+
+    // Bottom: GAMES PLANET (bold caps)
+    ctx.font = "bold 18px Arial";
+    ctx.fillText("GAMES PLANET", canvas.width / 2, 260);
+  };
+  qrImage.src = qr.toDataURL();
+}
+
+function downloadQR() {
+  const canvas = document.getElementById("upiQrCanvas");
+  const link = document.createElement("a");
+  link.href = canvas.toDataURL("image/png");
+  link.download = "upi_qr.png";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
 </script>
 </body>
 
