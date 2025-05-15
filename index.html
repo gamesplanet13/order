@@ -1,5 +1,6 @@
 
 
+
 <!DOCTYPE html>
 
 <html lang="en">
@@ -209,6 +210,40 @@
 </div>
 
 <button id="payNowBtn" onclick="payAdvanceDynamic()" style="display:none; padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay ₹</button>
+
+<!-- Blinking Message and Arrow -->
+<div style="text-align: center; margin-top: 20px;">
+  <div style="font-size: 14px; color: red; font-weight: bold; animation: blink 1s infinite;">
+    ⚠️ अगर Pay Button से पेमेंट नहीं हो रहा है तो नीचे दिए गए UPI से पेमेंट करें ⚠️
+  </div>
+  <div class="arrow-bounce" style="font-size: 24px; color: #ff5722;">⬇️</div>
+</div>
+<style>
+@keyframes blink {
+  0% { opacity: 1; }
+  50% { opacity: 0.1; }
+  100% { opacity: 1; }
+}
+</style>
+
+<!-- Manual UPI Payment Button (Always Visible) -->
+<div style="text-align: center; margin-top: 10px;">
+  <div style="font-size: 13px; color: #444; margin-bottom: 5px;">
+    OR Pay Manually via UPI<br><strong>paytmqr5hyx5o@ptys</strong>
+  </div>
+  <a href="upi://pay?pa=paytmqr5hyx5o@ptys&am=1&cu=INR" id="manualUPIBtn" 
+     style="padding: 10px 20px; background-color: #ff9800; color: white; border: none; border-radius: 5px; font-size: 16px; text-decoration: none; display: inline-block;">
+    Pay Manually via UPI App
+  </a>
+</div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const manualBtn = document.getElementById("manualUPIBtn");
+  const amount = document.getElementById("advanceAmount")?.value || "1";
+  manualBtn.href = `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`;
+});
+</script>
+
 <button id="fillDetailsBtn" onclick="showCustomerDetails()" style="display:none; margin-top: 10px; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Fill Your Details</button>
 
 <div id="restAmountBelowPay" style="font-size: 20px; color: red; margin-top: 10px; font-weight: bold; text-align: center;"></div>
@@ -442,8 +477,7 @@ function updatePaymentAmount() {
     paymentModeText = "🟢 Order Type: Prepaid Order";
 
     if (coupon === "GPZ2025") {
-      if (product.includes("FMCB CARD + USB")) {
-        discount = price * 0.10;
+      if (product.includes("FMCB CARD + USB")) { discount = price * 0.05;
       } else if (gb === "64GB") discount = 200;
       else if (gb === "128GB") discount = 400;
       else if (gb === "256GB") discount = 600;
@@ -580,7 +614,7 @@ function sendOrderOnWhatsApp() {
   let finalAmount = parseFloat(price);
   if (coupon === "GPZ2025") {
     if (product.includes("FMCB CARD + USB")) {
-      discountValue = finalAmount * 0.10;
+      discountValue = finalAmount * 0.05;
     } else if (gb === "64GB") discountValue = 200;
     else if (gb === "128GB") discountValue = 400;
     else if (gb === "256GB") discountValue = 600;
