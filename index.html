@@ -1,7 +1,4 @@
 
-
-
-
 <!DOCTYPE html>
 
 <html lang="en">
@@ -155,15 +152,9 @@
       }
     }
   </script>
-
 <div class="form-group">
 <label for="category">Category <span style="color:red">*</span></label>
-<select id="category">
-  <option value="">Select Category</option>
-  <option value="All">All</option>
-  <option value="Classic Retro 2D-3D">Classic Retro 2D-3D</option>
-  <option value="PlayStation">PlayStation</option>
-</select>
+<select id="category"><option value="Accessories">Accessories</option><option selected="selected" value="All">All</option><option value="Classic Retro 2D-3D">Classic Retro 2D-3D</option><option value="Game controllers">Game controllers</option><option value="PlayStation">PlayStation</option><option value="Playstation 2">Playstation 2</option><option value="Playstation 3">Playstation 3</option><option value="Playstation 4">Playstation 4</option><option value="Refurbished or Renewed Game consoles">Refurbished or Renewed Game consoles</option><option value="handheld Game Console">handheld Game Console</option><option value="micro sd Card">micro sd Card</option><option value="storage">storage</option></select>
 </div>
 <div class="form-group">
 <label for="product">Product Name <span style="color:red">*</span></label>
@@ -188,7 +179,7 @@
 <option value="PANDORA GAMESTICK LITE AOKO">PANDORA GAMESTICK LITE AOKO</option>
 <option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option>
 <option value="X7M SUP GAME">X7M SUP GAME</option>
-</select>
+<option value="MICRO SD CARD">MICRO SD CARD</option></select>
 </div><div class="form-group" id="ps2ModelGroup" style="display:none;">
 <label for="ps2Model">PlayStation 2 Model</label>
 <select id="ps2Model">
@@ -231,23 +222,18 @@
 <input id="advanceAmount" readonly="" type="text"/>
 <div id="restBoxInline" style="font-size: 14px; color: #f2f2f2; margin-top: 5px; font-weight: bold;"></div><div id="restAmountBelowAdvance" style="font-size: 20px; color: red; margin-top: 5px; font-weight: bold;"></div></div>
 <div id="productPreview" style="text-align:center; margin-bottom:20px;"><img alt="Product Image" id="previewImage" src="" style="max-width:200px; display:none; margin:10px auto;"/></div><div style="text-align:center; margin-top: 20px;">
-
-
-
 <div id="qrSection" style="display:none; text-align:center; margin-top:20px;">
-  <canvas id="upiQrCanvas" width="240" height="280" style="margin-bottom:10px;"></canvas>
-  <br>
-  <button onclick="downloadQR()" style="padding: 5px 15px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;">Download QR</button>
+<canvas height="280" id="upiQrCanvas" style="margin-bottom:10px;" width="240"></canvas>
+<br/>
+<button onclick="downloadQR()" style="padding: 5px 15px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;">Download QR</button>
 </div>
-
 <button id="payNowBtn" onclick="payAdvanceDynamic()" style="display:none; padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay ₹</button>
-
 <!-- Blinking Message and Arrow -->
 <div style="text-align: center; margin-top: 20px;">
-  <div style="font-size: 14px; color: red; font-weight: bold; animation: blink 1s infinite;">
+<div style="font-size: 14px; color: red; font-weight: bold; animation: blink 1s infinite;">
     ⚠️ अगर Pay Button से पेमेंट नहीं हो रहा है तो नीचे दिए गए UPI से पेमेंट करें ⚠️
   </div>
-  <div class="arrow-bounce" style="font-size: 24px; color: #ff5722;">⬇️</div>
+<div class="arrow-bounce" style="font-size: 24px; color: #ff5722;">⬇️</div>
 </div>
 <style>
 @keyframes blink {
@@ -256,14 +242,12 @@
   100% { opacity: 1; }
 }
 </style>
-
 <!-- Manual UPI Payment Button (Always Visible) -->
 <div style="text-align: center; margin-top: 10px;">
-  <div style="font-size: 13px; color: #444; margin-bottom: 5px;">
-    OR Pay Manually via UPI<br><strong>7983624797@ptaxis</strong>
-  </div>
-  <a href="upi://pay?pa=7983624797@ptaxis&am=1&cu=INR" id="manualUPIBtn" 
-     style="padding: 10px 20px; background-color: #ff9800; color: white; border: none; border-radius: 5px; font-size: 16px; text-decoration: none; display: inline-block;">
+<div style="font-size: 13px; color: #444; margin-bottom: 5px;">
+    OR Pay Manually via UPI<br/><strong>7983624797@ptaxis</strong>
+</div>
+<a href="upi://pay?pa=7983624797@ptaxis&amp;am=1&amp;cu=INR" id="manualUPIBtn" style="padding: 10px 20px; background-color: #ff9800; color: white; border: none; border-radius: 5px; font-size: 16px; text-decoration: none; display: inline-block;">
     Pay Manually via UPI App
   </a>
 </div>
@@ -274,9 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
   manualBtn.href = `upi://pay?pa=7983624797@ptaxis&am=${amount}&cu=INR`;
 });
 </script>
-
 <button id="fillDetailsBtn" onclick="showCustomerDetails()" style="display:none; margin-top: 10px; padding: 10px 20px; font-size: 16px; background-color: #007bff; color: white; border: none; border-radius: 5px; cursor: pointer;">Fill Your Details</button>
-
 <div id="restAmountBelowPay" style="font-size: 20px; color: red; margin-top: 10px; font-weight: bold; text-align: center;"></div>
 </div><div class="container" style="display:none;">
 <h2>Customer Details</h2>
@@ -1047,33 +1029,153 @@ function downloadQR() {
   document.body.removeChild(link);
 }
 </script>
-</body>
-
-</html>
 <script>
 const categoryProductMap = {
-  "All": ['FMCB CARD + USB', 'GAMEBOX G11 PRO (VAYAVA)', 'GAMEBOX G11 PRO SPECIAL EDITION P3', 'GAMEBOX G11 PRO ULTIMATE EDITION', 'GAMEBOX PLUS G10 (VAYAVA)', 'GAMEBOX PLUS G10 ULTIMATE EDITON', 'GAMESTICK GD10 (VAYAVA)', 'GD35 10K GAMESTICK (VAYAVA)', 'GD35 10K GAMESTICK GTA SAN EDITION', 'GPZ R35S', 'OG GAMESTICK GD30 (VAYAVA)', 'OG GAMESTICK GD30v2 (VAYAVA)', 'OG GPZ M22 (VAYAVA)', 'OG GPZ M33 (VAYAVA)', 'PANDORA GAMESTICK LITE AOKO', 'PANDORA GAMESTICK PRO WHITEBOX', 'X7M SUP GAME'],
-  "Classic Retro 2D-3D": ['GAMEBOX G11 PRO (VAYAVA)', 'GAMEBOX G11 PRO SPECIAL EDITION P3', 'GAMEBOX G11 PRO ULTIMATE EDITION', 'GAMEBOX PLUS G10 (VAYAVA)', 'GAMEBOX PLUS G10 ULTIMATE EDITON', 'GAMESTICK GD10 (VAYAVA)', 'GD35 10K GAMESTICK (VAYAVA)', 'GD35 10K GAMESTICK GTA SAN EDITION', 'GPZ R35S', 'OG GAMESTICK GD30 (VAYAVA)', 'OG GAMESTICK GD30v2 (VAYAVA)', 'OG GPZ M22 (VAYAVA)', 'OG GPZ M33 (VAYAVA)', 'PANDORA GAMESTICK LITE AOKO', 'PANDORA GAMESTICK PRO WHITEBOX', 'X7M SUP GAME'],
-  "PlayStation": ['FMCB CARD + USB']
+  "Accessories": [],
+  "Classic Retro 2D-3D": [
+    "GAMEBOX G11 PRO (VAYAVA)", "GAMEBOX G11 PRO SPECIAL EDITION P3", "GAMEBOX G11 PRO ULTIMATE EDITION",
+    "GAMEBOX PLUS G10 (VAYAVA)", "GAMEBOX PLUS G10 ULTIMATE EDITON", "GAMESTICK GD10 (VAYAVA)",
+    "GD35 10K GAMESTICK (VAYAVA)", "GD35 10K GAMESTICK GTA SAN EDITION", "GPZ R35S",
+    "OG GAMESTICK GD30 (VAYAVA)", "OG GAMESTICK GD30v2 (VAYAVA)", "OG GPZ M22 (VAYAVA)",
+    "OG GPZ M33 (VAYAVA)", "PANDORA GAMESTICK LITE AOKO", "PANDORA GAMESTICK PRO WHITEBOX"
+  ],
+  "Game controllers": [],
+  "handheld Game Console": ["GPZ R35S", "X7M SUP GAME"],
+  "micro sd Card": ["MICRO SD CARD"],
+  "PlayStation": ["FMCB CARD + USB"],
+  "Playstation 2": ["FMCB CARD + USB"],
+  "Playstation 3": [],
+  "Playstation 4": [],
+  "Refurbished or Renewed Game consoles": ["PlayStation 2 Slim"],
+  "storage": ["MICRO SD CARD"],
+  "All": [
+    "FMCB CARD + USB", "GAMEBOX G11 PRO (VAYAVA)", "GAMEBOX G11 PRO SPECIAL EDITION P3", "GAMEBOX G11 PRO ULTIMATE EDITION",
+    "GAMEBOX PLUS G10 (VAYAVA)", "GAMEBOX PLUS G10 ULTIMATE EDITON", "GAMESTICK GD10 (VAYAVA)",
+    "GD35 10K GAMESTICK (VAYAVA)", "GD35 10K GAMESTICK GTA SAN EDITION", "GPZ R35S",
+    "OG GAMESTICK GD30 (VAYAVA)", "OG GAMESTICK GD30v2 (VAYAVA)", "OG GPZ M22 (VAYAVA)",
+    "OG GPZ M33 (VAYAVA)", "PANDORA GAMESTICK LITE AOKO", "PANDORA GAMESTICK PRO WHITEBOX",
+    "PlayStation 2 Slim", "MICRO SD CARD", "other"
+  ]
 };
 
 document.addEventListener("DOMContentLoaded", function () {
   const categorySelect = document.getElementById("category");
   const productSelect = document.getElementById("product");
 
-  categorySelect.addEventListener("change", function () {
-    const category = this.value;
+  function populateProducts(category) {
     const products = categoryProductMap[category] || [];
     productSelect.innerHTML = '<option value="">Select a product</option>';
+    const added = new Set();
     products.forEach(prod => {
-      const opt = document.createElement("option");
-      opt.value = prod;
-      opt.textContent = prod;
-      productSelect.appendChild(opt);
+      if (!added.has(prod)) {
+        const opt = document.createElement("option");
+        opt.value = prod;
+        opt.textContent = prod;
+        productSelect.appendChild(opt);
+        added.add(prod);
+      }
     });
-    productSelect.innerHTML += '<option value="PLAYSTATION 2 SLIM">PlayStation 2 Slim</option>';
-    productSelect.innerHTML += '<option value="other">PRODUCT NOT IN LIST</option>';
     updatePaymentAmount(); updateQRCode(); validateFormFields();
+  }
+
+  categorySelect.addEventListener("change", function () {
+    populateProducts(this.value);
+  });
+
+  populateProducts(categorySelect.value);
+});
+</script><script>
+const microSdCompatibleDevices = {
+  "PANDORA GAMESTICK LITE AOKO": ["64GB"],
+  "PANDORA GAMESTICK PRO WHITEBOX": ["64GB"],
+  "GAMESTICK GD10 (VAYAVA)": ["64GB", "128GB"],
+  "GD35 10K GAMESTICK (VAYAVA)": ["64GB", "128GB", "256GB"],
+  "GD35 10K GAMESTICK GTA SAN EDITION": ["64GB", "128GB", "256GB"],
+  "GAMEBOX PLUS G10 (VAYAVA)": ["64GB", "128GB"],
+  "GAMEBOX PLUS G10 ULTIMATE EDITON": ["64GB", "128GB"],
+  "GAMEBOX G11 PRO (VAYAVA)": ["64GB", "128GB", "256GB"],
+  "GAMEBOX G11 PRO ULTIMATE EDITION": ["64GB", "128GB", "256GB"],
+  "GAMEBOX G11 PRO SPECIAL EDITION P3": ["64GB", "128GB", "256GB"],
+  "OG GAMESTICK GD30 (VAYAVA)": ["64GB", "128GB", "256GB"],
+  "OG GAMESTICK GD30v2 (VAYAVA)": ["64GB", "128GB", "256GB"],
+  "OG GPZ M22 (VAYAVA)": ["64GB", "128GB", "256GB"],
+  "OG GPZ M33 (VAYAVA)": ["64GB", "128GB", "256GB"],
+  "GPZ R35S OS CARD": ["OS"],
+  "GPZ R35S GAME CARD": ["GAME"],
+  "GPZ R35S BOTH CARD": ["BOTH"]
+};
+
+const microSdPrices = {
+  "64GB": 999,
+  "128GB": 1999,
+  "256GB": 2999,
+  "pandora": 699,
+  "OS": 699,
+  "GAME": 799,
+  "BOTH": 1299
+};
+
+function handleMicroSdSelection(productName) {
+  const gbSelect = document.getElementById("gb");
+  const priceInput = document.getElementById("productPrice");
+  gbSelect.innerHTML = "";
+  const gbs = microSdCompatibleDevices[productName] || ["64GB"];
+  gbs.forEach(gb => {
+    const opt = document.createElement("option");
+    opt.value = gb;
+    opt.text = gb;
+    gbSelect.appendChild(opt);
+  });
+  gbSelect.value = gbs[0];
+
+  if (productName.includes("PANDORA")) {
+    priceInput.value = microSdPrices["pandora"];
+  } else {
+    priceInput.value = microSdPrices[gbSelect.value];
+  }
+  updatePaymentAmount();
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  const productDropdown = document.getElementById("product");
+  const microSdSelector = document.getElementById("microSdSelector") || document.createElement("div");
+  microSdSelector.id = "microSdSelector";
+  microSdSelector.innerHTML = `
+    <label for="microSdDevice">Select Device for Micro SD Card:</label>
+    <select id="microSdDevice" onchange="handleMicroSdSelection(this.value)">
+      <option value="">Select Device</option>
+      <option value="PANDORA GAMESTICK LITE AOKO" selected>PANDORA GAMESTICK LITE AOKO</option>
+      <option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option>
+      <option value="GAMESTICK GD10 (VAYAVA)">GAMESTICK GD10 (VAYAVA)</option>
+      <option value="GD35 10K GAMESTICK (VAYAVA)">GD35 10K GAMESTICK (VAYAVA)</option>
+      <option value="GD35 10K GAMESTICK GTA SAN EDITION">GD35 10K GAMESTICK GTA SAN EDITION</option>
+      <option value="GAMEBOX PLUS G10 (VAYAVA)">GAMEBOX PLUS G10 (VAYAVA)</option>
+      <option value="GAMEBOX PLUS G10 ULTIMATE EDITON">GAMEBOX PLUS G10 ULTIMATE EDITON</option>
+      <option value="GAMEBOX G11 PRO (VAYAVA)">GAMEBOX G11 PRO (VAYAVA)</option>
+      <option value="GAMEBOX G11 PRO ULTIMATE EDITION">GAMEBOX G11 PRO ULTIMATE EDITION</option>
+      <option value="GAMEBOX G11 PRO SPECIAL EDITION P3">GAMEBOX G11 PRO SPECIAL EDITION P3</option>
+      <option value="OG GAMESTICK GD30 (VAYAVA)">OG GAMESTICK GD30 (VAYAVA)</option>
+      <option value="OG GAMESTICK GD30v2 (VAYAVA)">OG GAMESTICK GD30v2 (VAYAVA)</option>
+      <option value="OG GPZ M22 (VAYAVA)">OG GPZ M22 (VAYAVA)</option>
+      <option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option>
+      <option value="GPZ R35S OS CARD">GPZ R35S OS CARD</option>
+      <option value="GPZ R35S GAME CARD">GPZ R35S GAME CARD</option>
+      <option value="GPZ R35S BOTH CARD">GPZ R35S BOTH CARD</option>
+    </select>
+  `;
+  microSdSelector.style.display = "none";
+  if (!document.getElementById("microSdSelector")) {
+    productDropdown.parentElement.insertAdjacentElement("afterend", microSdSelector);
+  }
+
+  productDropdown.addEventListener("change", function () {
+    if (this.value === "MICRO SD CARD") {
+      document.getElementById("microSdSelector").style.display = "block";
+      handleMicroSdSelection("PANDORA GAMESTICK LITE AOKO");
+    } else {
+      document.getElementById("microSdSelector").style.display = "none";
+    }
   });
 });
-</script>
+</script></body>
+</html>
