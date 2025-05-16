@@ -260,9 +260,9 @@
 <!-- Manual UPI Payment Button (Always Visible) -->
 <div style="text-align: center; margin-top: 10px;">
   <div style="font-size: 13px; color: #444; margin-bottom: 5px;">
-    OR Pay Manually via UPI<br><strong>paytmqr5hyx5o@ptys</strong>
+    OR Pay Manually via UPI<br><strong>7983624797@ptaxis</strong>
   </div>
-  <a href="upi://pay?pa=paytmqr5hyx5o@ptys&am=1&cu=INR" id="manualUPIBtn" 
+  <a href="upi://pay?pa=7983624797@ptaxis&am=1&cu=INR" id="manualUPIBtn" 
      style="padding: 10px 20px; background-color: #ff9800; color: white; border: none; border-radius: 5px; font-size: 16px; text-decoration: none; display: inline-block;">
     Pay Manually via UPI App
   </a>
@@ -271,7 +271,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const manualBtn = document.getElementById("manualUPIBtn");
   const amount = document.getElementById("advanceAmount")?.value || "1";
-  manualBtn.href = `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`;
+  manualBtn.href = `upi://pay?pa=7983624797@ptaxis&am=${amount}&cu=INR`;
 });
 </script>
 
@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <script>
     function payAdvance() {
-      const upiLink = "upi://pay?pa=paytmqr5hyx5o@ptys&pn=GamesPlanet&am=500&cu=INR";
+      const upiLink = "upi://pay?pa=7983624797@ptaxis&pn=GamesPlanet&am=500&cu=INR";
       window.location.href = upiLink;
     }
   </script>
@@ -620,7 +620,7 @@ function payAdvanceDynamic() {
     alert("Invalid amount to pay.");
     return;
   }
-  const upiLink = `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`;
+  const upiLink = `upi://pay?pa=7983624797@ptaxis&am=${amount}&cu=INR`;
   window.location.href = upiLink;
 }
 </script><script>
@@ -908,7 +908,7 @@ function updateQRCode() {
     qrSection.style.display = "none";
     return;
   }
-  const upiLink = `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`;
+  const upiLink = `upi://pay?pa=7983624797@ptaxis&am=${amount}&cu=INR`;
   const qrApi = `https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=${encodeURIComponent(upiLink)}`;
   qrImage.src = qrApi;
   qrSection.style.display = "block";
@@ -936,7 +936,7 @@ function updateQRCode() {
     return;
   }
 
-  const upiLink = `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`;
+  const upiLink = `upi://pay?pa=7983624797@ptaxis&am=${amount}&cu=INR`;
   qrSection.style.display = "block";
 
   const qr = new QRious({
@@ -971,7 +971,7 @@ function updateQRCode() {
   qrSection.style.display = "block";
   const ctx = canvas.getContext("2d");
   const qr = new QRious({
-    value: `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`,
+    value: `upi://pay?pa=7983624797@ptaxis&am=${amount}&cu=INR`,
     size: 200
   });
 
@@ -983,7 +983,7 @@ function updateQRCode() {
     ctx.font = "14px Arial";
     ctx.fillStyle = "#000";
     ctx.textAlign = "center";
-    ctx.fillText(`Pay Rs.${amount} to paytmqr5hyx5o@ptys`, 100, 225);
+    ctx.fillText(`Pay Rs.${amount} to 7983624797@ptaxis`, 100, 225);
   };
   qrImage.src = qr.toDataURL();
 }
@@ -1015,7 +1015,7 @@ function updateQRCode() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
   const qr = new QRious({
-    value: `upi://pay?pa=paytmqr5hyx5o@ptys&am=${amount}&cu=INR`,
+    value: `upi://pay?pa=7983624797@ptaxis&am=${amount}&cu=INR`,
     size: 200
   });
 
