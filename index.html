@@ -106,9 +106,9 @@
 }</style></head>
 <body>
 <div class="scrolling-banner-topline">
-<div class="scrolling-text-topline">ðŸŽ® Games Planet - Retro to Modern Gaming Solutions ðŸ’¥</div>
+<div class="scrolling-text-topline">🎮 Games Planet - Retro to Modern Gaming Solutions 💥</div>
 </div>
-<div id="scrollBannerTop" style="width: 100%; text-align: center; font-size: 12px; color: #fff; background-color: #333; padding: 5px 0; font-weight: bold; position: fixed; z-index: 9998;top: 0;"><span class="scroll-text" id="scrollBannerTopText">à¤…à¤—à¤° à¤†à¤ª à¤ªà¥à¤°à¥€à¤ªà¥‡à¤¡ à¤«à¥à¤² à¤ªà¥‡à¤®à¥‡à¤‚à¤Ÿ à¤ªà¤° à¤¡à¤¿à¤¸à¥à¤•à¤¾à¤‰à¤‚à¤Ÿ à¤šà¤¾à¤¹à¤¤à¥‡ à¤¹à¥ˆà¤‚ à¤¤à¥‹ à¤¹à¤®à¤¾à¤°à¥‡ à¤¸à¤­à¥€ à¤¯à¥‚à¤Ÿà¥à¤¯à¥‚à¤¬ à¤šà¥ˆà¤¨à¤² à¤¸à¤¬à¥à¤¸à¤•à¥à¤°à¤¾à¤‡à¤¬ à¤•à¤°à¥‡à¤‚ à¤”à¤° à¤µà¥à¤¹à¤¾à¤Ÿà¥à¤¸à¤à¤ª à¤ªà¤° à¤¶à¥‡à¤¯à¤° à¤•à¤°à¥‡à¤‚, à¤«à¤¿à¤° à¤†à¤ªà¤•à¥‹ à¤•à¥‚à¤ªà¤¨ à¤®à¤¿à¤²à¥‡à¤—à¤¾</span></div><div id="flashMessage" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background: #28a745; color: white; padding: 20px 40px; font-size: 24px; font-weight:bold; border-radius: 10px; z-index: 9999; box-shadow: 0 0 20px rgba(0,0,0,0.4); text-align: center; animation: flashBlink 0.5s alternate ease-in-out 8;">Congratulations! Discount applied.</div>
+<div id="scrollBannerTop" style="width: 100%; text-align: center; font-size: 12px; color: #fff; background-color: #333; padding: 5px 0; font-weight: bold; position: fixed; z-index: 9998;top: 0;"><span class="scroll-text" id="scrollBannerTopText">अगर आप प्रीपेड फुल पेमेंट पर डिस्काउंट चाहते हैं तो हमारे सभी यूट्यूब चैनल सब्सक्राइब करें और व्हाट्सएप पर शेयर करें, फिर आपको कूपन मिलेगा</span></div><div id="flashMessage" style="display:none; position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background: #28a745; color: white; padding: 20px 40px; font-size: 24px; font-weight:bold; border-radius: 10px; z-index: 9999; box-shadow: 0 0 20px rgba(0,0,0,0.4); text-align: center; animation: flashBlink 0.5s alternate ease-in-out 8;">Congratulations! Discount applied.</div>
 <div id="datetime" style="
   position: fixed;
   top: 4px;
@@ -199,22 +199,22 @@
 </select>
 </div>
 <div class="form-group">
-<div id="codChargeNotice" style="color:red; font-size:13px; margin-top:5px; font-weight:bold;">Note: â‚¹99 COD charges apply for orders below â‚¹1500.</div><label for="paymentType">Payment Type <span style="color:red">*</span></label>
+<div id="codChargeNotice" style="color:red; font-size:13px; margin-top:5px; font-weight:bold;">Note: ₹99 COD charges apply for orders below ₹1500.</div><label for="paymentType">Payment Type <span style="color:red">*</span></label>
 <select id="paymentType" onchange="updatePaymentAmount()">
 <option value="prepaid">Full Prepaid</option>
-<option value="cod">Cash on Delivery (â‚¹500 or 10% Advance)</option>
+<option value="cod">Cash on Delivery (₹500 or 10% Advance)</option>
 </select>
 </div>
 <div class="form-group" id="deliveryOptionGroup" style="display:none;">
 <label for="deliveryOption">Delivery Type</label>
 <select id="deliveryOption" onchange="updatePaymentAmount()">
 <option selected="" value="standard">Standard Normal Delivery (Free)</option>
-<option value="express">Express Delivery (+â‚¹200)</option>
+<option value="express">Express Delivery (+₹200)</option>
 </select>
 </div>
 <div class="form-group" id="couponGroup" style="display:none;"><label for="coupon">Discount Coupon (Only for Prepaid)</label><input id="coupon" placeholder="Enter coupon code (e.g., GPZ2025)" type="text"/><div id="discountInfoBox" style="font-size: 14px; color: green; margin-top: 5px; font-weight: bold;"></div></div>
 <div class="form-group">
-<label for="productPrice">Product Price (â‚¹)</label>
+<label for="productPrice">Product Price (₹)</label>
 <input id="productPrice" min="0" onchange="updatePaymentAmount()" readonly="true" type="number" value="0"/>
 </div>
 <div class="form-group">
@@ -227,13 +227,13 @@
 <br/>
 <button onclick="downloadQR()" style="padding: 5px 15px; background-color: #444; color: white; border: none; border-radius: 5px; cursor: pointer;">Download QR</button>
 </div>
-<button id="payNowBtn" onclick="payAdvanceDynamic()" style=" padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay â‚¹</button><button id="payAltBtn" onclick="payAlternateUPI()" style=" padding: 10px 20px; font-size: 16px; background-color: #ff9800; color: white; border: none; border-radius: 5px; cursor: pointer;">Alternate Pay â‚¹</button>
+<button id="payNowBtn" onclick="payAdvanceDynamic()" style=" padding: 10px 20px; font-size: 16px; background-color: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">Pay ₹</button><button id="payAltBtn" onclick="payAlternateUPI()" style=" padding: 10px 20px; font-size: 16px; background-color: #ff9800; color: white; border: none; border-radius: 5px; cursor: pointer;">Alternate Pay ₹</button>
 <!-- Blinking Message and Arrow -->
 <div style="text-align: center; margin-top: 20px;">
 <div style="font-size: 14px; color: red; font-weight: bold; animation: blink 1s infinite;">
-    âš ï¸ à¤…à¤—à¤° Pay Button à¤¸à¥‡ à¤ªà¥‡à¤®à¥‡à¤‚à¤Ÿ à¤¨à¤¹à¥€à¤‚ à¤¹à¥‹ à¤°à¤¹à¤¾ à¤¹à¥ˆ à¤¤à¥‹ à¤¨à¥€à¤šà¥‡ à¤¦à¤¿à¤ à¤—à¤ UPI à¤¸à¥‡ à¤ªà¥‡à¤®à¥‡à¤‚à¤Ÿ à¤•à¤°à¥‡à¤‚ âš ï¸
+    ⚠️ अगर Pay Button से पेमेंट नहीं हो रहा है तो नीचे दिए गए UPI से पेमेंट करें ⚠️
   </div>
-<div class="arrow-bounce" style="font-size: 24px; color: #ff5722;">â¬‡ï¸</div>
+<div class="arrow-bounce" style="font-size: 24px; color: #ff5722;">⬇️</div>
 </div>
 <style>
 @keyframes blink {
@@ -335,7 +335,7 @@ document.addEventListener("DOMContentLoaded", function () {
       window.location.href = upiLink;
     }
   </script>
-<div class="arrow-bounce">â¬‡ï¸</div>
+<div class="arrow-bounce">⬇️</div>
 <div style="text-align:center; margin-top: 10px; font-size: 14px; color: #333;">
     After payment, share a screenshot of the payment on WhatsApp and then confirm your order.
   </div>
@@ -353,13 +353,13 @@ document.addEventListener("DOMContentLoaded", function () {
   updateDateTime();
 </script>
 <div style="text-align: center; margin-top: 40px; font-size: 20px;">
-<a href="tel:7983624797" style="margin: 0 8px;">ðŸ“ž</a>
-<a href="mailto:gamesplanet.7983624797@gmail.com" style="margin: 0 8px;">âœ‰ï¸</a>
-<a href="https://www.youtube.com/singhtechgaming" style="margin: 0 8px;" target="_blank">â–¶ï¸</a>
-<a href="https://instagram.com/singhtech1" style="margin: 0 8px;" target="_blank">ðŸ“·</a>
+<a href="tel:7983624797" style="margin: 0 8px;">📞</a>
+<a href="mailto:gamesplanet.7983624797@gmail.com" style="margin: 0 8px;">✉️</a>
+<a href="https://www.youtube.com/singhtechgaming" style="margin: 0 8px;" target="_blank">▶️</a>
+<a href="https://instagram.com/singhtech1" style="margin: 0 8px;" target="_blank">📷</a>
 </div>
 <div style="text-align: center; font-size: 12px; color: gray; margin-top: 10px;">
-  Â© All rights reserved 2017 - 2025
+  © All rights reserved 2017 - 2025
 </div>
 <script>
   function toggleOtherProductField() {
@@ -501,7 +501,7 @@ function updatePaymentAmount() {
     document.getElementById("deliveryOptionGroup").style.display = "block";
     couponGroup.style.display = "block";
     advanceLabel.textContent = "Amount to Pay";
-    paymentModeText = "ðŸŸ¢ Order Type: Prepaid Order";
+    paymentModeText = "🟢 Order Type: Prepaid Order";
 
     if (coupon === "GPZ2025") {
       if (product.includes("FMCB CARD + USB")) { discount = price * 0.05;
@@ -512,7 +512,7 @@ function updatePaymentAmount() {
 
       
 if (discount > 0 && !window.couponFlashed) {
-  showFlashMessage(`ðŸŽ‰ Congratulations! â‚¹${discount.toFixed(0)} discount applied.`);
+  showFlashMessage(`🎉 Congratulations! ₹${discount.toFixed(0)} discount applied.`);
   window.couponFlashed = true;
 }
 
@@ -521,28 +521,28 @@ if (discount > 0 && !window.couponFlashed) {
     advanceField.value = finalAmount.toFixed(0);
     restAmountInfo.textContent = "";
     restBoxInline.textContent = "";
-    discountInfoBox.textContent = discount > 0 ? `Discount Applied: â‚¹${discount.toFixed(0)}` : "";
+    discountInfoBox.textContent = discount > 0 ? `Discount Applied: ₹${discount.toFixed(0)}` : "";
 
   } else {
     document.getElementById("deliveryOptionGroup").style.display = "none";
     couponGroup.style.display = "none";
-    advanceLabel.textContent = "Advance Amount to Pay (â‚¹)";
-    paymentModeText = "ðŸŸ  Order Type: Cash on Delivery";
+    advanceLabel.textContent = "Advance Amount to Pay (₹)";
+    paymentModeText = "🟠 Order Type: Cash on Delivery";
     const minAdvance = Math.max(500, price * 0.10);
     finalAmount = Math.ceil(minAdvance);
     restAmount = price - finalAmount;
     advanceField.value = finalAmount;
-    restAmountInfo.textContent = "Rest amount on delivery: â‚¹" + restAmount;
-    restBoxInline.textContent = "Rest amount on delivery: â‚¹" + restAmount;
+    restAmountInfo.textContent = "Rest amount on delivery: ₹" + restAmount;
+    restBoxInline.textContent = "Rest amount on delivery: ₹" + restAmount;
     discountInfoBox.textContent = "";
   }
 
   if (payButton) {
-    payButton.textContent = "Pay â‚¹" + advanceField.value;
+    payButton.textContent = "Pay ₹" + advanceField.value;
   }
 
   const discountText = discount > 0 
-    ? `Discount Applied: â‚¹${discount.toFixed(0)} on ${gb} â€” Final Price: â‚¹${finalAmount.toFixed(0)}`
+    ? `Discount Applied: ₹${discount.toFixed(0)} on ${gb} — Final Price: ₹${finalAmount.toFixed(0)}`
     : "No Discount";
 
   const name = document.getElementById("name").value;
@@ -569,11 +569,11 @@ summaryBox.innerHTML = `
   Product: ${product === 'other' ? document.getElementById('otherProduct').value : product} <br>
   ${product === "FMCB CARD + USB" ? "PS2 Model: " + document.getElementById("ps2Model").value + "<br>" : ""}
   Variant: ${gb || "-"}<br>
-  Base Price: â‚¹${price}<br>
-  ${type === "cod" ? "COD Charges: â‚¹" + codCharge + "<br>" : ""}
+  Base Price: ₹${price}<br>
+  ${type === "cod" ? "COD Charges: ₹" + codCharge + "<br>" : ""}
   ${discountText}<br>
-  Delivery: â‚¹${deliveryCharge}<br>Amount to Pay Now: â‚¹${advanceField.value}<br>
-  ${type === "cod" ? "Rest on Delivery: â‚¹" + (price - advanceField.value + codCharge) : ""}
+  Delivery: ₹${deliveryCharge}<br>Amount to Pay Now: ₹${advanceField.value}<br>
+  ${type === "cod" ? "Rest on Delivery: ₹" + (price - advanceField.value + codCharge) : ""}
 `;
 }
 
@@ -648,16 +648,16 @@ function sendOrderOnWhatsApp() {
     finalAmount -= discountValue;
   }
 
-  const discountLine = discountValue > 0 ? `Discount Applied: â‚¹${discountValue.toFixed(0)}\n` : "";
+  const discountLine = discountValue > 0 ? `Discount Applied: ₹${discountValue.toFixed(0)}\n` : "";
   const deliveryType = document.getElementById("deliveryOption")?.value || "standard";
   const deliveryCharge = (type === "prepaid" && deliveryType === "express") ? 200 : 0;
-  const deliveryLine = deliveryCharge > 0 ? `Delivery: â‚¹${deliveryCharge}\n` : "";
+  const deliveryLine = deliveryCharge > 0 ? `Delivery: ₹${deliveryCharge}\n` : "";
 
   const now = new Date();
   const orderId = `${String(now.getDate()).padStart(2, '0')}${String(now.getMonth() + 1).padStart(2, '0')}${now.getFullYear()}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
   const selectedProduct = product === 'other' ? otherProduct : product;
   const header = type === 'prepaid' ? "Prepaid Order on WhatsApp*" : "COD Order on WhatsApp*";
-  const restAmount = type === 'cod' ? "\nRest Amount on Delivery:  â‚¹" + (parseInt(price) - parseInt(advance)) : "";
+  const restAmount = type === 'cod' ? "\nRest Amount on Delivery:  ₹" + (parseInt(price) - parseInt(advance)) : "";
 
   
 const ps2Model = document.getElementById("ps2Model")?.value.trim() || "";
@@ -684,10 +684,10 @@ Post office : ${postOffice}
 Product: ${selectedProduct}
 PS2 Model: ${ps2Model}
 Variant: ${gb}
-Base Price: â‚¹${price}
-Amount paid: â‚¹${advance}
-COD Charges: â‚¹${codCharge}
-Rest Amount on Delivery: â‚¹${restAmt}`;
+Base Price: ₹${price}
+Amount paid: ₹${advance}
+COD Charges: ₹${codCharge}
+Rest Amount on Delivery: ₹${restAmt}`;
 } else if (type === "cod") {
   message = 
 `COD Order on WhatsApp*
@@ -705,10 +705,10 @@ Post office : ${postOffice}
 
 Product: ${selectedProduct}
 Variant: ${gb}
-Base Price: â‚¹${price}
-Amount paid: â‚¹${advance}
-COD Charges: â‚¹${codCharge}
-Rest Amount on Delivery: â‚¹${restAmt}`;
+Base Price: ₹${price}
+Amount paid: ₹${advance}
+COD Charges: ₹${codCharge}
+Rest Amount on Delivery: ₹${restAmt}`;
 } else {
     document.getElementById("deliveryOptionGroup").style.display = "none";
   message = 
@@ -727,8 +727,8 @@ Post office : ${postOffice}
 
 Product: ${selectedProduct}
 Variant: ${gb}
-Base Price: â‚¹${price}
-${discountLine}${deliveryLine}Amount paid: â‚¹${advance}${restAmount}`;
+Base Price: ₹${price}
+${discountLine}${deliveryLine}Amount paid: ₹${advance}${restAmount}`;
 }
 
 const waURL = "https://wa.me/7983624797?text=" + encodeURIComponent(message);
@@ -752,7 +752,7 @@ document.getElementById("gb").addEventListener("change", function () {
   const gb = this.value;
   if (product === "FMCB CARD + USB" && gb.includes("OPTIONAL GAMES")) {
     const flash = document.createElement("div");
-    flash.textContent = "Dear Customer, please make the payment and send your order via WhatsApp. We will provide a gamelist from which you can select your favorite games.\nà¨ªà¨¿à¨†à¨°à©‡ à¨—à¨¾à¨¹à¨• à¨œà©€, à¨•à¨¿à¨°à¨ªà¨¾ à¨•à¨°à¨•à©‡ à¨­à©à¨—à¨¤à¨¾à¨¨ à¨•à¨°à©‹ à¨…à¨¤à©‡ à¨†à¨ªà¨£à¨¾ à¨†à¨°à¨¡à¨° à¨µà¨Ÿà¨¸à¨à¨ª à¨•à¨° à¨¦à¨¿à¨“à¥¤ à¨…à¨¸à©€à¨‚ à¨¤à©à¨¹à¨¾à¨¨à©‚à©° à¨‡à©±à¨• à¨—à©‡à¨® à¨²à¨¿à¨¸à¨Ÿ à¨­à©‡à¨œà¨¾à¨‚à¨—à©‡ à¨œà¨¿à¨¸ à¨µà¨¿à¨šà©‹à¨‚ à¨¤à©à¨¸à©€à¨‚ à¨†à¨ªà¨£à©€ à¨®à¨¨à¨ªà¨¸à©°à¨¦ à¨—à©‡à¨®à¨¾à¨‚ à¨šà©à¨£ à¨¸à¨•à¨¦à©‡ à¨¹à©‹à¥¤\nà¤ªà¥à¤°à¤¿à¤¯ à¤—à¥à¤°à¤¾à¤¹à¤• à¤•à¥ƒà¤ªà¤¯à¤¾ à¤ªà¥‡à¤®à¥‡à¤‚à¤Ÿ à¤•à¤°à¤•à¥‡ à¤‘à¤°à¥à¤¡à¤° à¤µà¥à¤¹à¤¾à¤Ÿà¥à¤¸à¤à¤ª à¤ªà¤° à¤­à¥‡à¤œ à¤¦à¥‡à¤‚, à¤¹à¤® à¤†à¤ªà¤•à¥‹ à¤—à¥‡à¤® à¤²à¤¿à¤¸à¥à¤Ÿ à¤¦à¥‡à¤‚à¤—à¥‡ à¤œà¤¿à¤¸à¤®à¥‡à¤‚ à¤¸à¥‡ à¤†à¤ª à¤…à¤ªà¤¨à¥€ à¤ªà¤¸à¤‚à¤¦ à¤•à¥‡ à¤—à¥‡à¤® à¤šà¥à¤¨ à¤¸à¤•à¥‡à¤‚à¤—à¥‡à¥¤";
+    flash.textContent = "Dear Customer, please make the payment and send your order via WhatsApp. We will provide a gamelist from which you can select your favorite games.\nਪਿਆਰੇ ਗਾਹਕ ਜੀ, ਕਿਰਪਾ ਕਰਕੇ ਭੁਗਤਾਨ ਕਰੋ ਅਤੇ ਆਪਣਾ ਆਰਡਰ ਵਟਸਐਪ ਕਰ ਦਿਓ। ਅਸੀਂ ਤੁਹਾਨੂੰ ਇੱਕ ਗੇਮ ਲਿਸਟ ਭੇਜਾਂਗੇ ਜਿਸ ਵਿਚੋਂ ਤੁਸੀਂ ਆਪਣੀ ਮਨਪਸੰਦ ਗੇਮਾਂ ਚੁਣ ਸਕਦੇ ਹੋ।\nप्रिय ग्राहक कृपया पेमेंट करके ऑर्डर व्हाट्सएप पर भेज दें, हम आपको गेम लिस्ट देंगे जिसमें से आप अपनी पसंद के गेम चुन सकेंगे।";
     flash.style.cssText = "position:fixed; top:50%; left:50%; transform:translate(-50%, -50%); background:#ff0; color:#000; padding:20px; font-weight:bold; border:2px solid #000; border-radius:10px; z-index:9999; text-align:center; white-space:pre-line;";
     document.body.appendChild(flash);
     setTimeout(() => { flash.remove(); }, 5000);
@@ -817,7 +817,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const type = document.getElementById("paymentType").value;
     const codCharge = (type === "cod" && price < 1599) ? 99 : 0;
     const restAmount = type === "cod" ? price - advance + codCharge : 0;
-    const text = type === "cod" ? `Total: â‚¹${price - advance} + COD Charges â‚¹${codCharge} = â‚¹${restAmount}` : "";
+    const text = type === "cod" ? `Total: ₹${price - advance} + COD Charges ₹${codCharge} = ₹${restAmount}` : "";
 
     if (restAmountBelowAdvance) restAmountBelowAdvance.textContent = text;
     if (restAmountBelowPay) restAmountBelowPay.textContent = text;
@@ -1191,7 +1191,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 <a href="https://wa.me/7983624797?text=I%20want%20to%20buy%20something" id="whatsappFloatBtn" target="_blank">
-  ðŸŸ¢ Chat on WhatsApp
+  🟢 Chat on WhatsApp
 </a>
 <style>
 #whatsappFloatBtn {
@@ -1231,11 +1231,11 @@ document.addEventListener("DOMContentLoaded", function () {
   function updateButtonLabels() {
     const amount = amountInput.value.trim();
     if (!amount || isNaN(amount) || Number(amount) <= 0) {
-      altBtn.textContent = "Alternate Pay â‚¹";
-      mainBtn.textContent = "Pay â‚¹";
+      altBtn.textContent = "Alternate Pay ₹";
+      mainBtn.textContent = "Pay ₹";
     } else {
-      altBtn.textContent = "Alternate Pay â‚¹" + amount;
-      mainBtn.textContent = "Pay â‚¹" + amount;
+      altBtn.textContent = "Alternate Pay ₹" + amount;
+      mainBtn.textContent = "Pay ₹" + amount;
     }
   }
 
