@@ -158,7 +158,12 @@
 </div>
 <div class="form-group">
 <label for="product">Product Name <span style="color:red">*</span></label>
-<select id="product" onchange="toggleOtherProductField()">
+<select id="product" onchange="toggleOtherProductField();
+  const selectedProduct = document.getElementById('product').value;
+  if (selectedProduct === "PLAYSTATION 2 SLIM") {
+    window.open("https://gamesplanet13.github.io/ps2/", "_blank");
+  }
+">
 <option value="">Select a product</option>
 <option value="PLAYSTATION 2 SLIM">PlayStation 2 Slim</option>
 <option value="other">PRODUCT NOT IN LIST</option>
@@ -174,6 +179,7 @@
 <option value="GPZ R35S">GPZ R35S</option>
 <option value="OG GAMESTICK GD30 (VAYAVA)">OG GAMESTICK GD30 (VAYAVA)</option>
 <option value="OG GAMESTICK GD30v2 (VAYAVA)">OG GAMESTICK GD30v2 (VAYAVA)</option>
+<option value="OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)">OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)</option>
 <option value="OG GPZ M22 (VAYAVA)">OG GPZ M22 (VAYAVA)</option>
 <option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option>
 <option value="PANDORA GAMESTICK LITE AOKO">PANDORA GAMESTICK LITE AOKO</option>
@@ -370,6 +376,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script>
 const productPrices = {
+"OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)": { "64GB": 6699, "128GB": 8699, "256GB": 9699 },
 "OG GAMESTICK GD30v2 (VAYAVA)": { "64GB": 3699, "128GB": 5999, "256GB": 7299 },
 
 "PANDORA GAMESTICK LITE AOKO": { "64GB": 1599 },
@@ -1048,7 +1055,7 @@ const categoryProductMap = {
     "GAMEBOX G11 PRO (VAYAVA)", "GAMEBOX G11 PRO SPECIAL EDITION P3", "GAMEBOX G11 PRO ULTIMATE EDITION",
     "GAMEBOX PLUS G10 (VAYAVA)", "GAMEBOX PLUS G10 ULTIMATE EDITON", "GAMESTICK GD10 (VAYAVA)",
     "GD35 10K GAMESTICK (VAYAVA)", "GD35 10K GAMESTICK GTA SAN EDITION", "GPZ R35S",
-    "OG GAMESTICK GD30 (VAYAVA)", "OG GAMESTICK GD30v2 (VAYAVA)", "OG GPZ M22 (VAYAVA)",
+    "OG GAMESTICK GD30 (VAYAVA)", "OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)", "OG GAMESTICK GD30v2 (VAYAVA)", "OG GPZ M22 (VAYAVA)",
     "OG GPZ M33 (VAYAVA)", "PANDORA GAMESTICK LITE AOKO", "PANDORA GAMESTICK PRO WHITEBOX"
   ],
   "Game controllers": [],
@@ -1064,7 +1071,7 @@ const categoryProductMap = {
     "FMCB CARD + USB", "GAMEBOX G11 PRO (VAYAVA)", "GAMEBOX G11 PRO SPECIAL EDITION P3", "GAMEBOX G11 PRO ULTIMATE EDITION",
     "GAMEBOX PLUS G10 (VAYAVA)", "GAMEBOX PLUS G10 ULTIMATE EDITON", "GAMESTICK GD10 (VAYAVA)",
     "GD35 10K GAMESTICK (VAYAVA)", "GD35 10K GAMESTICK GTA SAN EDITION", "GPZ R35S",
-    "OG GAMESTICK GD30 (VAYAVA)", "OG GAMESTICK GD30v2 (VAYAVA)", "OG GPZ M22 (VAYAVA)",
+    "OG GAMESTICK GD30 (VAYAVA)", "OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)", "OG GAMESTICK GD30v2 (VAYAVA)", "OG GPZ M22 (VAYAVA)",
     "OG GPZ M33 (VAYAVA)", "PANDORA GAMESTICK LITE AOKO", "PANDORA GAMESTICK PRO WHITEBOX",
     "PlayStation 2 Slim", "MICRO SD CARD", "other"
   ]
@@ -1168,6 +1175,7 @@ document.addEventListener("DOMContentLoaded", function () {
       <option value="GAMEBOX G11 PRO SPECIAL EDITION P3">GAMEBOX G11 PRO SPECIAL EDITION P3</option>
       <option value="OG GAMESTICK GD30 (VAYAVA)">OG GAMESTICK GD30 (VAYAVA)</option>
       <option value="OG GAMESTICK GD30v2 (VAYAVA)">OG GAMESTICK GD30v2 (VAYAVA)</option>
+<option value="OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)">OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)</option>
       <option value="OG GPZ M22 (VAYAVA)">OG GPZ M22 (VAYAVA)</option>
       <option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option>
       <option value="GPZ R35S OS CARD">GPZ R35S OS CARD</option>
@@ -1260,5 +1268,13 @@ document.addEventListener("DOMContentLoaded", function () {
   </iframe>
 </div>
 
+<script>
+document.getElementById("product").addEventListener("change", function () {
+  const selected = this.value;
+  if (selected === "PLAYSTATION 2 SLIM") {
+    window.open("https://gamesplanet13.github.io/ps2/", "_blank");
+  }
+});
+</script>
 </body>
 </html>
