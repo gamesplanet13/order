@@ -212,7 +212,7 @@
 <option value="express">Express Delivery (+₹200)</option>
 </select>
 </div>
-<div class="form-group" id="couponGroup" style="display:none;"><label for="coupon">Discount Coupon (Only for Prepaid)</label><input id="coupon" placeholder="Enter coupon code (e.g., GPZ2025)" type="text"/><div id="discountInfoBox" style="font-size: 14px; color: green; margin-top: 5px; font-weight: bold;"></div></div>
+<div class="form-group" id="couponGroup" style="display:none;"><label for="coupon">Discount Coupon (Only for Prepaid)</label><input id="coupon" placeholder="Enter coupon code" type="text"/><div id="discountInfoBox" style="font-size: 14px; color: green; margin-top: 5px; font-weight: bold;"></div></div>
 <div class="form-group">
 <label for="productPrice">Product Price (₹)</label>
 <input id="productPrice" min="0" onchange="updatePaymentAmount()" readonly="true" type="number" value="0"/>
@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 <script>
 const productPrices = {
-"OG GAMESTICK GD30v2 (VAYAVA)": { "64GB": 6699, "128GB": 8699, "256GB": 9699 },
+"OG GAMESTICK GD30v2 (VAYAVA)": { "64GB": 3699, "128GB": 5999, "256GB": 7299 },
 
 "PANDORA GAMESTICK LITE AOKO": { "64GB": 1599 },
 "PANDORA GAMESTICK PRO WHITEBOX": { "64GB": 1799 },
@@ -1242,5 +1242,23 @@ document.addEventListener("DOMContentLoaded", function () {
   amountInput.addEventListener("input", updateButtonLabels);
   updateButtonLabels(); // Initialize on page load
 });
-</script></body>
+</script>
+
+
+
+<!-- Responsive Video Footer -->
+<div style="position: relative; width: 100%; padding-bottom: 56.25%; margin-top: 30px;">
+  <iframe 
+    width="932" height="524"
+    src="https://www.youtube.com/embed/IkkCb4FmIBA" 
+    title="Amazing Gaming Devices for 3D Games 2025 starts from 999rs" 
+    frameborder="0" 
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+    referrerpolicy="strict-origin-when-cross-origin" 
+    allowfullscreen
+    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+  </iframe>
+</div>
+
+</body>
 </html>
