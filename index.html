@@ -164,10 +164,11 @@
     window.open("https://gamesplanet13.github.io/ps2/", "_blank");
   }
 ">
-<option value="">Select a product</option>
 <option value="PLAYSTATION 2 SLIM">PlayStation 2 Slim</option>
 <option value="other">PRODUCT NOT IN LIST</option>
 <option value="FMCB CARD + USB">FMCB CARD + USB</option>
+<option value="USB for PS2">USB for PS2</option>
+<option value="FMCB CARD only">FMCB CARD only</option>
 <option value="GAMEBOX G11 PRO (VAYAVA)">GAMEBOX G11 PRO (VAYAVA)</option>
 <option value="GAMEBOX G11 PRO SPECIAL EDITION P3">GAMEBOX G11 PRO SPECIAL EDITION P3</option>
 <option value="GAMEBOX G11 PRO ULTIMATE EDITION">GAMEBOX G11 PRO ULTIMATE EDITION</option>
@@ -177,6 +178,7 @@
 <option value="GD35 10K GAMESTICK (VAYAVA)">GD35 10K GAMESTICK (VAYAVA)</option>
 <option value="GD35 10K GAMESTICK GTA SAN EDITION">GD35 10K GAMESTICK GTA SAN EDITION</option>
 <option value="GPZ R35S">GPZ R35S</option>
+<option value="GPZ R36S">GPZ R36S</option>
 <option value="OG GAMESTICK GD30 (VAYAVA)">OG GAMESTICK GD30 (VAYAVA)</option>
 <option value="OG GAMESTICK GD30v2 (VAYAVA)">OG GAMESTICK GD30v2 (VAYAVA)</option>
 <option value="OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)">OG GAMESTICK GD30v2 SPECIAL EDITION (VAYAVA)</option>
@@ -329,7 +331,7 @@ document.addEventListener("DOMContentLoaded", function () {
       border: none;
       border-radius: 5px;
       cursor: pointer;
-    ">Place COD Order on WhatsApp</button>
+    ">Place Order on WhatsApp</button>
 </div><div id="restAmountInfo" style="margin-top: 10px; font-size: 12px; color: #f2f2f2; font-weight: bold; text-align: center;"></div>
 <div class="form-group" id="otherProductGroup" style="display: none;">
 <label for="otherProduct">Enter Product Name <span style="color:red">*</span></label>
@@ -337,7 +339,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 <script>
     function payAdvance() {
-      const upiLink = "upi://pay?pa=7983624797@ybl&pn=GamesPlanet&am=500&cu=INR";
+      const upiLink = "upi://pay?pa=paytmqr5hyx5o@ptys&am=500&cu=INR";
       window.location.href = upiLink;
     }
   </script>
@@ -363,6 +365,7 @@ document.addEventListener("DOMContentLoaded", function () {
 <a href="mailto:gamesplanet.7983624797@gmail.com" style="margin: 0 8px;">✉️</a>
 <a href="https://www.youtube.com/singhtechgaming" style="margin: 0 8px;" target="_blank">▶️</a>
 <a href="https://instagram.com/singhtech1" style="margin: 0 8px;" target="_blank">📷</a>
+<a href="https://maps.app.goo.gl/BAb3SVxQWPSgckA26" style="margin: 0 8px;" target="_blank">📍</a>
 </div>
 <div style="text-align: center; font-size: 12px; color: gray; margin-top: 10px;">
   © All rights reserved 2017 - 2025
@@ -392,8 +395,11 @@ const productPrices = {
 "GAMEBOX G11 PRO SPECIAL EDITION P3": { "64GB": 6499, "128GB": 8299, "256GB": 9299 },
 "GD35 10K GAMESTICK (VAYAVA)": { "64GB": 5299, "128GB": 6999, "256GB": 7999 },
 "GD35 10K GAMESTICK GTA SAN EDITION": { "64GB": 5999, "128GB": 7699, "256GB": 8699 },
-"FMCB CARD + USB": { "64GB (21 TOP GAMES)": 1499, "64GB (OPTIONAL GAMES)": 1699, "128GB (41 TOP GAMES)": 1999, "128GB (OPTIONAL GAMES)": 2399, "256GB (71 TOP GAMES)": 2999, "256GB (OPTIONAL GAMES)": 3699, "500GB (175 TOP GAMES)": 3699, "500GB (OPTIONAL GAMES)": 4699 },
+"FMCB CARD only (All PS2 Models)": 999,
+"USB for PS2": { "64GB (21 TOP GAMES)": 899, "64GB (OPTIONAL GAMES)": 1214, "128GB (41 TOP GAMES)": 1399, "128GB (OPTIONAL GAMES)": 1889, "256GB (71 TOP GAMES)": 2399, "256GB (OPTIONAL GAMES)": 3239, "500GB (175 TOP GAMES)": 3099, "500GB (OPTIONAL GAMES)": 4184 },
+"FMCB CARD + USB (Combo Offer)": { "64GB (21 TOP GAMES)": 1698, "64GB (OPTIONAL GAMES)": 2013, "128GB (41 TOP GAMES)": 2198, "128GB (OPTIONAL GAMES)": 2688, "256GB (71 TOP GAMES)": 3198, "256GB (OPTIONAL GAMES)": 4038, "500GB (175 TOP GAMES)": 3898, "500GB (OPTIONAL GAMES)": 4983 }
 "GPZ R35S": { "64GB": 4999 },
+"GPZ R36S": { "64GB": 5699 },
 "X7M SUP GAME": { "SINGLE PLAYER": 999, "DUAL PLAYER": 1099 },
 };
 
@@ -675,7 +681,7 @@ let message = "";
 
 if (type === "cod" && product === "FMCB CARD + USB") {
   message = 
-`COD Order on WhatsApp*
+`🟠COD Order on WhatsApp*
 Order ID: ${orderId}
 Name: ${name}
 Mobile: ${mobile}
@@ -697,7 +703,7 @@ COD Charges: ₹${codCharge}
 Rest Amount on Delivery: ₹${restAmt}`;
 } else if (type === "cod") {
   message = 
-`COD Order on WhatsApp*
+`🟠COD Order on WhatsApp*
 Order ID: ${orderId}
 Name: ${name}
 Mobile: ${mobile}
