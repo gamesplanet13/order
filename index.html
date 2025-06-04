@@ -663,7 +663,7 @@ function sendOrderOnWhatsApp() {
   const now = new Date();
   const orderId = `${String(now.getDate()).padStart(2, '0')}${String(now.getMonth() + 1).padStart(2, '0')}${now.getFullYear()}${String(now.getHours()).padStart(2, '0')}${String(now.getMinutes()).padStart(2, '0')}${String(now.getSeconds()).padStart(2, '0')}`;
   const selectedProduct = product === 'other' ? otherProduct : product;
-  const header = type === 'prepaid' ? "Prepaid Order on WhatsApp*" : "COD Order on WhatsApp*";
+  const header = type === 'prepaid' ? "🟢Prepaid Order on WhatsApp*" : "🔴COD Order on WhatsApp*";
   const restAmount = type === 'cod' ? "\nRest Amount on Delivery:  ₹" + (parseInt(price) - parseInt(advance)) : "";
 
   
@@ -675,7 +675,7 @@ let message = "";
 
 if (type === "cod" && product === "FMCB CARD + USB") {
   message = 
-`COD Order on WhatsApp*
+`🔴COD Order on WhatsApp*
 Order ID: ${orderId}
 Name: ${name}
 Mobile: ${mobile}
@@ -697,7 +697,7 @@ COD Charges: ₹${codCharge}
 Rest Amount on Delivery: ₹${restAmt}`;
 } else if (type === "cod") {
   message = 
-`COD Order on WhatsApp*
+`🔴COD Order on WhatsApp*
 Order ID: ${orderId}
 Name: ${name}
 Mobile: ${mobile}
@@ -776,7 +776,7 @@ function validateFormFields() {
   const paymentType = document.getElementById("paymentType").value;
   if (name && mobile && product && pincode.length === 6) {
     orderBtn.style.display = "inline-block";
-    orderBtn.textContent = paymentType === "prepaid" ? "Place Prepaid Order on WhatsApp" : "Place COD Order on WhatsApp";
+    orderBtn.textContent = paymentType === "prepaid" ? "Place 🟢Prepaid Order on WhatsApp" : "Place 🔴COD Order on WhatsApp";
   } else {
     document.getElementById("deliveryOptionGroup").style.display = "none";
     orderBtn.style.display = "none";
