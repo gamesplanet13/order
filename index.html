@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>order on gamesplanet</title>
-<meta name="description" content="Buy FMCB/FunTuna card, USB-only, FMCB+USB Combo, and more consoles/controllers with one-tap prefill. Prices loaded via CSV."/>
+<meta name="description" content="Buy FMCB/FunTuna, USB-only, FMCB+USB Combo & more. One-tap prefill. Prices from CSV."/>
 <style>
 :root{
   --bg:#0b1020; --card:#121a33; --muted:#9fb0d3; --text:#eaf1ff;
@@ -32,9 +32,9 @@ h1{font-size:clamp(22px,3.5vw,34px);margin:0}
 .linkbtn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.12);padding:9px 12px;border-radius:12px;color:var(--text);text-decoration:none;font-weight:700}
 .linkbtn:hover{box-shadow:0 0 0 6px var(--ring2)}
 
-.grid{display:flex;flex-direction:column;gap:18px} /* column sequence */
+.grid{display:flex;flex-direction:column;gap:18px}
 .card{background:var(--card);border-radius:20px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.card:after{content:"";position:absolute;inset:auto -30% -30% auto;width:220px;height:220px;background:radial-gradient(90px 90px at 70% 30%, var(--ring), transparent 60%);pointer-events:none} /* tap fix */
+.card:after{content:"";position:absolute;inset:auto -30% -30% auto;width:220px;height:220px;background:radial-gradient(90px 90px at 70% 30%, var(--ring), transparent 60%);pointer-events:none}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:var(--chip);color:var(--muted);border-radius:999px;font-size:12px;font-weight:700;margin-right:6px}
 .title{margin:10px 0 6px;font-size:20px}
 .muted{color:var(--muted);font-size:14px}
@@ -62,7 +62,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
     <div class="logo">GPZ</div>
     <div>
       <h1>order on gamesplanet</h1>
-      <div class="sub">One-tap Prefill Order • CSV-driven prices • Auto light/dark</div>
+      <div class="sub">One-tap Prefill Order • Prices from catalog.csv • Auto light/dark</div>
     </div>
   </div>
 
@@ -143,7 +143,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
       <li>❌ <b>No Return</b> • ❌ <b>No Replacement</b> • ❌ <b>No Refund</b> on digital/game-loaded media & memory cards.</li>
       <li>✔️ Confirm OPL compatibility before ordering. Incorrect deletion of FMCB/ELF/system files voids support.</li>
       <li>🛠️ 1 Month Free Software Reinstallation (Courier both sides by customer).</li>
-      <li>⚠️ Physical damage, liquid damage, or unauthorized modifications are not covered.</li>
+      <li>⚠️ Physical/liquid damage or unauthorized modification not covered.</li>
     </ul>
   </div>
 
@@ -151,36 +151,130 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
 </div>
 
 <script>
-// ===== UTIL =====
-const priceMap = new Map(); // key: `${product}|||${variant}` => price
-const fmt = n => `₹${Number(n).toLocaleString('en-IN')}`;
-const keyFor = (p,v) => `${p}|||${v}`;
-function goPrefill(product,variant,base,pack){
-  const q=new URLSearchParams({product,variant,base,pack});
-  location.href=`order-prefill.html?${q}`;
+/* ===================== Helpers & CSV loader ===================== */
+const priceRows = []; // raw rows for fallback scanning
+const priceMap  = new Map(); // normalized key -> price
+
+const fmt = n => "₹"+Number(n).toLocaleString("en-IN");
+const norm = s => (s||"")
+  .toLowerCase()
+  .replace(/[–—]/g,"-")       // en/em dash → hyphen
+  .replace(/\s+/g," ")        // collapse spaces
+  .replace(/\s*-\s*/g,"-")    // trim around hyphens
+  .trim();
+
+const keyFor = (p,v) => `${norm(p)}|||${norm(v)}`;
+
+/* Try several ways to find a price for (product, variant) */
+function getPrice(product, variant){
+  const p=norm(product), v=norm(variant);
+
+  // 1) direct match
+  const k1 = keyFor(product, variant);
+  if(priceMap.has(k1)) return Number(priceMap.get(k1));
+
+  // 2) sometimes CSV wrote product+variant together in 'product' column; search rows
+  const wantCombined = norm(`${product} ${variant}`);
+  for(const r of priceRows){
+    const prod = norm(r.product);
+    const vari = norm(r.variant||"");
+    const comb1 = norm(`${r.product} ${r.variant||""}`);
+    const comb2 = norm(`${r.product}, ${r.variant||""}`);
+    if ((prod===p && vari===v) || comb1===wantCombined || comb2===wantCombined){
+      return Number(r.price);
+    }
+  }
+
+  // 3) USB/Combo variants: accept slight differences like "64gb pd — top" vs "64gb pd top"
+  for(const r of priceRows){
+    const prod = norm(r.product);
+    const vari = norm((r.variant||"").replace(/\s*—\s*/g," ").replace(/-/g," "));
+    const wantV = v.replace(/\s*—\s*/g," ").replace(/-/g," ");
+    if (prod===p && vari===wantV) return Number(r.price);
+  }
+
+  // not found
+  return null;
 }
 
-// ===== SECTIONS (CSV-driven) =====
+/* parse CSV text into rows [{product,variant,price}] and fill priceMap */
+function ingestCSV(txt){
+  const lines = txt.split(/\r?\n/).filter(l=>l.trim().length>0);
+  if(!lines.length) return;
+  const header = lines.shift();
+  const cols = header.split(",").map(s=>s.trim().toLowerCase());
+  const pi=cols.indexOf("product"), vi=cols.indexOf("variant"), pri=cols.indexOf("price");
+  if(pi<0 || vi<0 || pri<0){
+    console.warn("CSV needs headers: product,variant,price");
+    return;
+  }
+  lines.forEach(line=>{
+    const parts = line.split(","); // simple split (no quotes expected)
+    if(parts.length < Math.max(pi,vi,pri)+1) return;
+    const product = (parts[pi]||"").trim();
+    const variant = (parts[vi]||"").trim();
+    const price   = Number((parts[pri]||"").trim());
+    if(!product || isNaN(price)) return;
 
-// 1) FMCB / FunTuna Card
+    priceRows.push({product,variant,price});
+    const k = keyFor(product,variant||"");
+    priceMap.set(k, price);
+    // also store combined key to be tolerant
+    const k2 = keyFor(product+" "+(variant||""), "");
+    priceMap.set(k2, price);
+  });
+}
+
+/* load CSV then render */
+function loadCSV(){
+  const statusEl=document.getElementById('csvStatus');
+  fetch('catalog.csv')
+    .then(r=>{ if(!r.ok) throw new Error('catalog.csv not found'); return r.text(); })
+    .then(txt=>{
+      ingestCSV(txt);
+      statusEl.textContent='catalog.csv loaded';
+      renderAll();
+    })
+    .catch(e=>{
+      statusEl.textContent='catalog.csv not found or invalid — add/update CSV to enable prices.';
+      renderAll(); // still render, buttons disabled
+    });
+}
+
+/* ===================== Section definitions ===================== */
+
+/* FMCB / FunTuna models — prices expected in CSV:
+   Memory Card,PS2 Fat (All Models) — FMCB,999
+   Memory Card,PS2 Slim 7xxxx (All) — FMCB,999
+   Memory Card,PS2 Slim 9xxxx (All) — FunTuna,999
+*/
+const FMCB_PRODUCT = 'Memory Card';
 const fmcbModels = [
-  { label:'PS2 Fat (All Models) — FMCB' },
-  { label:'PS2 Slim 7xxxx (All) — FMCB' },
-  { label:'PS2 Slim 9xxxx (All) — FunTuna' },
+  'PS2 Fat (All Models) — FMCB',
+  'PS2 Slim 7xxxx (All) — FMCB',
+  'PS2 Slim 9xxxx (All) — FunTuna',
 ];
 
-// 2) USB lists (Top/Optional via CSV)
-const usbBaseVariants = ['64GB PD','128GB PD','128GB SSD','256GB SSD','500GB HDD','500GB SSD'];
-const USB_PRODUCT = 'USB for PS2 (Game-Loaded)';
+/* USB — prices in CSV as:
+   USB for PS2 (Game-Loaded),64GB PD — Top,999
+   USB for PS2 (Game-Loaded),64GB PD — Optional,1099
+   ...
+*/
+const USB_PRODUCT='USB for PS2 (Game-Loaded)';
+const usbVariants=['64GB PD','128GB PD','128GB SSD','256GB SSD','500GB HDD','500GB SSD'];
 
-// 3) Combo lists (Top/Optional via CSV + Top count badge text only)
-const comboBaseVariants = [
+/* Combo — prices in CSV as:
+   FMCB + USB Combo for PS2,64GB PD — Top,1499
+   FMCB + USB Combo for PS2,64GB PD — Optional,1649
+   ...
+*/
+const COMBO_PRODUCT='FMCB + USB Combo for PS2';
+const comboVariants=[
   {v:'64GB PD',count:21},{v:'128GB PD',count:41},{v:'128GB SSD',count:41},
   {v:'256GB SSD',count:71},{v:'500GB HDD',count:175},{v:'500GB SSD',count:175}
 ];
-const COMBO_PRODUCT = 'FMCB + USB Combo for PS2';
 
-// 4) More products list (from your earlier requirements)
+/* More products — variants listed; prices purely from CSV (product,variant,price) */
 const productDefs = [
   { name:'Gamestick Lite Pandora Mini M8', variants:['64GB'] },
   { name:'Gamestick Pro Pandora Pro M15', variants:['64GB'] },
@@ -220,138 +314,94 @@ const productDefs = [
   { name:'PS4 PRO', variants:['1TB','2TB'] },
 ];
 
-// ===== CSV loader =====
-function loadCSV(){
-  const statusEl=document.getElementById('csvStatus');
-  fetch('catalog.csv')
-    .then(r=>{ if(!r.ok) throw new Error('catalog.csv not found'); return r.text(); })
-    .then(txt=>{
-      const lines=txt.split(/\r?\n/).filter(Boolean);
-      const header=lines.shift();
-      const cols=header.split(',').map(s=>s.trim().toLowerCase());
-      const pi=cols.indexOf('product'), vi=cols.indexOf('variant'), pri=cols.indexOf('price');
-      if(pi<0||vi<0||pri<0) throw new Error('CSV must have headers: product,variant,price');
-      lines.forEach(line=>{
-        const parts=line.split(',');
-        if(parts.length<3) return;
-        const product=(parts[pi]||'').trim();
-        const variant=(parts[vi]||'').trim();
-        const price=(parts[pri]||'').trim();
-        if(product && variant && price && !Number.isNaN(Number(price))){
-          priceMap.set(keyFor(product,variant), Number(price));
-        }
-      });
-      statusEl.textContent='catalog.csv loaded';
-      renderAll();
-    })
-    .catch(e=>{
-      const statusEl=document.getElementById('csvStatus');
-      statusEl.textContent='catalog.csv not found or invalid — CSV add/update to enable buttons.';
-      renderAll(); // render with disabled states
-    });
-}
-
-// ===== RENDERERS =====
-function priceOrNull(product,variant){
-  const k=keyFor(product,variant);
-  return priceMap.has(k) ? Number(priceMap.get(k)) : null;
+/* ===================== Renderers ===================== */
+function goPrefill(product,variant,base,pack){
+  const q=new URLSearchParams({product,variant,base,pack});
+  location.href=`order-prefill.html?${q}`;
 }
 
 function renderFMCB(){
   const box=document.getElementById('fmcbCard'); box.innerHTML='';
-  fmcbModels.forEach(m=>{
-    const price = priceOrNull('Memory Card', m.label);
+  fmcbModels.forEach(label=>{
+    const price=getPrice(FMCB_PRODUCT,label);
     const row=document.createElement('div'); row.className='row';
-    const btn = document.createElement('button');
-    btn.className='btn buy';
-    if(price!=null){
-      btn.textContent = `${m.label.split('—')[1]?.trim()||'Buy'} • ${fmt(price)}`;
-      btn.onclick = ()=> goPrefill('Memory Card', m.label, price, 'Card Only');
-    }else{
-      btn.textContent = 'Set price in CSV';
-      btn.disabled = true;
-    }
-    row.innerHTML = `<div class="name">${m.label}</div>`;
-    const cta=document.createElement('div'); cta.className='cta'; cta.appendChild(btn);
-    row.appendChild(cta);
-    box.appendChild(row);
+    row.innerHTML=`<div class="name">${label}</div>`;
+    const cta=document.createElement('div'); cta.className='cta';
+    const b=document.createElement('button'); b.className='btn buy';
+    if(price!=null){ b.textContent=`${fmt(price)}`; b.onclick=()=>goPrefill(FMCB_PRODUCT,label,price,'Card Only'); }
+    else { b.textContent='Set price in CSV'; b.disabled=true; }
+    cta.appendChild(b); row.appendChild(cta); box.appendChild(row);
   });
 }
 
 function renderUSB(){
   const box=document.getElementById('usbList'); box.innerHTML='';
-  usbBaseVariants.forEach(v=>{
-    const pTop = priceOrNull(USB_PRODUCT, `${v} — Top`);
-    const pOpt = priceOrNull(USB_PRODUCT, `${v} — Optional`);
+  usbVariants.forEach(v=>{
+    const pTop=getPrice(USB_PRODUCT,`${v} — Top`) ?? getPrice(USB_PRODUCT,`${v}-Top`) ?? getPrice(USB_PRODUCT,`${v} Top`);
+    const pOpt=getPrice(USB_PRODUCT,`${v} — Optional`) ?? getPrice(USB_PRODUCT,`${v}-Optional`) ?? getPrice(USB_PRODUCT,`${v} Optional`);
     const row=document.createElement('div'); row.className='row';
-    row.innerHTML = `<div class="name">${v}</div>`;
+    row.innerHTML=`<div class="name">${v}</div>`;
     const cta=document.createElement('div'); cta.className='cta';
     const b1=document.createElement('button'); b1.className='btn buy';
-    if(pTop!=null){ b1.textContent=`Top • ${fmt(pTop)}`; b1.onclick=()=>goPrefill(USB_PRODUCT, `${v}`, pTop, 'Top'); }
+    if(pTop!=null){ b1.textContent=`Top • ${fmt(pTop)}`; b1.onclick=()=>goPrefill(USB_PRODUCT,v,pTop,'Top'); }
     else{ b1.textContent='Top • Set price'; b1.disabled=true; }
     const b2=document.createElement('button'); b2.className='btn alt';
-    if(pOpt!=null){ b2.textContent=`Optional • ${fmt(pOpt)}`; b2.onclick=()=>goPrefill(USB_PRODUCT, `${v} — Optional`, pOpt, 'Optional'); }
+    if(pOpt!=null){ b2.textContent=`Optional • ${fmt(pOpt)}`; b2.onclick=()=>goPrefill(USB_PRODUCT,`${v} — Optional`,pOpt,'Optional'); }
     else{ b2.textContent='Optional • Set price'; b2.disabled=true; }
-    cta.appendChild(b1); cta.appendChild(b2);
-    row.appendChild(cta);
-    box.appendChild(row);
+    cta.appendChild(b1); cta.appendChild(b2); row.appendChild(cta); box.appendChild(row);
   });
 }
 
 function renderCombo(){
   const box=document.getElementById('comboList'); box.innerHTML='';
-  comboBaseVariants.forEach(({v,count})=>{
-    const pTop = priceOrNull(COMBO_PRODUCT, `${v} — Top`);
-    const pOpt = priceOrNull(COMBO_PRODUCT, `${v} — Optional`);
+  comboVariants.forEach(({v,count})=>{
+    const pTop=getPrice(COMBO_PRODUCT,`${v} — Top`) ?? getPrice(COMBO_PRODUCT,`${v}-Top`) ?? getPrice(COMBO_PRODUCT,`${v} Top`);
+    const pOpt=getPrice(COMBO_PRODUCT,`${v} — Optional`) ?? getPrice(COMBO_PRODUCT,`${v}-Optional`) ?? getPrice(COMBO_PRODUCT,`${v} Optional`);
     const row=document.createElement('div'); row.className='row';
-    row.innerHTML = `<div class="name">${v} <span class="pill">🎮 Top ${count}</span></div>`;
+    row.innerHTML=`<div class="name">${v} <span class="pill">🎮 Top ${count}</span></div>`;
     const cta=document.createElement('div'); cta.className='cta';
     const b1=document.createElement('button'); b1.className='btn buy';
-    if(pTop!=null){ b1.textContent=`Top • ${fmt(pTop)}`; b1.onclick=()=>goPrefill(COMBO_PRODUCT, `${v}`, pTop, 'Top'); }
+    if(pTop!=null){ b1.textContent=`Top • ${fmt(pTop)}`; b1.onclick=()=>goPrefill(COMBO_PRODUCT,v,pTop,'Top'); }
     else{ b1.textContent='Top • Set price'; b1.disabled=true; }
     const b2=document.createElement('button'); b2.className='btn alt';
-    if(pOpt!=null){ b2.textContent=`Optional • ${fmt(pOpt)}`; b2.onclick=()=>goPrefill(COMBO_PRODUCT, `${v} — Optional`, pOpt, 'Optional'); }
+    if(pOpt!=null){ b2.textContent=`Optional • ${fmt(pOpt)}`; b2.onclick=()=>goPrefill(COMBO_PRODUCT,`${v} — Optional`,pOpt,'Optional'); }
     else{ b2.textContent='Optional • Set price'; b2.disabled=true; }
-    cta.appendChild(b1); cta.appendChild(b2);
-    row.appendChild(cta);
-    box.appendChild(row);
+    cta.appendChild(b1); cta.appendChild(b2); row.appendChild(cta); box.appendChild(row);
   });
 }
 
 function renderMore(){
   const box=document.getElementById('moreProducts'); box.innerHTML='';
   productDefs.forEach(prod=>{
-    const rowHead=document.createElement('div'); rowHead.className='row';
-    rowHead.innerHTML=`<div class="name">${prod.name}</div><div class="cta"></div>`;
-    box.appendChild(rowHead);
+    const head=document.createElement('div'); head.className='row';
+    head.innerHTML=`<div class="name">${prod.name}</div><div class="cta"></div>`;
+    box.appendChild(head);
 
-    // Variants as buttons (inline) with price on each button
-    const row=document.createElement('div'); row.className='row';
-    row.innerHTML=`<div class="name small">Variants</div>`;
+    const varRow=document.createElement('div'); varRow.className='row';
+    varRow.innerHTML=`<div class="name small">Variants</div>`;
     const cta=document.createElement('div'); cta.className='cta';
+
     prod.variants.forEach(variant=>{
-      const price = priceOrNull(prod.name, variant);
+      const price = getPrice(prod.name, variant)
+        ?? getPrice(`${prod.name} ${variant}`, "")   // CSV written combined
+        ?? getPrice(prod.name, variant.replace(/\s/g,'')); // minor spacing differences
+
       const b=document.createElement('button');
       b.className='btn buy';
-      if(price!=null){ b.textContent = `${variant} • ${fmt(price)}`; b.onclick=()=>goPrefill(prod.name, variant, price, 'Top'); }
-      else { b.textContent = `${variant} • Set price`; b.disabled = true; }
+      if(price!=null){ b.textContent=`${variant} • ${fmt(price)}`; b.onclick=()=>goPrefill(prod.name,variant,price,'Top'); }
+      else { b.textContent=`${variant} • Set price`; b.disabled=true; }
       cta.appendChild(b);
     });
-    row.appendChild(cta);
-    box.appendChild(row);
+
+    varRow.appendChild(cta);
+    box.appendChild(varRow);
     const hr=document.createElement('hr'); hr.className='sep'; box.appendChild(hr);
   });
 }
 
-// render all sections once CSV loaded (or with disabled if missing)
-function renderAll(){
-  renderFMCB();
-  renderUSB();
-  renderCombo();
-  renderMore();
-}
+function renderAll(){ renderFMCB(); renderUSB(); renderCombo(); renderMore(); }
 
-// init
+/* ===================== Start ===================== */
 loadCSV();
 </script>
 </body>
