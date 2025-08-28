@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>order on gamesplanet</title>
-<meta name="description" content="Buy FMCB/FunTuna, USB-only, FMCB+USB Combo & more. One-tap prefill. Prices from CSV."/>
+<meta name="description" content="Buy FMCB/FunTuna card, USB-only, FMCB+USB Combo & more with one-tap prefill. All prices hardcoded in this page."/>
 <style>
 :root{
   --bg:#0b1020; --card:#121a33; --muted:#9fb0d3; --text:#eaf1ff;
@@ -32,9 +32,9 @@ h1{font-size:clamp(22px,3.5vw,34px);margin:0}
 .linkbtn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.12);padding:9px 12px;border-radius:12px;color:var(--text);text-decoration:none;font-weight:700}
 .linkbtn:hover{box-shadow:0 0 0 6px var(--ring2)}
 
-.grid{display:flex;flex-direction:column;gap:18px}
+.grid{display:flex;flex-direction:column;gap:18px} /* column order */
 .card{background:var(--card);border-radius:20px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.card:after{content:"";position:absolute;inset:auto -30% -30% auto;width:220px;height:220px;background:radial-gradient(90px 90px at 70% 30%, var(--ring), transparent 60%);pointer-events:none}
+.card:after{content:"";position:absolute;inset:auto -30% -30% auto;width:220px;height:220px;background:radial-gradient(90px 90px at 70% 30%, var(--ring), transparent 60%);pointer-events:none} /* mobile tap fix */
 .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:var(--chip);color:var(--muted);border-radius:999px;font-size:12px;font-weight:700;margin-right:6px}
 .title{margin:10px 0 6px;font-size:20px}
 .muted{color:var(--muted);font-size:14px}
@@ -62,7 +62,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
     <div class="logo">GPZ</div>
     <div>
       <h1>order on gamesplanet</h1>
-      <div class="sub">One-tap Prefill Order • Prices from catalog.csv • Auto light/dark</div>
+      <div class="sub">One-tap Prefill Order • All prices in-page • Auto light/dark</div>
     </div>
   </div>
 
@@ -73,7 +73,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
   </div>
 
   <div class="grid">
-    <!-- 1) FMCB / FunTuna Card (CSV-driven) -->
+    <!-- 1) FMCB / FunTuna Card -->
     <section class="card" aria-labelledby="fmcb-title">
       <span class="badge">FMCB / FunTuna Card</span>
       <h2 class="title" id="fmcb-title">Memory Card for PS2 (Model-wise)</h2>
@@ -81,7 +81,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
       <div class="variants" id="fmcbCard"></div>
     </section>
 
-    <!-- 2) USB Only (CSV: Top & Optional) -->
+    <!-- 2) USB Only -->
     <section class="card" aria-labelledby="usb-title">
       <span class="badge">USB Only</span>
       <h2 class="title" id="usb-title">USB for PlayStation 2 — Game-Loaded</h2>
@@ -89,7 +89,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
       <div class="variants" id="usbList"></div>
     </section>
 
-    <!-- 3) FMCB + USB Combo (CSV: Top & Optional) -->
+    <!-- 3) FMCB + USB Combo -->
     <section class="card" aria-labelledby="combo-title">
       <span class="badge">Combo Best Value</span>
       <h2 class="title" id="combo-title">FMCB + USB Combo for PS2</h2>
@@ -97,13 +97,12 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
       <div class="variants" id="comboList"></div>
     </section>
 
-    <!-- 4) More Products (CSV-driven) -->
+    <!-- 4) More Products -->
     <section class="card" aria-labelledby="more-title">
       <span class="badge">More Products</span>
-      <h2 class="title" id="more-title">Retro Consoles, Handhelds & Controllers (CSV Prices)</h2>
-      <div class="muted">Update <b>catalog.csv</b> to control prices. Missing price → button disabled.</div>
+      <h2 class="title" id="more-title">Retro Consoles, Handhelds & Controllers</h2>
+      <div class="muted">Variant buttons show price. Click to prefill order.</div>
       <div class="variants" id="moreProducts"></div>
-      <div class="small" id="csvStatus"></div>
     </section>
   </div>
 
@@ -123,7 +122,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
       <li>🟢 FMCB & FunTuna both work without any modding chip.</li>
       <li>🟢 If your PS2 has <b>Matrix</b> or <b>Sumo Lite</b> chip → usually OK.</li>
       <li>🔴 If your PS2 has a <b>DVD Boot Chip</b> → 99% chances FMCB/FunTuna will not work.</li>
-      <li>👉 In that case, chip wires must be disconnected (requires opening PS2). Message us for the step-by-step guidance video.</li>
+      <li>👉 In that case, chip wires must be disconnected (requires opening PS2). Message us for the guidance video.</li>
     </ul>
   </div>
 
@@ -141,7 +140,7 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
     <h3>📌 Policy (Returns, Replacement & Refund)</h3>
     <ul class="list">
       <li>❌ <b>No Return</b> • ❌ <b>No Replacement</b> • ❌ <b>No Refund</b> on digital/game-loaded media & memory cards.</li>
-      <li>✔️ Confirm OPL compatibility before ordering. Incorrect deletion of FMCB/ELF/system files voids support.</li>
+      <li>✔️ Confirm OPL compatibility before ordering. Deleting FMCB/ELF/system files breaks functionality.</li>
       <li>🛠️ 1 Month Free Software Reinstallation (Courier both sides by customer).</li>
       <li>⚠️ Physical/liquid damage or unauthorized modification not covered.</li>
     </ul>
@@ -151,258 +150,197 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
 </div>
 
 <script>
-/* ===================== Helpers & CSV loader ===================== */
-const priceRows = []; // raw rows for fallback scanning
-const priceMap  = new Map(); // normalized key -> price
-
+/* ====== UTIL ====== */
 const fmt = n => "₹"+Number(n).toLocaleString("en-IN");
-const norm = s => (s||"")
-  .toLowerCase()
-  .replace(/[–—]/g,"-")       // en/em dash → hyphen
-  .replace(/\s+/g," ")        // collapse spaces
-  .replace(/\s*-\s*/g,"-")    // trim around hyphens
-  .trim();
+function goPrefill(product,variant,base,pack){ const q=new URLSearchParams({product,variant,base,pack}); location.href=`order-prefill.html?${q}`; }
 
-const keyFor = (p,v) => `${norm(p)}|||${norm(v)}`;
-
-/* Try several ways to find a price for (product, variant) */
-function getPrice(product, variant){
-  const p=norm(product), v=norm(variant);
-
-  // 1) direct match
-  const k1 = keyFor(product, variant);
-  if(priceMap.has(k1)) return Number(priceMap.get(k1));
-
-  // 2) sometimes CSV wrote product+variant together in 'product' column; search rows
-  const wantCombined = norm(`${product} ${variant}`);
-  for(const r of priceRows){
-    const prod = norm(r.product);
-    const vari = norm(r.variant||"");
-    const comb1 = norm(`${r.product} ${r.variant||""}`);
-    const comb2 = norm(`${r.product}, ${r.variant||""}`);
-    if ((prod===p && vari===v) || comb1===wantCombined || comb2===wantCombined){
-      return Number(r.price);
-    }
-  }
-
-  // 3) USB/Combo variants: accept slight differences like "64gb pd — top" vs "64gb pd top"
-  for(const r of priceRows){
-    const prod = norm(r.product);
-    const vari = norm((r.variant||"").replace(/\s*—\s*/g," ").replace(/-/g," "));
-    const wantV = v.replace(/\s*—\s*/g," ").replace(/-/g," ");
-    if (prod===p && vari===wantV) return Number(r.price);
-  }
-
-  // not found
-  return null;
-}
-
-/* parse CSV text into rows [{product,variant,price}] and fill priceMap */
-function ingestCSV(txt){
-  const lines = txt.split(/\r?\n/).filter(l=>l.trim().length>0);
-  if(!lines.length) return;
-  const header = lines.shift();
-  const cols = header.split(",").map(s=>s.trim().toLowerCase());
-  const pi=cols.indexOf("product"), vi=cols.indexOf("variant"), pri=cols.indexOf("price");
-  if(pi<0 || vi<0 || pri<0){
-    console.warn("CSV needs headers: product,variant,price");
-    return;
-  }
-  lines.forEach(line=>{
-    const parts = line.split(","); // simple split (no quotes expected)
-    if(parts.length < Math.max(pi,vi,pri)+1) return;
-    const product = (parts[pi]||"").trim();
-    const variant = (parts[vi]||"").trim();
-    const price   = Number((parts[pri]||"").trim());
-    if(!product || isNaN(price)) return;
-
-    priceRows.push({product,variant,price});
-    const k = keyFor(product,variant||"");
-    priceMap.set(k, price);
-    // also store combined key to be tolerant
-    const k2 = keyFor(product+" "+(variant||""), "");
-    priceMap.set(k2, price);
-  });
-}
-
-/* load CSV then render */
-function loadCSV(){
-  const statusEl=document.getElementById('csvStatus');
-  fetch('catalog.csv')
-    .then(r=>{ if(!r.ok) throw new Error('catalog.csv not found'); return r.text(); })
-    .then(txt=>{
-      ingestCSV(txt);
-      statusEl.textContent='catalog.csv loaded';
-      renderAll();
-    })
-    .catch(e=>{
-      statusEl.textContent='catalog.csv not found or invalid — add/update CSV to enable prices.';
-      renderAll(); // still render, buttons disabled
-    });
-}
-
-/* ===================== Section definitions ===================== */
-
-/* FMCB / FunTuna models — prices expected in CSV:
-   Memory Card,PS2 Fat (All Models) — FMCB,999
-   Memory Card,PS2 Slim 7xxxx (All) — FMCB,999
-   Memory Card,PS2 Slim 9xxxx (All) — FunTuna,999
-*/
-const FMCB_PRODUCT = 'Memory Card';
+/* ====== 1) FMCB / FunTuna (hardcoded) ====== */
+const fmcbProduct = 'Memory Card';
 const fmcbModels = [
-  'PS2 Fat (All Models) — FMCB',
-  'PS2 Slim 7xxxx (All) — FMCB',
-  'PS2 Slim 9xxxx (All) — FunTuna',
+  { label:'PS2 Fat (All Models) — FMCB', price:999 },
+  { label:'PS2 Slim 7xxxx (All) — FMCB', price:999 },
+  { label:'PS2 Slim 9xxxx (All) — FunTuna', price:999 },
 ];
 
-/* USB — prices in CSV as:
-   USB for PS2 (Game-Loaded),64GB PD — Top,999
-   USB for PS2 (Game-Loaded),64GB PD — Optional,1099
-   ...
-*/
+/* ====== 2) USB (Top/Optional hardcoded) ====== */
 const USB_PRODUCT='USB for PS2 (Game-Loaded)';
-const usbVariants=['64GB PD','128GB PD','128GB SSD','256GB SSD','500GB HDD','500GB SSD'];
+const usbVariants = [
+  { v:'64GB PD',   top:  999, opt: 1099 },
+  { v:'128GB PD',  top: 1499, opt: 1649 },
+  { v:'128GB SSD', top: 1999, opt: 2199 },
+  { v:'256GB SSD', top: 2999, opt: 3299 },
+  { v:'500GB HDD', top: 2999, opt: 3299 },
+  { v:'500GB SSD', top: 3999, opt: 4399 },
+];
 
-/* Combo — prices in CSV as:
-   FMCB + USB Combo for PS2,64GB PD — Top,1499
-   FMCB + USB Combo for PS2,64GB PD — Optional,1649
-   ...
-*/
+/* ====== 3) Combo (Top/Optional hardcoded) ====== */
 const COMBO_PRODUCT='FMCB + USB Combo for PS2';
-const comboVariants=[
-  {v:'64GB PD',count:21},{v:'128GB PD',count:41},{v:'128GB SSD',count:41},
-  {v:'256GB SSD',count:71},{v:'500GB HDD',count:175},{v:'500GB SSD',count:175}
+const comboVariants = [
+  { v:'64GB PD',   top: 1499, opt: 1649, count:21 },
+  { v:'128GB PD',  top: 1999, opt: 2199, count:41 },
+  { v:'128GB SSD', top: 2499, opt: 2699, count:41 },
+  { v:'256GB SSD', top: 3499, opt: 3849, count:71 },
+  { v:'500GB HDD', top: 3699, opt: 4049, count:175 },
+  { v:'500GB SSD', top: 4699, opt: 5149, count:175 },
 ];
 
-/* More products — variants listed; prices purely from CSV (product,variant,price) */
-const productDefs = [
-  { name:'Gamestick Lite Pandora Mini M8', variants:['64GB'] },
-  { name:'Gamestick Pro Pandora Pro M15', variants:['64GB'] },
-  { name:'Gamestick GD10 vayava', variants:['64GB','128GB'] },
-  { name:'Gamestick M33 vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick M22 vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick M55', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick M66', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick GS5 Mini', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick GD30v2 vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick GD30v3 vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick GD35 vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick GD35 GTA Sanandreas Edition vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamestick M88', variants:['64GB','128GB','256GB'] },
-  { name:'Gamebox Plus G10 Vayava', variants:['64GB','128GB'] },
-  { name:'Gamebox Plus G10 Ultimate Edition Vayava', variants:['64GB','128GB'] },
-  { name:'Gamebox G11Pro Vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamebox G11Pro Special Edition Vayava', variants:['64GB','128GB','256GB'] },
-  { name:'Gamebox G11Pro Ultimate Edition Vayava', variants:['64GB','128GB','256GB'] },
-  { name:'R35S', variants:['64GB'] },
-  { name:'R36S', variants:['64GB'] },
-  { name:'R36 ULTRA', variants:['64GB'] },
-  { name:'SUP X7M', variants:['SINGLE','DUAL'] },
-  { name:'BLACK HAWK', variants:['SINGLE'] },
-  { name:'BLACK GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:['STD'] },
-  { name:'P5 GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:['STD'] },
-  { name:'P5 SPIDER MAN THEME CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:['STD'] },
-  { name:'BLACK WIRE CONTROLLER FOR PS2 COMPATIBLE', variants:['STD'] },
-  { name:'WIRELESS CONTROLLER FOR PS2 COMPATIBLE', variants:['STD'] },
-  { name:'BLACK WIRELESS CONTROLLER FOR PS3 COMPATIBLE', variants:['STD'] },
-  { name:'PS2 SLIM', variants:['64GB','128GB','256GB','500GB'] },
-  { name:'PS3 SUPERSLIM', variants:['500GB'] },
-  { name:'PS3 SLIM', variants:['500GB'] },
-  { name:'XBOX 360', variants:['500GB'] },
-  { name:'PS4 FAT', variants:['500GB','1TB'] },
-  { name:'PS4 SLIM', variants:['500GB','1TB'] },
-  { name:'PS4 PRO', variants:['1TB','2TB'] },
+/* ====== 4) More Products (all hardcoded prices) ====== */
+const moreProducts = [
+  { name:'Gamestick Lite Pandora Mini M8', variants:[
+    {name:'64GB', price:2999},
+  ]},
+  { name:'Gamestick Pro Pandora Pro M15', variants:[
+    {name:'64GB', price:3499},
+  ]},
+  { name:'Gamestick GD10 vayava', variants:[
+    {name:'64GB', price:2999}, {name:'128GB', price:3999},
+  ]},
+  { name:'Gamestick M33 vayava', variants:[
+    {name:'64GB', price:3299}, {name:'128GB', price:4299}, {name:'256GB', price:5299},
+  ]},
+  { name:'Gamestick M22 vayava', variants:[
+    {name:'64GB', price:3199}, {name:'128GB', price:4199}, {name:'256GB', price:5199},
+  ]},
+  { name:'Gamestick M55', variants:[
+    {name:'64GB', price:3499}, {name:'128GB', price:5999}, {name:'256GB', price:6999},
+  ]},
+  { name:'Gamestick M66', variants:[
+    {name:'64GB', price:2999}, {name:'128GB', price:4999}, {name:'256GB', price:5999},
+  ]},
+  { name:'Gamestick GS5 Mini', variants:[
+    {name:'64GB', price:2799}, {name:'128GB', price:3799}, {name:'256GB', price:4799},
+  ]},
+  { name:'Gamestick GD30v2 vayava', variants:[
+    {name:'64GB', price:3099}, {name:'128GB', price:4099}, {name:'256GB', price:5099},
+  ]},
+  { name:'Gamestick GD30v3 vayava', variants:[
+    {name:'64GB', price:3299}, {name:'128GB', price:4299}, {name:'256GB', price:5299},
+  ]},
+  { name:'Gamestick GD35 vayava', variants:[
+    {name:'64GB', price:3499}, {name:'128GB', price:4499}, {name:'256GB', price:5499},
+  ]},
+  { name:'Gamestick GD35 GTA Sanandreas Edition vayava', variants:[
+    {name:'64GB', price:3799}, {name:'128GB', price:4799}, {name:'256GB', price:5799},
+  ]},
+  { name:'Gamestick M88', variants:[
+    {name:'64GB', price:4999}, {name:'128GB', price:5999}, {name:'256GB', price:6999},
+  ]},
+  { name:'Gamebox Plus G10 Vayava', variants:[
+    {name:'64GB', price:3699}, {name:'128GB', price:4699},
+  ]},
+  { name:'Gamebox Plus G10 Ultimate Edition Vayava', variants:[
+    {name:'64GB', price:3999}, {name:'128GB', price:4999},
+  ]},
+  { name:'Gamebox G11Pro Vayava', variants:[
+    {name:'64GB', price:4499}, {name:'128GB', price:5499}, {name:'256GB', price:6499},
+  ]},
+  { name:'Gamebox G11Pro Special Edition Vayava', variants:[
+    {name:'64GB', price:4699}, {name:'128GB', price:5699}, {name:'256GB', price:6699},
+  ]},
+  { name:'Gamebox G11Pro Ultimate Edition Vayava', variants:[
+    {name:'64GB', price:4999}, {name:'128GB', price:5999}, {name:'256GB', price:6999},
+  ]},
+  { name:'R35S', variants:[ {name:'64GB', price:3999} ]},
+  { name:'R36S', variants:[ {name:'64GB', price:4499} ]},
+  { name:'R36 ULTRA', variants:[ {name:'64GB', price:5499} ]},
+  { name:'SUP X7M', variants:[ {name:'SINGLE', price:1899}, {name:'DUAL', price:2199} ]},
+  { name:'BLACK HAWK', variants:[ {name:'SINGLE', price:2299} ]},
+  { name:'BLACK GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[ {name:'STD', price:1699} ]},
+  { name:'P5 GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[ {name:'STD', price:1899} ]},
+  { name:'P5 SPIDER MAN THEME CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[ {name:'STD', price:1999} ]},
+  { name:'BLACK WIRE CONTROLLER FOR PS2 COMPATIBLE', variants:[ {name:'STD', price:549} ]},
+  { name:'WIRELESS CONTROLLER FOR PS2 COMPATIBLE', variants:[ {name:'STD', price:749} ]},
+  { name:'BLACK WIRELESS CONTROLLER FOR PS3 COMPATIBLE', variants:[ {name:'STD', price:1399} ]},
+  { name:'PS2 SLIM', variants:[
+    {name:'64GB', price:7999}, {name:'128GB', price:8999}, {name:'256GB', price:9999}, {name:'500GB', price:11999},
+  ]},
+  { name:'PS3 SUPERSLIM', variants:[ {name:'500GB', price:11999} ]},
+  { name:'PS3 SLIM', variants:[ {name:'500GB', price:11999} ]},
+  { name:'XBOX 360', variants:[ {name:'500GB', price:10999} ]},
+  { name:'PS4 FAT', variants:[ {name:'500GB', price:17999}, {name:'1TB', price:20999} ]},
+  { name:'PS4 SLIM', variants:[ {name:'500GB', price:18999}, {name:'1TB', price:21999} ]},
+  { name:'PS4 PRO', variants:[ {name:'1TB', price:25999}, {name:'2TB', price:30999} ]},
 ];
 
-/* ===================== Renderers ===================== */
-function goPrefill(product,variant,base,pack){
-  const q=new URLSearchParams({product,variant,base,pack});
-  location.href=`order-prefill.html?${q}`;
-}
-
+/* ====== Renderers ====== */
 function renderFMCB(){
   const box=document.getElementById('fmcbCard'); box.innerHTML='';
-  fmcbModels.forEach(label=>{
-    const price=getPrice(FMCB_PRODUCT,label);
+  fmcbModels.forEach(({label,price})=>{
     const row=document.createElement('div'); row.className='row';
-    row.innerHTML=`<div class="name">${label}</div>`;
+    row.innerHTML = `<div class="name">${label}</div>`;
     const cta=document.createElement('div'); cta.className='cta';
     const b=document.createElement('button'); b.className='btn buy';
-    if(price!=null){ b.textContent=`${fmt(price)}`; b.onclick=()=>goPrefill(FMCB_PRODUCT,label,price,'Card Only'); }
-    else { b.textContent='Set price in CSV'; b.disabled=true; }
-    cta.appendChild(b); row.appendChild(cta); box.appendChild(row);
+    b.textContent = fmt(price);
+    b.onclick = ()=> goPrefill(fmcbProduct, label, price, 'Card Only');
+    cta.appendChild(b);
+    row.appendChild(cta);
+    box.appendChild(row);
   });
 }
 
 function renderUSB(){
   const box=document.getElementById('usbList'); box.innerHTML='';
-  usbVariants.forEach(v=>{
-    const pTop=getPrice(USB_PRODUCT,`${v} — Top`) ?? getPrice(USB_PRODUCT,`${v}-Top`) ?? getPrice(USB_PRODUCT,`${v} Top`);
-    const pOpt=getPrice(USB_PRODUCT,`${v} — Optional`) ?? getPrice(USB_PRODUCT,`${v}-Optional`) ?? getPrice(USB_PRODUCT,`${v} Optional`);
+  usbVariants.forEach(({v,top,opt})=>{
     const row=document.createElement('div'); row.className='row';
-    row.innerHTML=`<div class="name">${v}</div>`;
+    row.innerHTML = `<div class="name">${v}</div>`;
     const cta=document.createElement('div'); cta.className='cta';
     const b1=document.createElement('button'); b1.className='btn buy';
-    if(pTop!=null){ b1.textContent=`Top • ${fmt(pTop)}`; b1.onclick=()=>goPrefill(USB_PRODUCT,v,pTop,'Top'); }
-    else{ b1.textContent='Top • Set price'; b1.disabled=true; }
+    b1.textContent = `Top • ${fmt(top)}`;
+    b1.onclick = ()=> goPrefill(USB_PRODUCT, v, top, 'Top');
     const b2=document.createElement('button'); b2.className='btn alt';
-    if(pOpt!=null){ b2.textContent=`Optional • ${fmt(pOpt)}`; b2.onclick=()=>goPrefill(USB_PRODUCT,`${v} — Optional`,pOpt,'Optional'); }
-    else{ b2.textContent='Optional • Set price'; b2.disabled=true; }
-    cta.appendChild(b1); cta.appendChild(b2); row.appendChild(cta); box.appendChild(row);
+    b2.textContent = `Optional • ${fmt(opt)}`;
+    b2.onclick = ()=> goPrefill(USB_PRODUCT, `${v} — Optional`, opt, 'Optional');
+    cta.appendChild(b1); cta.appendChild(b2);
+    row.appendChild(cta);
+    box.appendChild(row);
   });
 }
 
 function renderCombo(){
   const box=document.getElementById('comboList'); box.innerHTML='';
-  comboVariants.forEach(({v,count})=>{
-    const pTop=getPrice(COMBO_PRODUCT,`${v} — Top`) ?? getPrice(COMBO_PRODUCT,`${v}-Top`) ?? getPrice(COMBO_PRODUCT,`${v} Top`);
-    const pOpt=getPrice(COMBO_PRODUCT,`${v} — Optional`) ?? getPrice(COMBO_PRODUCT,`${v}-Optional`) ?? getPrice(COMBO_PRODUCT,`${v} Optional`);
+  comboVariants.forEach(({v,top,opt,count})=>{
     const row=document.createElement('div'); row.className='row';
-    row.innerHTML=`<div class="name">${v} <span class="pill">🎮 Top ${count}</span></div>`;
+    row.innerHTML = `<div class="name">${v} <span class="pill">🎮 Top ${count}</span></div>`;
     const cta=document.createElement('div'); cta.className='cta';
     const b1=document.createElement('button'); b1.className='btn buy';
-    if(pTop!=null){ b1.textContent=`Top • ${fmt(pTop)}`; b1.onclick=()=>goPrefill(COMBO_PRODUCT,v,pTop,'Top'); }
-    else{ b1.textContent='Top • Set price'; b1.disabled=true; }
+    b1.textContent = `Top • ${fmt(top)}`;
+    b1.onclick = ()=> goPrefill(COMBO_PRODUCT, v, top, 'Top');
     const b2=document.createElement('button'); b2.className='btn alt';
-    if(pOpt!=null){ b2.textContent=`Optional • ${fmt(pOpt)}`; b2.onclick=()=>goPrefill(COMBO_PRODUCT,`${v} — Optional`,pOpt,'Optional'); }
-    else{ b2.textContent='Optional • Set price'; b2.disabled=true; }
-    cta.appendChild(b1); cta.appendChild(b2); row.appendChild(cta); box.appendChild(row);
+    b2.textContent = `Optional • ${fmt(opt)}`;
+    b2.onclick = ()=> goPrefill(COMBO_PRODUCT, `${v} — Optional`, opt, 'Optional');
+    cta.appendChild(b1); cta.appendChild(b2);
+    row.appendChild(cta);
+    box.appendChild(row);
   });
 }
 
 function renderMore(){
   const box=document.getElementById('moreProducts'); box.innerHTML='';
-  productDefs.forEach(prod=>{
+  moreProducts.forEach(prod=>{
     const head=document.createElement('div'); head.className='row';
-    head.innerHTML=`<div class="name">${prod.name}</div><div class="cta"></div>`;
+    head.innerHTML = `<div class="name">${prod.name}</div><div class="cta"></div>`;
     box.appendChild(head);
 
-    const varRow=document.createElement('div'); varRow.className='row';
-    varRow.innerHTML=`<div class="name small">Variants</div>`;
+    const row=document.createElement('div'); row.className='row';
+    row.innerHTML = `<div class="name small">Variants</div>`;
     const cta=document.createElement('div'); cta.className='cta';
 
-    prod.variants.forEach(variant=>{
-      const price = getPrice(prod.name, variant)
-        ?? getPrice(`${prod.name} ${variant}`, "")   // CSV written combined
-        ?? getPrice(prod.name, variant.replace(/\s/g,'')); // minor spacing differences
-
-      const b=document.createElement('button');
-      b.className='btn buy';
-      if(price!=null){ b.textContent=`${variant} • ${fmt(price)}`; b.onclick=()=>goPrefill(prod.name,variant,price,'Top'); }
-      else { b.textContent=`${variant} • Set price`; b.disabled=true; }
+    prod.variants.forEach(({name,price})=>{
+      const b=document.createElement('button'); b.className='btn buy';
+      b.textContent = `${name} • ${fmt(price)}`;
+      b.onclick = ()=> goPrefill(prod.name, name, price, 'Top');
       cta.appendChild(b);
     });
 
-    varRow.appendChild(cta);
-    box.appendChild(varRow);
-    const hr=document.createElement('hr'); hr.className='sep'; box.appendChild(hr);
+    row.appendChild(cta);
+    box.appendChild(row);
+    const hr=document.createElement('hr'); hr.className='sep';
+    box.appendChild(hr);
   });
 }
 
 function renderAll(){ renderFMCB(); renderUSB(); renderCombo(); renderMore(); }
-
-/* ===================== Start ===================== */
-loadCSV();
+renderAll();
 </script>
 </body>
 </html>
