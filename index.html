@@ -112,13 +112,81 @@
             <label>Product Name <span class="pill">required</span></label>
             <select id="product">
               <option value="">Select a product</option>
-              <option value="PLAYSTATION 2 SLIM">PlayStation 2 Slim</option>
-              <option value="FMCB CARD + USB">FMCB Card + USB</option>
-              <option value="OG GAMESTICK GD30v3 (VAYAVA)">OG GAMESTICK GD30v3 (VAYAVA)</option>
-              <option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option>
-              <option value="GPZ R35S">GPZ R35S</option>
-              <option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option>
-              <option value="MICRO SD CARD">MICRO SD CARD</option>
+
+              <!-- PlayStation family -->
+              <optgroup label="PlayStation 2">
+                <option value="PLAYSTATION 2 SLIM">PlayStation 2 Slim</option>
+                <option value="PS2 FAT">PlayStation 2 Fat</option>
+                <option value="PS2 SLIM 70000 SERIES">PS2 Slim 70000 Series</option>
+                <option value="PS2 SLIM 90000 SERIES">PS2 Slim 90000 Series</option>
+                <option value="FMCB CARD">FMCB Card (PS2)</option>
+                <option value="USB FOR PS2">USB for PS2 (Game USB)</option>
+                <option value="FMCB CARD + USB">FMCB Card + USB Combo</option>
+                <option value="PS2 GAMEPAD">PS2 Gamepad (Wired)</option>
+              </optgroup>
+
+              <optgroup label="PlayStation 3">
+                <option value="PS3 SLIM">PlayStation 3 Slim</option>
+                <option value="PS3 SUPERSLIM">PlayStation 3 SuperSlim</option>
+              </optgroup>
+
+              <optgroup label="PlayStation 4">
+                <option value="PS4 FAT">PlayStation 4 Fat</option>
+                <option value="PS4 SLIM">PlayStation 4 Slim</option>
+                <option value="PS4 PRO">PlayStation 4 Pro</option>
+              </optgroup>
+
+              <!-- Classic Retro 2D-3D -->
+              <optgroup label="Classic Retro 2D-3D">
+                <option value="GAMESTICK GD10 (VAYAVA)">GAMESTICK GD10 (VAYAVA)</option>
+                <option value="OG GAMESTICK GD30v1 (VAYAVA)">OG GAMESTICK GD30v1 (VAYAVA)</option>
+                <option value="OG GAMESTICK GD30v3 (VAYAVA)">OG GAMESTICK GD30v3 (VAYAVA)</option>
+                <option value="OG GAMESTICK GD30v3 SPECIAL EDITION (VAYAVA)">OG GAMESTICK GD30v3 SPECIAL EDITION (VAYAVA)</option>
+
+                <option value="OG GPZ M22 (VAYAVA)">OG GPZ M22 (VAYAVA)</option>
+                <option value="OG GPZ M33 (VAYAVA)">OG GPZ M33 (VAYAVA)</option>
+
+                <option value="M55 GAMESTICK 64GB">M55 GameStick 64GB</option>
+                <option value="M55 GAMESTICK 128GB">M55 GameStick 128GB</option>
+                <option value="M55 GAMESTICK 256GB">M55 GameStick 256GB</option>
+
+                <option value="M66 GAMESTICK 64GB">M66 GameStick 64GB</option>
+                <option value="M66 GAMESTICK 128GB">M66 GameStick 128GB</option>
+                <option value="M66 GAMESTICK 256GB">M66 GameStick 256GB</option>
+
+                <option value="M88 GAMESTICK 128GB">M88 GameStick 128GB</option>
+
+                <option value="GAMEBOX PLUS G10 (VAYAVA)">GAMEBOX PLUS G10 (VAYAVA)</option>
+                <option value="GAMEBOX PLUS G10 ULTIMATE EDITON">GAMEBOX PLUS G10 ULTIMATE EDITON</option>
+                <option value="GAMEBOX G11 PRO (VAYAVA)">GAMEBOX G11 PRO (VAYAVA)</option>
+                <option value="GAMEBOX G11 PRO SPECIAL EDITION P3">GAMEBOX G11 PRO SPECIAL EDITION P3</option>
+                <option value="GAMEBOX G11 PRO ULTIMATE EDITION">GAMEBOX G11 PRO ULTIMATE EDITION</option>
+
+                <option value="GD35 10K GAMESTICK (VAYAVA)">GD35 10K GameStick (VAYAVA)</option>
+                <option value="GD35 10K GAMESTICK GTA SAN EDITION">GD35 10K GameStick GTA San Edition</option>
+
+                <option value="PANDORA GAMESTICK LITE AOKO">PANDORA GAMESTICK LITE AOKO</option>
+                <option value="PANDORA GAMESTICK PRO WHITEBOX">PANDORA GAMESTICK PRO WHITEBOX</option>
+
+                <option value="GPZ R35S">GPZ R35S</option>
+                <option value="X7M SUP GAME">X7M SUP GAME</option>
+                <option value="SEGA 16 BIT MINI U BOX MD">SEGA 16 BIT MINI U BOX MD</option>
+              </optgroup>
+
+              <!-- handheld / micro sd / storage -->
+              <optgroup label="micro sd Card (game packs)">
+                <option value="MICRO SD CARD 64GB">microSD Card 64GB (Retro Pack)</option>
+                <option value="MICRO SD CARD 128GB">microSD Card 128GB (Retro Pack)</option>
+                <option value="MICRO SD CARD 256GB">microSD Card 256GB (Retro Pack)</option>
+              </optgroup>
+
+              <optgroup label="Game Controllers & Accessories">
+                <option value="GAMEPAD (GENERIC)">Gamepad (Generic)</option>
+                <option value="WIRELESS GAMEPAD (2.4G)">Wireless Gamepad (2.4G)</option>
+                <option value="HDMI EXTENDER">HDMI Extender</option>
+                <option value="USB CABLE / POWER ADAPTER">USB Cable / Power Adapter</option>
+              </optgroup>
+
               <option value="other">PRODUCT NOT IN LIST</option>
             </select>
             <div id="otherWrap" style="display:none;margin-top:8px">
@@ -150,7 +218,7 @@
           </div>
         </div>
 
-        <!-- PAYMENT MODE + COUPON (moved above summary) -->
+        <!-- PAYMENT MODE + COUPON (above summary) -->
         <div class="row">
           <div>
             <label>Payment Mode</label>
@@ -230,7 +298,7 @@
         <div class="stack" style="margin-top:10px">
           <button class="btn" id="btnWhatsPre">Generate Prepaid WhatsApp</button>
           <button class="btn warn" id="btnWhatsCOD">Generate COD WhatsApp</button>
-          <button class="btn ghost" id="btnReset">Reset</button>
+          <button class="btn.ghost" id="btnReset">Reset</button>
         </div>
       </section>
 
@@ -294,7 +362,7 @@
 
   <script>
     // =================== CONFIG ===================
-    const UPI_ID = "";          // e.g. "your@upi"  (amount-only as per your policy)
+    const UPI_ID = "";          // e.g. "your@upi"  (amount-only)
     const ALT_UPI_ID = "";      // optional second UPI
     const COUPON_CODE = "gpz2025"; // lowercase match
 
@@ -361,47 +429,35 @@
       flash.style.display = 'block';
       setTimeout(()=>flash.style.display='none', 2500);
     }
-
     function toInt(x){ return Math.max(0, Math.round(Number(x||0))); }
 
     function applyCoupon(base){
       const code = (couponEl.value||"").trim().toLowerCase();
       if (paymentTypeEl.value !== 'prepaid' || !code || code !== COUPON_CODE) return 0;
-
-      // storage-tier discount
       const gb = gbEl.value;
       let disc = 0;
       if (gb === '64') disc = 200;
       else if (gb === '128') disc = 300;
       else if (gb === '256' || Number(gb) >= 256) disc = 500;
 
-      if (disc>0) {
-        discountInfoBox.textContent = `Coupon applied: -₹${disc}`;
-        showFlash("Congratulations! Discount applied.");
-      } else {
-        discountInfoBox.textContent = "Coupon valid, but storage not eligible for discount tier.";
-      }
+      if (disc>0) { discountInfoBox.textContent = `Coupon applied: -₹${disc}`; showFlash("Congratulations! Discount applied."); }
+      else { discountInfoBox.textContent = "Coupon valid, but storage not eligible for discount tier."; }
       return Math.min(disc, base);
     }
 
-    function codAdvance(base){
-      return Math.max(COD_MIN_ADV, Math.ceil(base * COD_ADV_RATE));
-    }
+    function codAdvance(base){ return Math.max(COD_MIN_ADV, Math.ceil(base * COD_ADV_RATE)); }
 
     function updatePS2Visibility(){
-      ps2ModelGroup.style.display = (productEl.value === 'PLAYSTATION 2 SLIM') ? 'block' : 'none';
+      const v = productEl.value;
+      ps2ModelGroup.style.display = (v === 'PLAYSTATION 2 SLIM') ? 'block' : 'none';
     }
-
-    function updateOtherProduct(){
-      otherWrap.style.display = (productEl.value === 'other') ? 'block' : 'none';
-    }
+    function updateOtherProduct(){ otherWrap.style.display = (productEl.value === 'other') ? 'block' : 'none'; }
 
     // =================== PRICE ENGINE ===================
     function recalc(){
       const base = toInt(basePriceEl.value);
       let discount = 0, paid = 0, rest = 0;
 
-      // delivery add-on
       const deliveryAdd = (deliveryOptionEl.value === 'express') ? 200 : 0;
 
       if (paymentTypeEl.value === 'prepaid'){
@@ -416,12 +472,9 @@
         discountInfoBox.textContent = "";
         discount = 0;
         let total = base + deliveryAdd;
-
-        // COD extra if base < 1500
         let codExtra = (base < 1500) ? COD_EXTRA_UNDER_1500 : 0;
         total += codExtra;
-
-        paid = codAdvance(base);  // advance only on base
+        paid = codAdvance(base);
         rest = Math.max(0, total - paid);
         restLabelEl.textContent = "Rest on Delivery (₹)";
         codChargeNote.style.display = 'block';
@@ -432,11 +485,8 @@
       amountPaidEl.value = String(paid);
       restAmountEl.value = String(rest);
 
-      // Update UPI buttons
       payNowBtn.textContent = `Pay ₹${paid}`;
       payAltBtn.textContent = `Alternate Pay ₹${paid}`;
-
-      // refresh QR
       drawUPIQR(paid);
     }
 
@@ -459,80 +509,46 @@
               postOfficeEl.appendChild(opt);
             });
           }
-        } else {
-          alert("Pincode not found.");
-        }
-      }catch(e){
-        alert("Failed to fetch pincode details.");
-      }
+        } else { alert("Pincode not found."); }
+      }catch(e){ alert("Failed to fetch pincode details."); }
     }
 
-    // =================== UPI PAYMENT ===================
+    // =================== UPI PAYMENT (amount only) ===================
     function upiLink(amount, alt=false){
       const pa = alt ? ALT_UPI_ID : UPI_ID;
-      // amount-only, no payee name
       const a = Number(amount||0).toFixed(2);
-      if(!pa){
-        return `upi://pay?am=${encodeURIComponent(a)}`;
-      }
+      if(!pa){ return `upi://pay?am=${encodeURIComponent(a)}`; }
       return `upi://pay?pa=${encodeURIComponent(pa)}&am=${encodeURIComponent(a)}`;
     }
+    function openUPI(amount, alt=false){ window.location.href = upiLink(amount, alt); }
 
-    function openUPI(amount, alt=false){
-      const link = upiLink(amount, alt);
-      window.location.href = link;
-    }
-
-    // Basic QR (numeric squares) — minimal for UPI string
+    // Fallback QR: renders UPI URI text (replace with real QR lib if you want)
     function drawUPIQR(amount){
       try{
         const ctx = qrCanvas.getContext('2d');
         ctx.fillStyle = '#fff'; ctx.fillRect(0,0,qrCanvas.width,qrCanvas.height);
-        // Simple fallback QR-esque pattern (not true QR). Replace with real QR lib if needed.
-        // To avoid broken UX, we render the UPI text below.
-        ctx.fillStyle = '#000';
-        ctx.font = '12px monospace';
+        ctx.fillStyle = '#000'; ctx.font = '12px monospace';
         const text = upiLink(amount);
         wrapText(ctx, text, 10, 20, 220, 16);
         qrSection.style.display = 'block';
-      }catch(e){
-        qrSection.style.display = 'none';
-      }
+      }catch(e){ qrSection.style.display = 'none'; }
     }
-
     function wrapText(ctx, text, x, y, maxWidth, lineHeight){
       const words = text.split(' ');
       let line = '';
       for(let n=0;n<words.length;n++){
-        const testLine = line + words[n] + ' ';
-        const metrics = ctx.measureText(testLine);
-        if (metrics.width > maxWidth && n>0){
-          ctx.fillText(line, x, y);
-          line = words[n] + ' ';
-          y += lineHeight;
-        } else {
-          line = testLine;
-        }
+        const test = line + words[n] + ' ';
+        if (ctx.measureText(test).width > maxWidth && n>0){ ctx.fillText(line, x, y); line = words[n]+' '; y+=lineHeight; }
+        else { line = test; }
       }
       ctx.fillText(line, x, y);
     }
+    function downloadCanvas(canvas, filename='upi-qr.png'){ const a=document.createElement('a'); a.download=filename; a.href=canvas.toDataURL('image/png'); a.click(); }
 
-    function downloadCanvas(canvas, filename='upi-qr.png'){
-      const link = document.createElement('a');
-      link.download = filename;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
-    }
-
-    // =================== ETA SIMPLE LOGIC ===================
+    // =================== ETA (simple) ===================
     function computeETA(){
-      // If user filled custom ETA/dates, keep. Otherwise quick defaults.
-      if(!etaTextEl.value){
-        const isCOD = paymentTypeEl.value === 'cod';
-        etaTextEl.value = isCOD ? '4–7 days (COD +2 days)' : '3–5 days';
-      }
+      if(!etaTextEl.value){ etaTextEl.value = (paymentTypeEl.value==='cod') ? '4–7 days (COD +2 days)' : '3–5 days'; }
       if(!estDeliveryEl.value){
-        // rough window +3 to +5 days (prepaid), +2 extra for COD
         const today = new Date();
         const addA = paymentTypeEl.value==='cod' ? 4 : 3;
         const addB = paymentTypeEl.value==='cod' ? 7 : 5;
@@ -545,7 +561,8 @@
 
     // =================== WHATSAPP MESSAGE ===================
     function buildMsg(isPrepaid=true){
-      const pName = (productEl.value==='other' ? (otherProductEl.value||'') : productEl.value) || '';
+      const pVal = productEl.value;
+      const pName = (pVal==='other' ? (otherProductEl.value||'') : pVal) || '';
       const variant = gbEl.value ? (gbEl.value+'GB') : '';
 
       const fields = {
@@ -572,11 +589,7 @@
       };
 
       const lines = [];
-      if (isPrepaid){
-        lines.push('🟢 Prepaid Order on WhatsApp','');
-      } else {
-        lines.push('🔴 COD Order on WhatsApp','');
-      }
+      lines.push(isPrepaid ? '🟢 Prepaid Order on WhatsApp' : '🔴 COD Order on WhatsApp','');
       lines.push(
         `Order ID: ${fields.orderId}`,
         `Name: ${fields.name}`,
@@ -596,11 +609,7 @@
         `Discount Applied: ₹ ${fields.discount}`,
         `Amount Paid: ₹ ${fields.paid}`
       );
-
-      if (!isPrepaid){
-        lines.push(`Rest on Delivery: ₹ ${fields.rest}`);
-      }
-
+      if (!isPrepaid){ lines.push(`Rest on Delivery: ₹ ${fields.rest}`); }
       lines.push(
         ``,
         `📏 Distance: ${fields.distance}`,
@@ -608,18 +617,13 @@
         `📅 Estimated Delivery: ${fields.delivery}`,
         `Delivery Circumstances and conditions:`
       );
-
       return lines.join('\n');
     }
 
-    function updatePreview(){
-      const isPre = (paymentTypeEl.value==='prepaid');
-      msgPreview.textContent = buildMsg(isPre);
-    }
+    function updatePreview(){ msgPreview.textContent = buildMsg(paymentTypeEl.value==='prepaid'); }
 
     function openWhatsApp(isPrepaid=true){
       const text = encodeURIComponent(buildMsg(isPrepaid));
-      // redirect to your business number chat; replace with your wa.me if needed:
       window.open(`https://wa.me/917983624797?text=${text}`,'_blank');
     }
 
@@ -627,9 +631,7 @@
     productEl.addEventListener('change', ()=>{
       updatePS2Visibility();
       updateOtherProduct();
-      if (productEl.value==='PLAYSTATION 2 SLIM'){
-        window.open("https://gamesplanet13.github.io/ps2/","_blank");
-      }
+      if (productEl.value==='PLAYSTATION 2 SLIM'){ window.open("https://gamesplanet13.github.io/ps2/","_blank"); }
       recalc(); updatePreview();
     });
 
@@ -639,9 +641,7 @@
     basePriceEl.addEventListener('input', ()=>{ recalc(); updatePreview(); });
     deliveryOptionEl.addEventListener('change', ()=>{ recalc(); updatePreview(); computeETA(); });
 
-    pincodeEl.addEventListener('input', ()=>{
-      if (pincodeEl.value.trim().length===6) lookupPincode();
-    });
+    pincodeEl.addEventListener('input', ()=>{ if (pincodeEl.value.trim().length===6) lookupPincode(); });
 
     [orderIdEl,custNameEl,mobileEl,altMobileEl,emailEl,landmarkEl,addressEl,stateEl,districtEl,postOfficeEl,distanceKmEl,etaTextEl,estDeliveryEl]
       .forEach(n => n.addEventListener('input', updatePreview));
@@ -659,6 +659,8 @@
       recalc(); computeETA(); updatePreview();
     });
 
+    const payNowBtn = document.getElementById('payNowBtn');
+    const payAltBtn = document.getElementById('payAltBtn');
     payNowBtn.addEventListener('click', ()=>openUPI(amountPaidEl.value,false));
     payAltBtn.addEventListener('click', ()=>openUPI(amountPaidEl.value,true));
     btnDownloadQR.addEventListener('click', ()=>downloadCanvas(qrCanvas));
@@ -666,7 +668,6 @@
 
     // =================== INIT ===================
     window.addEventListener('DOMContentLoaded', ()=>{
-      // defaults
       paymentTypeEl.value = 'prepaid';
       couponGroup.style.display = 'block';
       computeETA();
