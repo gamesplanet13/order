@@ -32,9 +32,9 @@ h1{font-size:clamp(22px,3.5vw,34px);margin:0}
 .linkbtn{display:inline-flex;align-items:center;gap:8px;border:1.5px solid rgba(255,255,255,.12);padding:9px 12px;border-radius:12px;color:var(--text);text-decoration:none;font-weight:700}
 .linkbtn:hover{box-shadow:0 0 0 6px var(--ring2)}
 
-.grid{display:flex;flex-direction:column;gap:18px} /* column order */
+.grid{display:flex;flex-direction:column;gap:18px}
 .card{background:var(--card);border-radius:20px;padding:18px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.card:after{content:"";position:absolute;inset:auto -30% -30% auto;width:220px;height:220px;background:radial-gradient(90px 90px at 70% 30%, var(--ring), transparent 60%);pointer-events:none} /* mobile tap fix */
+.card:after{content:"";position:absolute;inset:auto -30% -30% auto;width:220px;height:220px;background:radial-gradient(90px 90px at 70% 30%, var(--ring), transparent 60%);pointer-events:none}
 .badge{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;background:var(--chip);color:var(--muted);border-radius:999px;font-size:12px;font-weight:700;margin-right:6px}
 .title{margin:10px 0 6px;font-size:20px}
 .muted{color:var(--muted);font-size:14px}
@@ -54,6 +54,8 @@ h1{font-size:clamp(22px,3.5vw,34px);margin:0}
 .foot{opacity:.85;margin-top:34px;font-size:12px;color:var(--muted)}
 .small{font-size:12px;color:var(--muted)}
 hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
+.imgrow{display:flex;justify-content:center;gap:12px;margin:10px 0;flex-wrap:wrap}
+.imgrow img{border-radius:12px;box-shadow:var(--shadow);max-height:110px}
 </style>
 </head>
 <body>
@@ -73,67 +75,60 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
   </div>
 
   <div class="grid">
-<!-- 1) FMCB / FunTuna Card -->
-<section class="card" aria-labelledby="fmcb-title">
-<span class="badge">FMCB / FunTuna Card</span>
-<h2 class="title" id="fmcb-title">Memory Card for PS2 (Model-wise)</h2>
-       <!-- IMAGE ROW: FMCB -->
-      <div style="display:flex;justify-content:center;gap:12px;margin:10px 0;flex-wrap:wrap">
-        <img src="Fmcb.png" alt="FMCB 8MB Memory Card" style="max-width:90px;border-radius:10px;box-shadow:var(--shadow)">
-<div class="muted">Boot PS2 games from USB using preconfigured FMCB / FunTuna + OPL. Choose your model:</div>
-<div class="variants" id="fmcbCard">
-<div class="row">
-<div class="name">PS2 Fat (All Models) — <b>FMCB</b> <span class="pill">🟢 ₹999</span></div>
-<div></div>
-<div class="cta"><button class="btn buy" onclick="goPrefill('Memory Card','PS2 Fat (All Models) — FMCB',999,'Card Only',false)">Buy</button></div>
-</div>
-<div class="row">
-<div class="name">PS2 Slim 7xxxx (All) — <b>FMCB</b> <span class="pill">🟢 ₹999</span></div>
-<div></div>
-<div class="cta"><button class="btn buy" onclick="goPrefill('Memory Card','PS2 Slim 7xxxx (All) — FMCB',999,'Card Only',false)">Buy</button></div>
-</div>
-<div class="row">
-<div class="name">PS2 Slim 9xxxx (All) — <b>FunTuna</b> <span class="pill">🟢 ₹999</span></div>
-<div></div>
-<div class="cta"><button class="btn buy" onclick="goPrefill('Memory Card','PS2 Slim 9xxxx (All) — FunTuna',999,'Card Only',false)">Buy</button></div>
-</div>
-</div>
-</section>
+    <!-- 1) FMCB / FunTuna Card -->
+    <section class="card" aria-labelledby="fmcb-title">
+      <span class="badge">FMCB / FunTuna Card</span>
+      <h2 class="title" id="fmcb-title">Memory Card for PS2 (Model-wise)</h2>
 
-<!-- 2) USB Only -->
-<section class="card" aria-labelledby="usb-title">
-<span class="badge">USB Only</span>
-<h2 class="title" id="usb-title">USB for PlayStation 2 — Game-Loaded</h2>
-<!-- IMAGE ROW: USB pendrive + USB HDD -->
-<div style="display:flex;justify-content:center;gap:16px;margin:10px 0;flex-wrap:wrap">
-        <img src="Usb.jpg" alt="USB Pendrive for PS2" style="max-width:120px;border-radius:12px;box-shadow:var(--shadow)">
-        <img src="Usbhdd.jpeg" alt="USB HDD for PS2" style="max-width:160px;border-radius:12px;box-shadow:var(--shadow)">
-</div>
-<div class="muted">Requires FMCB card + latest OPL. Plug directly into PS2 (no hub/splitter).</div>
-<div class="variants" id="usbList"></div>
-<div class="links" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
-<a class="linkbtn" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">🎞️ Top Games List (Video)</a>
-<a class="linkbtn" href="https://youtu.be/bpGm0IAeyek" target="_blank" rel="noopener">🧩 Setup Guide</a>
-</div>
-</section>
+      <!-- Images -->
+      <div class="imgrow">
+        <img src="Fmcb.png" alt="FMCB 8MB Memory Card" style="max-width:90px">
+      </div>
+      <div class="muted">Boot PS2 games from USB using preconfigured FMCB / FunTuna + OPL. Choose your model:</div>
 
-<!-- 3) FMCB + USB Combo -->
-<section class="card" aria-labelledby="combo-title">
-<span class="badge">Combo Best Value</span>
-<h2 class="title" id="combo-title">FMCB + USB Combo for PS2</h2>
-<!-- IMAGE ROW: FMCB + USB pendrive + USB HDD (small) -->
-<div style="display:flex;justify-content:center;gap:12px;margin:10px 0;flex-wrap:wrap">        
-        <img src="Fmcb.png" alt="FMCB 8MB Memory Card" style="max-width:90px;border-radius:10px;box-shadow:var(--shadow)">
-        <img src="Usb.jpg" alt="USB Pendrive" style="max-width:90px;border-radius:10px;box-shadow:var(--shadow)">
-        <img src="Usbhdd.jpeg" alt="USB HDD" style="max-width:110px;border-radius:10px;box-shadow:var(--shadow)">
-</div>
-<div class="muted">Fully Plug & Play. Works on PS2 Fat, Slim 7xxxx (FMCB) & Slim 9xxxx (FunTuna).</div>
-<div class="variants" id="comboList"></div>
-<div class="links" style="margin-top:12px">
-<a class="linkbtn" href="https://youtu.be/bpGm0IAeyek" target="_blank" rel="noopener">📺 Setup Video</a>
-</div>
-</section>
-</div>
+      <div class="variants" id="fmcbCard"><!-- JS injects rows here --></div>
+    </section>
+
+    <!-- 2) USB Only -->
+    <section class="card" aria-labelledby="usb-title">
+      <span class="badge">USB Only</span>
+      <h2 class="title" id="usb-title">USB for PlayStation 2 — Game-Loaded</h2>
+      <div class="imgrow">
+        <img src="Usb.jpg" alt="USB Pendrive for PS2">
+        <img src="Usbhdd.jpeg" alt="USB HDD for PS2">
+      </div>
+      <div class="muted">Requires FMCB card + latest OPL. Plug directly into PS2 (no hub/splitter).</div>
+      <div class="variants" id="usbList"></div>
+      <div class="links" style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+        <a class="linkbtn" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">🎞️ Top Games List (Video)</a>
+        <a class="linkbtn" href="https://youtu.be/bpGm0IAeyek" target="_blank" rel="noopener">🧩 Setup Guide</a>
+      </div>
+    </section>
+
+    <!-- 3) FMCB + USB Combo -->
+    <section class="card" aria-labelledby="combo-title">
+      <span class="badge">Combo Best Value</span>
+      <h2 class="title" id="combo-title">FMCB + USB Combo for PS2</h2>
+      <div class="imgrow">
+        <img src="Fmcb.png" alt="FMCB 8MB Memory Card" style="max-width:90px">
+        <img src="Usb.jpg" alt="USB Pendrive" style="max-width:90px">
+        <img src="Usbhdd.jpeg" alt="USB HDD" style="max-width:110px">
+      </div>
+      <div class="muted">Fully Plug & Play. Works on PS2 Fat, Slim 7xxxx (FMCB) & Slim 9xxxx (FunTuna).</div>
+      <div class="variants" id="comboList"></div>
+      <div class="links" style="margin-top:12px">
+        <a class="linkbtn" href="https://youtu.be/bpGm0IAeyek" target="_blank" rel="noopener">📺 Setup Video</a>
+      </div>
+    </section>
+
+    <!-- 4) More Products (consoles removed) -->
+    <section class="card" aria-labelledby="more-title">
+      <span class="badge">More Products</span>
+      <h2 class="title" id="more-title">Retro Consoles, Handhelds & Controllers</h2>
+      <div class="muted">Variant buttons show price. Click to prefill order.</div>
+      <div class="variants" id="moreProducts"></div>
+    </section>
+  </div>
 
   <!-- Important notes -->
   <div class="section">
@@ -181,9 +176,12 @@ hr.sep{border:none;border-top:1px dashed rgba(255,255,255,.12);margin:18px 0}
 <script>
 /* ====== UTIL ====== */
 const fmt = n => "₹"+Number(n).toLocaleString("en-IN");
-function goPrefill(product,variant,base,pack){ const q=new URLSearchParams({product,variant,base,pack}); location.href=`order-prefill.html?${q}`; }
+function goPrefill(product,variant,base,pack){
+  const q=new URLSearchParams({product,variant,base,pack});
+  location.href=`order-prefill.html?${q}`;
+}
 
-/* ====== 1) FMCB / FunTuna (hardcoded) ====== */
+/* ====== 1) FMCB / FunTuna (render with pill + Buy) ====== */
 const fmcbProduct = 'Memory Card';
 const fmcbModels = [
   { label:'PS2 Fat (All Models) — FMCB', price:999 },
@@ -213,73 +211,37 @@ const comboVariants = [
   { v:'500GB SSD', top: 4699, opt: 5149, count:175 },
 ];
 
-/* ====== 4) More Products (CONSOLES REMOVED) ====== */
+/* ====== 4) More Products (consoles removed) ====== */
 const moreProducts = [
-  { name:'Gamestick Lite Pandora Mini M8', variants:[
-    {name:'64GB', price:2999},
-  ]},
-  { name:'Gamestick Pro Pandora Pro M15', variants:[
-    {name:'64GB', price:3499},
-  ]},
-  { name:'Gamestick GD10 vayava', variants:[
-    {name:'64GB', price:2999}, {name:'128GB', price:3999},
-  ]},
-  { name:'Gamestick M33 vayava', variants:[
-    {name:'64GB', price:3299}, {name:'128GB', price:4299}, {name:'256GB', price:5299},
-  ]},
-  { name:'Gamestick M22 vayava', variants:[
-    {name:'64GB', price:3199}, {name:'128GB', price:4199}, {name:'256GB', price:5199},
-  ]},
-  { name:'Gamestick M55', variants:[
-    {name:'64GB', price:3499}, {name:'128GB', price:5999}, {name:'256GB', price:6999},
-  ]},
-  { name:'Gamestick M66', variants:[
-    {name:'64GB', price:2999}, {name:'128GB', price:4999}, {name:'256GB', price:5999},
-  ]},
-  { name:'Gamestick GS5 Mini', variants:[
-    {name:'64GB', price:2799}, {name:'128GB', price:3799}, {name:'256GB', price:4799},
-  ]},
-  { name:'Gamestick GD30v2 vayava', variants:[
-    {name:'64GB', price:3099}, {name:'128GB', price:4099}, {name:'256GB', price:5099},
-  ]},
-  { name:'Gamestick GD30v3 vayava', variants:[
-    {name:'64GB', price:3299}, {name:'128GB', price:4299}, {name:'256GB', price:5299},
-  ]},
-  { name:'Gamestick GD35 vayava', variants:[
-    {name:'64GB', price:3499}, {name:'128GB', price:4499}, {name:'256GB', price:5499},
-  ]},
-  { name:'Gamestick GD35 GTA Sanandreas Edition vayava', variants:[
-    {name:'64GB', price:3799}, {name:'128GB', price:4799}, {name:'256GB', price:5799},
-  ]},
-  { name:'Gamestick M88', variants:[
-    {name:'64GB', price:4999}, {name:'128GB', price:5999}, {name:'256GB', price:6999},
-  ]},
-  { name:'Gamebox Plus G10 Vayava', variants:[
-    {name:'64GB', price:3699}, {name:'128GB', price:4699},
-  ]},
-  { name:'Gamebox Plus G10 Ultimate Edition Vayava', variants:[
-    {name:'64GB', price:3999}, {name:'128GB', price:4999},
-  ]},
-  { name:'Gamebox G11Pro Vayava', variants:[
-    {name:'64GB', price:4499}, {name:'128GB', price:5499}, {name:'256GB', price:6499},
-  ]},
-  { name:'Gamebox G11Pro Special Edition Vayava', variants:[
-    {name:'64GB', price:4699}, {name:'128GB', price:5699}, {name:'256GB', price:6699},
-  ]},
-  { name:'Gamebox G11Pro Ultimate Edition Vayava', variants:[
-    {name:'64GB', price:4999}, {name:'128GB', price:5999}, {name:'256GB', price:6999},
-  ]},
-  { name:'R35S', variants:[ {name:'64GB', price:3999} ]},
-  { name:'R36S', variants:[ {name:'64GB', price:4499} ]},
-  { name:'R36 ULTRA', variants:[ {name:'64GB', price:5499} ]},
-  { name:'SUP X7M', variants:[ {name:'SINGLE', price:1899}, {name:'DUAL', price:2199} ]},
-  { name:'BLACK HAWK', variants:[ {name:'SINGLE', price:2299} ]},
-  { name:'BLACK GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[ {name:'STD', price:1699} ]},
-  { name:'P5 GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[ {name:'STD', price:1899} ]},
-  { name:'P5 SPIDER MAN THEME CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[ {name:'STD', price:1999} ]},
-  { name:'BLACK WIRE CONTROLLER FOR PS2 COMPATIBLE', variants:[ {name:'STD', price:549} ]},
-  { name:'WIRELESS CONTROLLER FOR PS2 COMPATIBLE', variants:[ {name:'STD', price:749} ]},
-  { name:'BLACK WIRELESS CONTROLLER FOR PS3 COMPATIBLE', variants:[ {name:'STD', price:1399} ]},
+  { name:'Gamestick Lite Pandora Mini M8', variants:[{name:'64GB', price:2999}]},
+  { name:'Gamestick Pro Pandora Pro M15', variants:[{name:'64GB', price:3499}]},
+  { name:'Gamestick GD10 vayava', variants:[{name:'64GB', price:2999},{name:'128GB', price:3999}]},
+  { name:'Gamestick M33 vayava', variants:[{name:'64GB', price:3299},{name:'128GB', price:4299},{name:'256GB', price:5299}]},
+  { name:'Gamestick M22 vayava', variants:[{name:'64GB', price:3199},{name:'128GB', price:4199},{name:'256GB', price:5199}]},
+  { name:'Gamestick M55', variants:[{name:'64GB', price:3499},{name:'128GB', price:5999},{name:'256GB', price:6999}]},
+  { name:'Gamestick M66', variants:[{name:'64GB', price:2999},{name:'128GB', price:4999},{name:'256GB', price:5999}]},
+  { name:'Gamestick GS5 Mini', variants:[{name:'64GB', price:2799},{name:'128GB', price:3799},{name:'256GB', price:4799}]},
+  { name:'Gamestick GD30v2 vayava', variants:[{name:'64GB', price:3099},{name:'128GB', price:4099},{name:'256GB', price:5099}]},
+  { name:'Gamestick GD30v3 vayava', variants:[{name:'64GB', price:3299},{name:'128GB', price:4299},{name:'256GB', price:5299}]},
+  { name:'Gamestick GD35 vayava', variants:[{name:'64GB', price:3499},{name:'128GB', price:4499},{name:'256GB', price:5499}]},
+  { name:'Gamestick GD35 GTA Sanandreas Edition vayava', variants:[{name:'64GB', price:3799},{name:'128GB', price:4799},{name:'256GB', price:5799}]},
+  { name:'Gamestick M88', variants:[{name:'64GB', price:4999},{name:'128GB', price:5999},{name:'256GB', price:6999}]},
+  { name:'Gamebox Plus G10 Vayava', variants:[{name:'64GB', price:3699},{name:'128GB', price:4699}]},
+  { name:'Gamebox Plus G10 Ultimate Edition Vayava', variants:[{name:'64GB', price:3999},{name:'128GB', price:4999}]},
+  { name:'Gamebox G11Pro Vayava', variants:[{name:'64GB', price:4499},{name:'128GB', price:5499},{name:'256GB', price:6499}]},
+  { name:'Gamebox G11Pro Special Edition Vayava', variants:[{name:'64GB', price:4699},{name:'128GB', price:5699},{name:'256GB', price:6699}]},
+  { name:'Gamebox G11Pro Ultimate Edition Vayava', variants:[{name:'64GB', price:4999},{name:'128GB', price:5999},{name:'256GB', price:6999}]},
+  { name:'R35S', variants:[{name:'64GB', price:3999}]},
+  { name:'R36S', variants:[{name:'64GB', price:4499}]},
+  { name:'R36 ULTRA', variants:[{name:'64GB', price:5499}]},
+  { name:'SUP X7M', variants:[{name:'SINGLE', price:1899},{name:'DUAL', price:2199}]},
+  { name:'BLACK HAWK', variants:[{name:'SINGLE', price:2299}]},
+  { name:'BLACK GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[{name:'STD', price:1699}]},
+  { name:'P5 GAMEPAD CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[{name:'STD', price:1899}]},
+  { name:'P5 SPIDER MAN THEME CONTROLLER WIRELESS FOR PS4 COMPATIBLE', variants:[{name:'STD', price:1999}]},
+  { name:'BLACK WIRE CONTROLLER FOR PS2 COMPATIBLE', variants:[{name:'STD', price:549}]},
+  { name:'WIRELESS CONTROLLER FOR PS2 COMPATIBLE', variants:[{name:'STD', price:749}]},
+  { name:'BLACK WIRELESS CONTROLLER FOR PS3 COMPATIBLE', variants:[{name:'STD', price:1399}]},
 ];
 
 /* ====== Renderers ====== */
@@ -287,10 +249,11 @@ function renderFMCB(){
   const box=document.getElementById('fmcbCard'); box.innerHTML='';
   fmcbModels.forEach(({label,price})=>{
     const row=document.createElement('div'); row.className='row';
-    row.innerHTML = `<div class="name">${label}</div>`;
+    // show price as pill near model name, button just says "Buy"
+    row.innerHTML = `<div class="name">${label} <span class="pill">🟢 ${fmt(price)}</span></div>`;
     const cta=document.createElement('div'); cta.className='cta';
     const b=document.createElement('button'); b.className='btn buy';
-    b.textContent = fmt(price);
+    b.textContent = "Buy";
     b.onclick = ()=> goPrefill(fmcbProduct, label, price, 'Card Only');
     cta.appendChild(b);
     row.appendChild(cta);
@@ -359,8 +322,7 @@ function renderMore(){
   });
 }
 
-function renderAll(){ renderFMCB(); renderUSB(); renderCombo(); renderMore(); }
-renderAll();
+(function renderAll(){ renderFMCB(); renderUSB(); renderCombo(); renderMore(); })();
 </script>
 </body>
 </html>
