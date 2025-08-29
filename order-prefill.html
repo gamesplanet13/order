@@ -86,9 +86,10 @@
         <input id="pincode" placeholder="Pincode" inputmode="numeric" maxlength="6" autocomplete="postal-code">
       </div>
     </div>
+
     <div id="deliveryEstimate" class="hint"></div>
 
-    <!-- Quick Preview under pincode -->
+    <!-- Mini Preview under pincode -->
     <div id="miniPreview" class="hint" style="margin-top:8px; display:none">
       <div>🟢 <b>Prepaid</b> — ⏳ ETA: <span id="preEta">—</span> • 📅 Delivery: <span id="preRange">—</span></div>
       <div>🔴 <b>COD</b> — ⏳ ETA: <span id="codEta">—</span> • 📅 Delivery: <span id="codRange">—</span></div>
@@ -239,21 +240,6 @@
     <input id="orderId" placeholder="(auto)" readonly>
   </div>
 
-  <!-- Message Preview (always shows BOTH) -->
-  <div class="card">
-    <span class="badge">Preview</span>
-    <div class="grid2">
-      <div>
-        <div class="label">🟢 Prepaid Preview</div>
-        <textarea id="previewPre" rows="14" readonly></textarea>
-      </div>
-      <div>
-        <div class="label">🔴 COD Preview</div>
-        <textarea id="previewCod" rows="16" readonly></textarea>
-      </div>
-    </div>
-  </div>
-
   <!-- Actions -->
   <div class="btns">
     <a id="payNow" class="btn act" href="#" target="_blank" rel="noopener">Pay Now</a>
@@ -305,8 +291,8 @@ function addRow(name="",price="",qty=1){
     <input class="i-name" value="${name}" readonly>
     <input class="i-price" type="number" value="${Number(price)||0}" readonly>
     <input class="i-qty" type="number" min="1" step="1" value="${Number(qty)||1}">
-    <button class="ghost" aria-label="Remove add-on" onclick="this.parentNode.remove(); recomputeAddons(); updatePreview()">✕</button>`;
-  row.querySelector(".i-qty").addEventListener("input",()=>{recomputeAddons(); updatePreview();});
+    <button class="ghost" aria-label="Remove add-on" onclick="this.parentNode.remove(); recomputeAddons()">✕</button>`;
+  row.querySelector(".i-qty").addEventListener("input",()=>{recomputeAddons();});
   box.appendChild(row);
   recomputeAddons();
 }
@@ -322,7 +308,6 @@ function addAddonFromPicker(){
   sel.value="";
   document.getElementById("addonPrice").value="";
   document.getElementById("addAddonBtn").disabled = true;
-  updatePreview();
 }
 document.getElementById("addonSelect").addEventListener("change", e=>{
   const opt=e.target.selectedOptions[0];
@@ -361,12 +346,12 @@ function applyCoupon(){
   if(code!=="gpz2025"){
     discountValue=0;
     document.getElementById("couponNote").innerText="❌ Invalid coupon";
-    computeTotals(); updatePreview(); return;
+    computeTotals(); return;
   }
   if(mode!=="prepaid"){
     discountValue=0;
     document.getElementById("couponNote").innerText="❌ Coupon only valid on Prepaid";
-    computeTotals(); updatePreview(); return;
+    computeTotals(); return;
   }
   const subtotal=getSubtotal();
   const d=computeCouponDiscount(subtotal);
@@ -380,7 +365,7 @@ function applyCoupon(){
       ? `✅ Coupon applied: -₹${slab} (GB slab: ${gb}GB)`
       : `ℹ️ Coupon applied: ₹0 (no GB slab matched)`;
   }
-  computeTotals(); updatePreview();
+  computeTotals();
 }
 
 /* ===== Add-ons sum & totals helpers ===== */
@@ -439,7 +424,7 @@ function setMode(m){
   document.getElementById("prepaidBlock").style.display=(m==="prepaid")?"block":"none";
   document.getElementById("codBlock").style.display=(m==="cod")?"block":"none";
   setModeBadge();
-  computeTotals(); updatePreview();
+  computeTotals();
 }
 
 /* ===== Totals ===== */
@@ -482,8 +467,6 @@ function computeTotals(){
 
   const note=(mode==="prepaid")?"Prepaid for Games Planet Order":"Advance for Games Planet Order";
   document.getElementById("payNow").href = upiLink(paid, note);
-
-  updatePreview();
 }
 
 /* ===== Utils ===== */
@@ -507,82 +490,26 @@ function productWithAddons(){
   return parts.length ? `${baseName} + ${parts.join(", ")}` : baseName;
 }
 
-/* ===== Message builders ===== */
-function buildCommonTop(subtotal){
-  const variant = document.getElementById("variant").value || "";
-  return [
-    `Order ID: ${document.getElementById("orderId").value || orderIdNow()}`,
+/* ===== WhatsApp send (uses computed fields) ===== */
+function sendWhatsApp(){
+  // Build a concise message using current fields (prepaid by default)
+  const subtotal = getSubtotal();
+  const lines = [
+    "Games Planet Order",
+    "",
     `Name: ${document.getElementById("name").value}`,
     `Mobile: ${document.getElementById("mobile").value}`,
-    `Alt Mobile: ${document.getElementById("altMobile").value}`,
-    `Email: ${document.getElementById("email").value}`,
     `Address: ${document.getElementById("address").value}`,
-    `Landmark: ${document.getElementById("landmark").value}`,
     `Pincode: ${document.getElementById("pincode").value}`,
-    `State: ${document.getElementById("state").value}`,
-    `District/City: ${document.getElementById("city").value}`,
-    `Post office: ${document.getElementById("postoffice").value}`,
     "",
     `Product: ${productWithAddons()}`,
-    variant ? `Variant: ${variant}` : null,
-    `Base Price: ${rs(subtotal)}`
-  ].filter(Boolean);
-}
-function buildTail(forMode){
-  const isCod = (forMode==="cod");
-  const eta = isCod
-    ? (document.getElementById("etaTextCod")?.value || document.getElementById("etaText").value)
-    : document.getElementById("etaText").value;
-  const range = isCod
-    ? (document.getElementById("dateRangeCOD")?.value || document.getElementById("dateRange").value)
-    : document.getElementById("dateRange").value;
-
-  return [
+    `Subtotal: ${rs(subtotal)}`,
     "",
     `📏 Distance: ${document.getElementById("distance").value}`,
-    `⏳ ${isCod?"COD Order":"Prepaid Order"} ETA: ${eta}`,
-    `📅 Estimated Delivery: ${range}`
+    `⏳ ETA: ${document.getElementById("etaText").value}`,
+    `📅 Delivery: ${document.getElementById("dateRange").value}`
   ];
-}
-function buildWhatsAppLines(forMode){
-  const subtotal = getSubtotal();
-  const linesTop = buildCommonTop(subtotal);
-  if(forMode==="prepaid"){
-    const paid = +document.getElementById("amountPaid_pre").value||0;
-    const discLine = (discountValue>0 ? `Discount Applied: -${rs(discountValue)}` : `Discount Applied:`);
-    return [
-      "🟢 Prepaid Order on WhatsApp",
-      "",
-      ...linesTop,
-      discLine,
-      `Amount paid: ${rs(paid)}`,
-      ...buildTail("prepaid")
-    ];
-  }else{
-    const paid = +document.getElementById("amountPaid_cod").value||0;
-    const rest = +document.getElementById("restAmount").value||0;
-    return [
-      "🔴 COD Order on WhatsApp",
-      "",
-      ...linesTop,
-      `Discount Applied:`,
-      `Amount Paid: ${rs(paid)}`,
-      `Rest on Delivery: ${rs(rest)}`,
-      ...buildTail("cod")
-    ];
-  }
-}
-
-/* ===== WhatsApp send ===== */
-function sendWhatsApp(){
-  const lines = buildWhatsAppLines(mode);
   window.open(`https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(lines.join("\n"))}`,'_blank','noopener,noreferrer');
-}
-
-/* ===== Preview updater (always both) ===== */
-function updatePreview(){
-  document.getElementById("previewPre").value = buildWhatsAppLines("prepaid").join("\n");
-  document.getElementById("previewCod").value = buildWhatsAppLines("cod").join("\n");
 }
 
 /* ===== Prefill from URL ===== */
@@ -598,7 +525,6 @@ function updatePreview(){
   document.getElementById("addonsTotal").value = 0;
   updateCodButton();
   computeTotals();
-  updatePreview();
 })();
 
 /* ====== ETA / PINCODE ====== */
@@ -664,7 +590,7 @@ document.getElementById("pincode").addEventListener("input",function(){
           const baseLat=28.8,baseLng=79.0; // near 244901 (Rampur)
           const {lat,lng}=pincodeLatLng[pin];
           const d=Math.round(haversine(baseLat,baseLng,lat,lng));
-          const eta=etaByDist(d);                 // prepaid ETA bucket e.g., "3–4 days"
+          const eta=etaByDist(d);                 // prepaid ETA bucket
           const pre=parseEta(eta);
           const preRangeFull = formatDateRange(pre.min, pre.max);
 
@@ -678,7 +604,7 @@ document.getElementById("pincode").addEventListener("input",function(){
           document.getElementById("etaText").value=eta;
           document.getElementById("dateRange").value=preRangeFull;
 
-          // Hidden fields for COD (for WA tail)
+          // Hidden fields for COD if you ever need them elsewhere
           if(!document.getElementById("etaTextCod")){
             const h1=document.createElement("input"); h1.type="hidden"; h1.id="etaTextCod";
             const h2=document.createElement("input"); h2.type="hidden"; h2.id="dateRangeCOD";
@@ -688,24 +614,22 @@ document.getElementById("pincode").addEventListener("input",function(){
           document.getElementById("dateRangeCOD").value = codRangeFull;
 
           // Mini preview under pincode
+          document.getElementById("deliveryEstimate").innerText=`📍 Distance: ${d} km\n⏳ Prepaid ETA: ${eta}\n📅 Prepaid Delivery: ${preRangeFull}`;
           document.getElementById("preEta").textContent = eta;
           document.getElementById("preRange").textContent = preRangeFull;
           document.getElementById("codEta").textContent = codEtaText;
           document.getElementById("codRange").textContent = codRangeFull;
           document.getElementById("miniPreview").style.display="block";
-
-          // Also update the large previews
-          updatePreview();
         }
       }
     });
   }
 });
 
-/* Live preview updates while typing */
+/* Live updates that might affect totals/eligibility */
 ["name","mobile","altMobile","email","address","landmark","pincode","state","city","product","variant","basePrice"]
-.forEach(id=>{const el=document.getElementById(id); if(el){ el.addEventListener("input",()=>{ if(id==="product"||id==="variant"){ const code=(document.getElementById("couponCode").value||"").trim().toLowerCase(); if(code==="gpz2025" && mode==="prepaid") applyCoupon(); } updatePreview(); }); }});
-document.getElementById("postoffice").addEventListener("change",updatePreview);
+.forEach(id=>{const el=document.getElementById(id); if(el){ el.addEventListener("input",()=>{ if(id==="product"||id==="variant"){ const code=(document.getElementById("couponCode").value||"").trim().toLowerCase(); if(code==="gpz2025" && mode==="prepaid") applyCoupon(); } }); }});
+document.getElementById("postoffice").addEventListener("change",()=>{});
 </script>
 </body>
 </html>
