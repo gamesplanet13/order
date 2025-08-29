@@ -38,6 +38,11 @@
   .alt{background:var(--warn);color:#1f2937}
   .ghost{background:#f8fafc;border:1px solid #e5e7eb;color:#111827}
   .hint{color:var(--muted);font-size:13px;margin-top:6px;white-space:pre-line}
+
+  /* 👇 In lines ko page par hide karo */
+  #ruleNote,
+  #addonsHelp { display: none !important; }
+
   @media(max-width:900px){.grid3{grid-template-columns:1fr 1fr}}
   @media(max-width:720px){.grid2,.grid3{grid-template-columns:1fr}}
 </style>
@@ -172,7 +177,7 @@
         <button id="addAddonBtn" class="ghost" onclick="addAddonFromPicker()" disabled>Add this to your order</button>
       </div>
     </div>
-    <div class="hint">Add-ons are optional. Pick from dropdown → set Qty → “Add this to your order”. Names & prices fixed; only quantity editable.</div>
+    <div class="hint" id="addonsHelp">Add-ons are optional. Pick from dropdown → set Qty → “Add this to your order”. Names & prices fixed; only quantity editable.</div>
   </div>
 
   <!-- Payment Mode -->
@@ -202,7 +207,7 @@
 
     <!-- Prepaid only -->
     <div id="prepaidBlock" style="display:none">
-      <div class="label">Discount (auto per rules below)</div>
+      <div class="label">Discount (auto per rules)</div>
       <input id="discountAmount" type="number" placeholder="₹ (auto)" readonly>
       <div class="label">Amount Paid (now)</div>
       <input id="amountPaid_pre" type="number" placeholder="₹ (auto)" readonly>
@@ -382,6 +387,10 @@ function getSubtotal(){
   const base=+document.getElementById("basePrice").value||0;
   return base + sumAddons();
 }
+function recomputeAddons(){
+  document.getElementById("addonsTotal").value = sumAddons();
+  computeTotals();
+}
 
 /* ===== COD gating & charges ===== */
 function codEligible(){
@@ -435,6 +444,7 @@ function computeTotals(){
   document.getElementById("addonsTotal").value = addons;
   document.getElementById("subtotal").value = subtotal;
 
+  // (Hidden) info text remains for reference but not shown
   document.getElementById("ruleNote").innerText =
     "COD rules: ≥ ₹1899 → ₹0 • ₹1399–₹1898 → ₹99 • < ₹1399 → No COD. Coupon (prepaid): FMCB/USB/Combo 5% OR 64GB ₹200 • 128GB ₹300 • 256GB ₹500.";
 
@@ -458,7 +468,7 @@ function computeTotals(){
     const charge = currentCodCharge(subtotal);
     codC = (charge===null)?0:charge;
     document.getElementById("codCharges").value = codC;
-    // Advance rule same as earlier: max(₹500, 10% of (subtotal+codC))
+    // Advance: max(₹500, 10% of (subtotal+codC))
     paid = Math.max(500, Math.ceil((subtotal + codC) * 0.10));
     rest = Math.max(0, subtotal + codC - paid);
     document.getElementById("amountPaid_cod").value = paid;
@@ -490,9 +500,8 @@ function productWithAddons(){
   return parts.length ? `${baseName} + ${parts.join(", ")}` : baseName;
 }
 
-/* ===== WhatsApp send (uses computed fields) ===== */
+/* ===== WhatsApp send (concise) ===== */
 function sendWhatsApp(){
-  // Build a concise message using current fields (prepaid by default)
   const subtotal = getSubtotal();
   const lines = [
     "Games Planet Order",
@@ -521,7 +530,7 @@ function sendWhatsApp(){
   if(p.has("pack")) setPackBadge(p.get("pack"));
 
   document.getElementById("orderId").value = orderIdNow();
-  setMode("prepaid");                      // default mode
+  setMode("prepaid");
   document.getElementById("addonsTotal").value = 0;
   updateCodButton();
   computeTotals();
@@ -538,7 +547,7 @@ function haversine(lat1,lon1,lat2,lon2){
   const a=Math.sin(dLat/2)**2+Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*Math.sin(dLon/2)**2;
   return 2*R*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
 }
-/* ETA buckets by distance */
+/* ETA buckets by distance (Prepaid) */
 function etaByDist(d){
   if(d<=30)return"1 day";
   if(d<=60)return"1-2 days";
@@ -551,14 +560,14 @@ function etaByDist(d){
   if(d<=3000)return"6–10 days";
   return"8–12 days";
 }
-/* Parse ETA text → min/max days */
+/* Parse ETA → min/max days */
 function parseEta(eta){
   const n=(eta.match(/\d+/g)||[]).map(Number);
   if(!n.length) return {min:0,max:0};
   if(n.length===1) return {min:n[0],max:n[0]};
   return {min:Math.min(...n), max:Math.max(...n)};
 }
-/* After 7 PM (Mon–Fri) → start counting from next day */
+/* After 7 PM (Mon–Fri) → start from next day */
 function dayStartOffset(){
   const now=new Date();
   const dow=now.getDay(); // 0=Sun
@@ -604,7 +613,7 @@ document.getElementById("pincode").addEventListener("input",function(){
           document.getElementById("etaText").value=eta;
           document.getElementById("dateRange").value=preRangeFull;
 
-          // Hidden fields for COD if you ever need them elsewhere
+          // Hidden fields (in case needed elsewhere)
           if(!document.getElementById("etaTextCod")){
             const h1=document.createElement("input"); h1.type="hidden"; h1.id="etaTextCod";
             const h2=document.createElement("input"); h2.type="hidden"; h2.id="dateRangeCOD";
