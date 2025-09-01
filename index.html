@@ -21,9 +21,9 @@ body{
     var(--bg);
   color:var(--text);
   scrollbar-gutter: stable both-edges;
-  overflow-x:hidden; /* prevent sideways scroll */
+  overflow-x:hidden;
   word-wrap:break-word;
-  overflow-wrap: anywhere;
+  overflow-wrap:anywhere;
 }
 
 /* Header / Brand */
@@ -47,10 +47,14 @@ body{
 .tbtn{border:0;background:var(--accent);color:#fff;padding:10px 12px;border-radius:12px;box-shadow:var(--shadow);font-weight:800;cursor:pointer;white-space:normal;line-height:1.1}
 .tbtn.secondary{background:var(--chip);color:var(--text)}
 
-/* Overlay Sidebar */
+/* Overlay Sidebar (blurred + transparent like header) */
 .sidebar{
   position:fixed; top:0; left:0; height:100vh; width:320px; max-width:86vw;
-  background:var(--panel); box-shadow:var(--shadow); z-index:70; overflow:auto;
+  background:rgba(17,24,48,.55);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  border-right:1px solid rgba(255,255,255,.12);
+  box-shadow:var(--shadow); z-index:70; overflow:auto;
   transform:translateX(-100%); transition:transform .25s ease;
   padding:14px 14px 18px;
 }
@@ -59,6 +63,9 @@ body{
   position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:65; display:none;
 }
 .backdrop.show{display:block}
+.sb-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.sb-title{font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:#dbe4ff;font-size:13px}
+.sb-close{border:0;background:rgba(255,255,255,.12);color:#fff;padding:8px 10px;border-radius:10px;font-weight:800;cursor:pointer}
 
 /* Cards */
 .card{background:var(--card);border-radius:18px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden;margin-bottom:18px}
@@ -71,14 +78,13 @@ body{
 .row{display:grid;grid-template-columns:minmax(140px,1fr) auto;gap:8px;align-items:center}
 .name{font-weight:800;min-width:0}
 .variantline{
-  display:flex;gap:8px;flex-wrap:wrap; /* allow wrapping */ 
-  white-space:normal; /* let inline text wrap */
+  display:flex;gap:8px;flex-wrap:wrap;
+  white-space:normal;
   padding-bottom:4px;max-width:100%;
 }
 .btn{
   border:0;padding:9px 12px;border-radius:12px;font-weight:800;cursor:pointer;flex:0 1 auto;
-  white-space:normal; /* allow multi-line */
-  line-height:1.12;text-align:center;min-width:96px;max-width:100%;
+  white-space:normal; line-height:1.12;text-align:center;min-width:96px;max-width:100%;
 }
 .btn.buy{background:var(--accent2);color:#08210f}
 .btn.link{background:var(--chip);color:var(--text)}
@@ -98,7 +104,7 @@ body{
 /* Policy blocks */
 .policyblock{background:var(--card);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:18px}
 .policyblock h3{margin:0 0 6px}
-.applyline{font-size:12px;color:var(--muted);white-space:normal; /* allow wrap */ overflow:visible}
+.applyline{font-size:12px;color:var(--muted);white-space:normal;overflow:visible}
 ul.tight{margin:8px 0 0 18px}
 
 /* Footer */
@@ -126,9 +132,13 @@ ul.tight{margin:8px 0 0 18px}
   <button class="tbtn" id="toggleSidebar">☰ Filters</button>
 </div>
 
+<!-- Overlay Sidebar + Backdrop -->
 <div class="sidebar" id="sidebar">
-  <div class="fh" style="margin-top:6px">Filters</div>
-  <hr style="border:none;border-top:1px dashed rgba(255,255,255,.15);margin:10px 0" />
+  <div class="sb-head">
+    <div class="sb-title">Filters</div>
+    <button class="sb-close" id="closeSidebarTop" type="button">✖ Close</button>
+  </div>
+  <hr style="border:none;border-top:1px dashed rgba(255,255,255,.18);margin:8px 0 12px" />
 
   <div class="fgroup">
     <div class="fh">Price Band</div>
@@ -172,31 +182,27 @@ ul.tight{margin:8px 0 0 18px}
     </div>
   </div>
 
-  <div class="clearbox">
+  <div class="clearbox" style="margin-bottom:6px">
     <button class="tbtn" id="applyFilters" type="button">Apply Filters</button>
     <button class="tbtn secondary" id="resetFilters" type="button">Reset All</button>
-    <button class="tbtn secondary" id="closeSidebar" type="button">Close</button>
   </div>
 
-  <div class="small" style="margin-top:8px">Tip: Multiple boxes select kar sakte ho. Koi selection na ho to sab products dikhte hain.</div>
+  <div class="small">Tip: Multiple boxes select kar sakte ho. Koi selection na ho to sab products dikhte hain.</div>
 </div>
 <div class="backdrop" id="backdrop"></div>
 
 <div class="app">
   <main class="content">
-    <!-- FMCB -->
+    <!-- FMCB (no setup button here per your instruction) -->
     <section class="card">
       <span class="badge">FMCB / FunTuna Card</span>
       <h2 class="title">Memory Card for PS2 (Model-wise)</h2>
       <div class="imgrow"><img src="Fmcb.png" alt="FMCB 8MB Memory Card"></div>
       <div class="muted">Boot PS2 games from USB using preconfigured FMCB / FunTuna + OPL. Choose your model:</div>
       <div class="grid" id="fmcbCard"></div>
-      <div class="variantline" style="margin-top:8px">
-        <a class="btn link" href="https://youtu.be/bpGm0IAeyek" target="_blank" rel="noopener">📺 Setup Video</a>
-      </div>
     </section>
 
-    <!-- USB Only -->
+    <!-- USB Only (includes Setup Video with YouTube icon) -->
     <section class="card">
       <span class="badge">USB Only</span>
       <h2 class="title">USB for PlayStation 2 — Game-Loaded</h2>
@@ -204,12 +210,12 @@ ul.tight{margin:8px 0 0 18px}
       <div class="muted">Requires FMCB card + latest OPL. Plug directly into PS2 (no hub/splitter).</div>
       <div class="grid" id="usbList"></div>
       <div class="variantline" style="margin-top:8px">
-        <a class="btn link" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">📺 Setup / Game List</a>
+        <a class="btn link" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">▶️ YouTube • Setup / Game List</a>
         <a class="btn link" href="https://gamesplanet13.github.io/ps2gameselector/" target="_blank" rel="noopener">🟨 Games Selector</a>
       </div>
     </section>
 
-    <!-- Combo -->
+    <!-- Combo (includes Setup Video with YouTube icon) -->
     <section class="card">
       <span class="badge">Combo Best Value</span>
       <h2 class="title">FMCB + USB Combo for PS2</h2>
@@ -217,7 +223,7 @@ ul.tight{margin:8px 0 0 18px}
       <div class="muted">Fully Plug & Play. Works on PS2 Fat, Slim 7xxxx (FMCB) & Slim 9xxxx (FunTuna).</div>
       <div class="grid" id="comboList"></div>
       <div class="variantline" style="margin-top:8px">
-        <a class="btn link" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">📺 Setup / Game List</a>
+        <a class="btn link" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">▶️ YouTube • Setup / Game List</a>
         <a class="btn link" href="https://gamesplanet13.github.io/ps2gameselector/" target="_blank" rel="noopener">🟨 Games Selector</a>
       </div>
     </section>
@@ -229,12 +235,12 @@ ul.tight{margin:8px 0 0 18px}
       <div class="grid" id="productGrid"></div>
     </section>
 
-    <!-- Consolidated Policy Blocks -->
+    <!-- Consolidated Policy Blocks (updated emojis + 3 days return) -->
     <section class="policyblock" id="policy-fmcb">
       <h3>Policy — FMCB / FunTuna (PS2 Memory Card)</h3>
       <div class="applyline" id="apply-fmcb"></div>
       <ul class="tight">
-        <li>No Return • No Replacement • No Refund</li>
+        <li>🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
       </ul>
     </section>
 
@@ -242,8 +248,8 @@ ul.tight{margin:8px 0 0 18px}
       <h3>Policy — PS2 Media (USB / SSD / HDD)</h3>
       <div class="applyline" id="apply-media"></div>
       <ul class="tight">
-        <li>No Return • No Replacement • No Refund</li>
-        <li>Warranty (media only): 64GB / 128GB / 128GB SSD – 1 Year; 256GB / 500GB SSD – 1 Year; 500GB HDD – 6 Months; USB enclosure – No Warranty</li>
+        <li>🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
+        <li>🛡️ Warranty (media only): 64GB / 128GB / 128GB SSD – 1 Year; 256GB / 500GB SSD – 1 Year; 500GB HDD – 6 Months; USB enclosure – No Warranty</li>
       </ul>
     </section>
 
@@ -251,9 +257,9 @@ ul.tight{margin:8px 0 0 18px}
       <h3>Policy — Handheld Consoles, Gamestick & Gamebox</h3>
       <div class="applyline" id="apply-consoles"></div>
       <ul class="tight">
-        <li>3 Days Replacement</li>
-        <li>7 Days Returnable — 70% refund (within replacement window)</li>
-        <li>1 Month Software Warranty / Reinstallation (1-side courier charge by customer)</li>
+        <li>🔁 3 Days Replacement</li>
+        <li>↩️ 3 Days Returnable — 70% refund (within replacement window)</li>
+        <li>🛠️ 1 Month Software Warranty / Reinstallation (1-side courier charge by customer)</li>
       </ul>
     </section>
 
@@ -261,7 +267,7 @@ ul.tight{margin:8px 0 0 18px}
       <h3>Policy — Accessories</h3>
       <div class="applyline" id="apply-accessories"></div>
       <ul class="tight">
-        <li>No Warranty • No Return • No Replacement • No Refund</li>
+        <li>🚫 No Warranty • 🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
       </ul>
     </section>
 
@@ -281,14 +287,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.getElementById('sidebar');
   const backdrop = document.getElementById('backdrop');
   const toggleBtn = document.getElementById('toggleSidebar');
-  const closeBtn = document.getElementById('closeSidebar');
+  const closeTop = document.getElementById('closeSidebarTop');
   function openSB(){ sidebar?.classList.add('open'); backdrop?.classList.add('show'); }
   function closeSB(){ sidebar?.classList.remove('open'); backdrop?.classList.remove('show'); }
   toggleBtn?.addEventListener('click', ()=> sidebar?.classList.contains('open') ? closeSB() : openSB());
   backdrop?.addEventListener('click', closeSB);
-  closeBtn?.addEventListener('click', closeSB);
+  closeTop?.addEventListener('click', closeSB);
 
-  /* Catalog */
+  /* Catalog data */
   const catalog = [
     // Gamebox
     { name:"GameBox G11 Pro (Regular)", category:"Gamebox", type:"Game+Android",
@@ -339,40 +345,41 @@ document.addEventListener('DOMContentLoaded', () => {
       variants:[{name:"STD", price:1399}] },
   ];
 
-  /* Per-product videos */
+  /* Per-product videos (now show YouTube icon on every video button) */
   const videoMap = {
     "GD35 (Vayava)": [
-      {label:"Unboxing", url:"https://youtu.be/v1k6gJtREfk?si=3RHYWRwmI34bxxlv"},
-      {label:"Gameplay Guide", url:"https://youtu.be/-6jDWfplmkY?si=o90IJTPaEZaCyZhd"}
+      {label:"▶️ YouTube • Unboxing", url:"https://youtu.be/v1k6gJtREfk?si=3RHYWRwmI34bxxlv"},
+      {label:"▶️ YouTube • Gameplay Guide", url:"https://youtu.be/-6jDWfplmkY?si=o90IJTPaEZaCyZhd"}
     ],
     "GD35 GTA San Andreas HD Edition": [
-      {label:"Unboxing", url:"https://youtu.be/v1k6gJtREfk?si=3RHYWRwmI34bxxlv"},
-      {label:"Gameplay Guide", url:"https://youtu.be/-6jDWfplmkY?si=o90IJTPaEZaCyZhd"}
+      {label:"▶️ YouTube • Unboxing", url:"https://youtu.be/v1k6gJtREfk?si=3RHYWRwmI34bxxlv"},
+      {label:"▶️ YouTube • Gameplay Guide", url:"https://youtu.be/-6jDWfplmkY?si=o90IJTPaEZaCyZhd"}
     ],
     "GameBox G11 Pro (Regular)": [
-      {label:"Unboxing", url:"https://youtu.be/kJNJ_Kq3NvA?si=C-_ekj4Qna4LzO-s"},
-      {label:"Connection Guide", url:"https://youtu.be/HoRVcbKb77Q?si=X3oSNCYncTLqos-s"},
-      {label:"Special Edition Demo", url:"https://youtu.be/ILHGhkGNJ2s?si=h-4AWK2YRsPRcvIc"}
+      {label:"▶️ YouTube • Unboxing", url:"https://youtu.be/kJNJ_Kq3NvA?si=C-_ekj4Qna4LzO-s"},
+      {label:"▶️ YouTube • Connection Guide", url:"https://youtu.be/HoRVcbKb77Q?si=X3oSNCYncTLqos-s"},
+      {label:"▶️ YouTube • Special Edition Demo", url:"https://youtu.be/ILHGhkGNJ2s?si=h-4AWK2YRsPRcvIc"}
     ],
     "GameBox Plus G10 (Vayava)": [
-      {label:"Unboxing & Testing", url:"https://youtu.be/EGoVlcrre18?si=e5FMmoFI9eMnSMpt"},
-      {label:"Connection & Setup", url:"https://youtu.be/l1uVzH-JWgs?si=pehPyGDR5cNQhOJY"}
+      {label:"▶️ YouTube • Unboxing & Testing", url:"https://youtu.be/EGoVlcrre18?si=e5FMmoFI9eMnSMpt"},
+      {label:"▶️ YouTube • Connection & Setup", url:"https://youtu.be/l1uVzH-JWgs?si=pehPyGDR5cNQhOJY"}
     ],
     "GPZ M55": [
-      {label:"Unboxing", url:"https://youtu.be/uMkSclSP5kA?si=zChWREgvdXYk-Gm0"}
+      {label:"▶️ YouTube • Unboxing", url:"https://youtu.be/uMkSclSP5kA?si=zChWREgvdXYk-Gm0"}
     ],
     "GPZ M22": [
-      {label:"Unboxing & Demo", url:"https://youtu.be/bEt1GvDk8JY?si=Ki1TEJNqdiJvOLUM"},
-      {label:"Gameplay Testing", url:"https://youtu.be/TnLw-wLWJ6A?si=8wnMnJFpA_AKbhAs"}
+      {label:"▶️ YouTube • Unboxing & Demo", url:"https://youtu.be/bEt1GvDk8JY?si=Ki1TEJNqdiJvOLUM"},
+      {label:"▶️ YouTube • Gameplay Testing", url:"https://youtu.be/TnLw-wLWJ6A?si=8wnMnJFpA_AKbhAs"}
     ],
     "GPZ M33": [
-      {label:"Unboxing-1", url:"https://youtu.be/h838JHwNI1k?si=Vo-BL1MWqTo4gF8i"},
-      {label:"Unboxing-2", url:"https://youtu.be/0dW4go5qaDQ?si=erLso2WIpbUNj0gp"},
-      {label:"Gameplay Testing", url:"https://youtu.be/TnLw-wLWJ6A?si=8wnMnJFpA_AKbhAs"}
+      {label:"▶️ YouTube • Unboxing-1", url:"https://youtu.be/h838JHwNI1k?si=Vo-BL1MWqTo4gF8i"},
+      {label:"▶️ YouTube • Unboxing-2", url:"https://youtu.be/0dW4go5qaDQ?si=erLso2WIpbUNj0gp"},
+      {label:"▶️ YouTube • Gameplay Testing", url:"https://youtu.be/TnLw-wLWJ6A?si=8wnMnJFpA_AKbhAs"}
     ]
   };
+  window.videoMap = videoMap;
 
-  /* PS2 blocks */
+  /* PS2 quick-purchase blocks */
   const fmcbModels = [
     { label:'PS2 Fat (All Models) — FMCB', price:999 },
     { label:'PS2 Slim 7xxxx (All) — FMCB', price:999 },
@@ -395,6 +402,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { v:'500GB SSD', top: 4699, opt: 5149, count:175 },
   ];
 
+  /* Renderers */
   function renderFMCB(){
     const box=document.getElementById('fmcbCard'); if(!box) return;
     box.innerHTML='';
@@ -439,6 +447,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* Sidebar checkbox helpers */
   function getChecked(name){
     return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(i=>i.value);
   }
@@ -447,11 +456,12 @@ document.addEventListener('DOMContentLoaded', () => {
     return price>=lo && price<=hi;
   }
 
+  /* Render filtered catalog with per-product video buttons (YouTube icon on all) */
   function renderCatalog(){
     const grid = document.getElementById('productGrid'); if(!grid) return;
     grid.innerHTML='';
 
-    const priceBands = getChecked('price');
+    const priceBands = getChecked('price'); // [] means all
     const cats = getChecked('category');
     const types = getChecked('type');
 
@@ -486,7 +496,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(videoMapLocal[p.name]){
         const vids=document.createElement('div'); vids.className='variantline';
         videoMapLocal[p.name].forEach(v=>{
-          const a=document.createElement('a'); a.className='btn link'; a.textContent=`▶️ ${v.label}`;
+          const a=document.createElement('a'); a.className='btn link'; a.textContent=v.label; // already includes ▶️ YouTube
           a.href=v.url; a.target="_blank"; a.rel="noopener";
           vids.appendChild(a);
         });
@@ -503,6 +513,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  /* Build bottom policy apply-lines (comma-separated, no chips) */
   function buildApplyLines(){
     const fmcbApply = document.getElementById('apply-fmcb');
     const mediaApply = document.getElementById('apply-media');
@@ -512,14 +523,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     fmcbApply.textContent = "Applies to: Memory Card for PS2 (Model-wise)";
     mediaApply.textContent = "Applies to: USB for PlayStation 2 — Game-Loaded, FMCB + USB Combo for PS2";
-    const consoleNames = catalog.filter(p=> p.category==='Gamestick' || p.category==='Gamebox' || p.type==='Handheld').map(p=>p.name).join(', ');
+
+    const consoleNames = catalog
+      .filter(p=> p.category==='Gamestick' || p.category==='Gamebox' || p.type==='Handheld')
+      .map(p=>p.name).join(', ');
     consolesApply.textContent = "Applies to: " + consoleNames;
+
     const accNames = catalog.filter(p=> p.category==='Accessories').map(p=>p.name).join(', ');
     accApply.textContent = "Applies to: " + accNames;
   }
 
-  window.videoMap = videoMap;
-
+  /* Wire filter buttons */
   document.getElementById('applyFilters')?.addEventListener('click', renderCatalog);
   document.getElementById('resetFilters')?.addEventListener('click', ()=>{
     document.querySelectorAll('input[type="checkbox"]').forEach(c=> c.checked=false);
@@ -535,6 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('input[name="type"]').forEach(c=> c.checked=false);
   });
 
+  /* Initial renders */
   renderFMCB();
   renderUSB();
   renderCombo();
