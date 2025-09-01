@@ -1,10 +1,3 @@
-# Creating a fully cleaned HTML with no stray header/footer text or code comments.
-# Header shows only "Games Planet" branding; footer is clean.
-# Overlay filters, Buy Now buttons, per-section setup videos, and grouped policies retained.
-
-from textwrap import dedent
-
-html = dedent("""
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,6 +21,9 @@ body{
     var(--bg);
   color:var(--text);
   scrollbar-gutter: stable both-edges;
+  overflow-x:hidden; /* prevent sideways scroll */
+  word-wrap:break-word;
+  overflow-wrap: anywhere;
 }
 
 /* Header / Brand */
@@ -48,7 +44,7 @@ body{
 
 .app{max-width:1300px;margin:0 auto;padding:18px 18px 120px}
 .togglebar{position:fixed;top:76px;left:12px;z-index:60;display:flex;gap:8px}
-.tbtn{border:0;background:var(--accent);color:#fff;padding:10px 12px;border-radius:12px;box-shadow:var(--shadow);font-weight:800;cursor:pointer}
+.tbtn{border:0;background:var(--accent);color:#fff;padding:10px 12px;border-radius:12px;box-shadow:var(--shadow);font-weight:800;cursor:pointer;white-space:normal;line-height:1.1}
 .tbtn.secondary{background:var(--chip);color:var(--text)}
 
 /* Overlay Sidebar */
@@ -72,10 +68,18 @@ body{
 .grid{display:flex;flex-direction:column;gap:12px}
 
 /* Products */
-.row{display:grid;grid-template-columns:1.2fr auto;gap:8px;align-items:center}
-.name{font-weight:800}
-.variantline{display:flex;gap:8px;overflow:auto;white-space:nowrap;scrollbar-width:thin;padding-bottom:4px}
-.btn{border:0;padding:9px 12px;border-radius:12px;font-weight:800;cursor:pointer;flex:0 0 auto}
+.row{display:grid;grid-template-columns:minmax(140px,1fr) auto;gap:8px;align-items:center}
+.name{font-weight:800;min-width:0}
+.variantline{
+  display:flex;gap:8px;flex-wrap:wrap; /* allow wrapping */ 
+  white-space:normal; /* let inline text wrap */
+  padding-bottom:4px;max-width:100%;
+}
+.btn{
+  border:0;padding:9px 12px;border-radius:12px;font-weight:800;cursor:pointer;flex:0 1 auto;
+  white-space:normal; /* allow multi-line */
+  line-height:1.12;text-align:center;min-width:96px;max-width:100%;
+}
 .btn.buy{background:var(--accent2);color:#08210f}
 .btn.link{background:var(--chip);color:var(--text)}
 
@@ -84,17 +88,17 @@ body{
 .fgroup{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
 .chk{display:flex;align-items:center;gap:8px}
 .chk input{accent-color:var(--accent)}
-.clearbox{display:flex;gap:8px;margin-top:8px}
+.clearbox{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .small{font-size:12px;color:var(--muted)}
 
 /* Images */
 .imgrow{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0}
-.imgrow img{border-radius:12px;box-shadow:var(--shadow);max-height:90px}
+.imgrow img{border-radius:12px;box-shadow:var(--shadow);max-height:90px;height:auto;width:auto}
 
 /* Policy blocks */
 .policyblock{background:var(--card);border-radius:18px;padding:16px;box-shadow:var(--shadow);margin-bottom:18px}
 .policyblock h3{margin:0 0 6px}
-.applyline{font-size:12px;color:var(--muted);white-space:nowrap;overflow:auto}
+.applyline{font-size:12px;color:var(--muted);white-space:normal; /* allow wrap */ overflow:visible}
 ul.tight{margin:8px 0 0 18px}
 
 /* Footer */
@@ -180,6 +184,7 @@ ul.tight{margin:8px 0 0 18px}
 
 <div class="app">
   <main class="content">
+    <!-- FMCB -->
     <section class="card">
       <span class="badge">FMCB / FunTuna Card</span>
       <h2 class="title">Memory Card for PS2 (Model-wise)</h2>
@@ -191,6 +196,7 @@ ul.tight{margin:8px 0 0 18px}
       </div>
     </section>
 
+    <!-- USB Only -->
     <section class="card">
       <span class="badge">USB Only</span>
       <h2 class="title">USB for PlayStation 2 — Game-Loaded</h2>
@@ -203,6 +209,7 @@ ul.tight{margin:8px 0 0 18px}
       </div>
     </section>
 
+    <!-- Combo -->
     <section class="card">
       <span class="badge">Combo Best Value</span>
       <h2 class="title">FMCB + USB Combo for PS2</h2>
@@ -215,12 +222,14 @@ ul.tight{margin:8px 0 0 18px}
       </div>
     </section>
 
+    <!-- Filtered Catalog -->
     <section class="card">
       <span class="badge">Catalog</span>
       <h2 class="title">Products</h2>
       <div class="grid" id="productGrid"></div>
     </section>
 
+    <!-- Consolidated Policy Blocks -->
     <section class="policyblock" id="policy-fmcb">
       <h3>Policy — FMCB / FunTuna (PS2 Memory Card)</h3>
       <div class="applyline" id="apply-fmcb"></div>
@@ -268,6 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     location.href='order-prefill.html?'+q.toString();
   }
 
+  /* Overlay sidebar */
   const sidebar = document.getElementById('sidebar');
   const backdrop = document.getElementById('backdrop');
   const toggleBtn = document.getElementById('toggleSidebar');
@@ -278,7 +288,9 @@ document.addEventListener('DOMContentLoaded', () => {
   backdrop?.addEventListener('click', closeSB);
   closeBtn?.addEventListener('click', closeSB);
 
+  /* Catalog */
   const catalog = [
+    // Gamebox
     { name:"GameBox G11 Pro (Regular)", category:"Gamebox", type:"Game+Android",
       variants:[{name:"64GB", price:4599},{name:"128GB", price:6599},{name:"256GB", price:7599}] },
     { name:"GameBox Plus G10 (Vayava)", category:"Gamebox", type:"GameOnly",
@@ -287,6 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
       variants:[{name:"64GB", price:5299},{name:"128GB", price:6999},{name:"256GB", price:7999}] },
     { name:"GD35 GTA San Andreas HD Edition", category:"Gamebox", type:"GameOnly",
       variants:[{name:"64GB", price:5999},{name:"128GB", price:7699},{name:"256GB", price:8699}] },
+
+    // Gamestick
     { name:"Gamestick Lite (Pandora Mini M8)", category:"Gamestick", type:"GameOnly",
       variants:[{name:"64GB", price:1599}] },
     { name:"Gamestick Pro (Pandora Pro M15)", category:"Gamestick", type:"GameOnly",
@@ -309,6 +323,8 @@ document.addEventListener('DOMContentLoaded', () => {
       variants:[{name:"64GB", price:3699},{name:"128GB", price:5999},{name:"256GB", price:7299}] },
     { name:"Gamestick M88", category:"Gamestick", type:"GameOnly",
       variants:[{name:"128GB", price:7799}] },
+
+    // Accessories
     { name:"Wireless Controller for PS4 Compatible (Black)", category:"Accessories", type:"Accessories",
       variants:[{name:"STD", price:1699}] },
     { name:"P5 Wireless Controller for PS4 Compatible", category:"Accessories", type:"Accessories",
@@ -320,9 +336,10 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:"Wireless Controller for PS2 Compatible", category:"Accessories", type:"Accessories",
       variants:[{name:"STD", price:749}] },
     { name:"Wireless Controller for PS3 Compatible (Black)", category:"Accessories", type:"Accessories",
-      variants:[{name:"STD", price:1399}] }
+      variants:[{name:"STD", price:1399}] },
   ];
 
+  /* Per-product videos */
   const videoMap = {
     "GD35 (Vayava)": [
       {label:"Unboxing", url:"https://youtu.be/v1k6gJtREfk?si=3RHYWRwmI34bxxlv"},
@@ -355,10 +372,11 @@ document.addEventListener('DOMContentLoaded', () => {
     ]
   };
 
+  /* PS2 blocks */
   const fmcbModels = [
     { label:'PS2 Fat (All Models) — FMCB', price:999 },
     { label:'PS2 Slim 7xxxx (All) — FMCB', price:999 },
-    { label:'PS2 Slim 9xxxx (All) — FunTuna', price:999 }
+    { label:'PS2 Slim 9xxxx (All) — FunTuna', price:999 },
   ];
   const usbVariants = [
     { v:'64GB PD',   top:  999, opt: 1099 },
@@ -366,7 +384,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { v:'128GB SSD', top: 1999, opt: 2199 },
     { v:'256GB SSD', top: 2999, opt: 3299 },
     { v:'500GB HDD', top: 2999, opt: 3299 },
-    { v:'500GB SSD', top: 3999, opt: 4399 }
+    { v:'500GB SSD', top: 3999, opt: 4399 },
   ];
   const comboVariants = [
     { v:'64GB PD',   top: 1499, opt: 1649, count:21 },
@@ -374,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { v:'128GB SSD', top: 2499, opt: 2699, count:41 },
     { v:'256GB SSD', top: 3499, opt: 3849, count:71 },
     { v:'500GB HDD', top: 3699, opt: 4049, count:175 },
-    { v:'500GB SSD', top: 4699, opt: 5149, count:175 }
+    { v:'500GB SSD', top: 4699, opt: 5149, count:175 },
   ];
 
   function renderFMCB(){
@@ -445,7 +463,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return p.variants.some(v => priceBands.some(b => withinBand(v.price,b)));
     }
 
-    const videoMap = window.videoMap || {};
+    const videoMapLocal = window.videoMap || {};
     catalog.forEach(p=>{
       if(!productPasses(p)) return;
       const chosenVariants = (priceBands.length===0)
@@ -465,9 +483,9 @@ document.addEventListener('DOMContentLoaded', () => {
       head.appendChild(nm); head.appendChild(variants);
       card.appendChild(head);
 
-      if(videoMap[p.name]){
+      if(videoMapLocal[p.name]){
         const vids=document.createElement('div'); vids.className='variantline';
-        videoMap[p.name].forEach(v=>{
+        videoMapLocal[p.name].forEach(v=>{
           const a=document.createElement('a'); a.className='btn link'; a.textContent=`▶️ ${v.label}`;
           a.href=v.url; a.target="_blank"; a.rel="noopener";
           vids.appendChild(a);
@@ -526,10 +544,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-""")
-
-path = "/mnt/data/index-clean-final.html"
-with open(path, "w", encoding="utf-8") as f:
-    f.write(html)
-
-path
