@@ -156,19 +156,31 @@
         <div class="label">Choose add-on</div>
         <select id="addonSelect">
           <option value="" data-price="0">— Select —</option>
-          <!-- Existing add-ons -->
-          <option value="Wire Gamepad" data-price="399">Wire Gamepad — ₹399</option>
+
+          <!-- Controllers -->
+          <option value="Wire Gamepad (PS2 wired controller)" data-price="399">Wire Gamepad (PS2 wired controller) — ₹399</option>
+          <option value="USB Wired Controller (PC)" data-price="399">USB Wired Controller (PC) — ₹399</option>
           <option value="Wireless Gamepad" data-price="749">Wireless Gamepad — ₹749</option>
-          <option value="PS2 Slim Sticker/Skin" data-price="60">PS2 Slim Sticker/Skin — ₹60</option>
+
+          <!-- Cables / HDMI -->
           <option value="HDMI Converter" data-price="499">HDMI Converter — ₹499</option>
           <option value="HDMI Cable" data-price="99">HDMI Cable — ₹99</option>
           <option value="Best HDMI Cable" data-price="349">Best HDMI Cable — ₹349</option>
+
+          <!-- Memory / cards -->
           <option value="Blank Memory Card 8MB" data-price="549">Blank Memory Card 8MB — ₹549</option>
-          <!-- NEW add-ons requested -->
-          <option value="AAA Batteries of duaracel PACK OF 4" data-price="88">AAA Batteries of duaracel PACK OF 4 — ₹88</option>
+
+          <!-- Stickers / small -->
+          <option value="PS2 Slim Sticker/Skin" data-price="60">PS2 Slim Sticker/Skin — ₹60</option>
+
+          <!-- Batteries (Duracell separate items) -->
+          <option value="AAA Batteries of Duracell PACK OF 4" data-price="88">AAA Batteries of Duracell PACK OF 4 — ₹88</option>
+          <option value="AA Batteries of Duracell PACK OF 4" data-price="88">AA Batteries of Duracell PACK OF 4 — ₹88</option>
           <option value="AAA RECHARGEABLE BATTERIES PACK OF 4" data-price="599">AAA RECHARGEABLE BATTERIES PACK OF 4 — ₹599</option>
-          <option value="AAA/AA  BARTERIES CHARGER 4 SLOT" data-price="450">AAA/AA  BARTERIES CHARGER 4 SLOT — ₹450</option>
-          <option value="AAA 4 BATTERIES AND  4 PORT CHARGER COMBO" data-price="919">AAA 4 BATTERIES AND  4 PORT CHARGER COMBO — ₹919</option>
+          <option value="AAA/AA BATTERIES CHARGER 4 SLOT" data-price="450">AAA/AA BATTERIES CHARGER 4 SLOT — ₹450</option>
+          <option value="AAA 4 BATTERIES AND 4 PORT CHARGER COMBO" data-price="919">AAA 4 BATTERIES AND 4 PORT CHARGER COMBO — ₹919</option>
+
+          <!-- Courier / service -->
           <option value="TRACKON.IN PRIME COURIER SERVICE" data-price="200">TRACKON.IN PRIME COURIER SERVICE — ₹200</option>
         </select>
       </div>
@@ -287,20 +299,85 @@ function setPackBadge(pack){
   el.className='badge right '+(isOpt?'pack-opt':'pack-top');
 }
 
-/* ===== Add-ons rows ===== */
-function addRow(name="",price="",qty=1){
+/* ---- Mobile clean for WhatsApp: remove leading 0 / +91 / 91 and spaces ---- */
+function cleanMobileForWA(num){
+  if(!num) return "";
+  let s = num.toString().trim();
+  s = s.replace(/[\s\-()]/g,"");            // remove spaces/dashes/parens
+  s = s.replace(/^(\+91|91|0)+/,"");        // remove leading +91 or 91 or 0
+  return s;
+}
+
+/* ===== Add-ons rows and transfer-to-base logic (with qty-change reflecting basePrice) ===== */
+
+function addRow(name="", price=0, qty=1, transferred=false){
   const box=document.getElementById("items");
   const row=document.createElement("div");
   row.className="row addon-row";
-  row.innerHTML=`
+
+  // display price is shown for non-transferred items. If transferred, we display 0 to avoid double-count.
+  const displayPrice = transferred ? 0 : Number(price||0);
+  const origPrice = Number(price||0);
+
+  row.innerHTML = `
     <input class="i-name" value="${name}" readonly>
-    <input class="i-price" type="number" value="${Number(price)||0}" readonly>
+    <input class="i-price" type="number" value="${displayPrice}" readonly
+           data-orig="${origPrice}" data-transferred="${transferred?1:0}">
     <input class="i-qty" type="number" min="1" step="1" value="${Number(qty)||1}">
-    <button class="ghost" aria-label="Remove add-on" onclick="this.parentNode.remove(); recomputeAddons()">✕</button>`;
-  row.querySelector(".i-qty").addEventListener("input",()=>{recomputeAddons();});
+    <button class="ghost" aria-label="Remove add-on">✕</button>`;
+
+  // keep track of last known qty for delta calculations
+  const qtyInput = row.querySelector(".i-qty");
+  qtyInput.dataset.lastQty = String(Number(qty||1));
+
+  // If transferred -> immediately add (origPrice * qty) to basePrice
+  if(transferred && origPrice>0){
+    const baseEl = document.getElementById("basePrice");
+    const current = Number(baseEl.value || 0);
+    baseEl.value = +(current + (origPrice * Number(qty || 1)));
+  }
+
+  // When qty changes:
+  qtyInput.addEventListener("input", function(){
+    const newQty = Math.max(0, Number(this.value||0));
+    const lastQty = Number(this.dataset.lastQty || 0);
+    const priceInput = row.querySelector(".i-price");
+    const orig = Number(priceInput.dataset.orig || 0);
+    const transferredFlag = priceInput.dataset.transferred === '1';
+
+    // If this add-on was transferred to base earlier, adjust basePrice by delta (orig * (new-last))
+    if(transferredFlag && orig>0){
+      const deltaQty = newQty - lastQty;
+      if(deltaQty !== 0){
+        const baseEl = document.getElementById("basePrice");
+        const current = Number(baseEl.value || 0);
+        baseEl.value = Math.max(0, +(current + (orig * deltaQty)));
+      }
+    }
+    // Update lastQty
+    this.dataset.lastQty = String(newQty);
+    recomputeAddons();
+  });
+
+  // Remove button: subtract transferred amount if transferred
+  row.querySelector("button").addEventListener("click", function(){
+    const priceInput = row.querySelector(".i-price");
+    const orig = Number(priceInput.dataset.orig || 0);
+    const transferredFlag = priceInput.dataset.transferred === '1';
+    const q = Number(row.querySelector(".i-qty").value || 0);
+    if(transferredFlag && orig>0 && q>0){
+      const baseEl = document.getElementById("basePrice");
+      const current = Number(baseEl.value || 0);
+      baseEl.value = Math.max(0, +(current - (orig * q)));
+    }
+    row.remove();
+    recomputeAddons();
+  });
+
   box.appendChild(row);
   recomputeAddons();
 }
+
 function addAddonFromPicker(){
   const sel=document.getElementById("addonSelect");
   const opt=sel.selectedOptions[0];
@@ -308,18 +385,31 @@ function addAddonFromPicker(){
   const pr=Number(opt?.dataset?.price||0);
   const qty=Number(document.getElementById("addonQty").value||1);
   if(!name){ alert("Please choose an add-on."); return; }
-  addRow(name, pr, qty);
+
+  // Add row AND transfer price into basePrice immediately (transferred=true)
+  addRow(name, pr, qty, true);
+
+  // reset picker UI
   document.getElementById("addonQty").value=1;
   sel.value="";
   document.getElementById("addonPrice").value="";
   document.getElementById("addAddonBtn").disabled = true;
 }
-document.getElementById("addonSelect").addEventListener("change", e=>{
-  const opt=e.target.selectedOptions[0];
-  const price=Number(opt?.dataset?.price||0);
-  document.getElementById("addonPrice").value = opt.value ? price : "";
-  document.getElementById("addAddonBtn").disabled = !opt.value;
-});
+
+/* sumAddons now sums only displayed (non-transferred) addon prices */
+function sumAddons(){
+  let total=0;
+  document.querySelectorAll("#items .addon-row").forEach(r=>{
+    const p=Number(r.querySelector(".i-price").value||0);
+    const q=Number(r.querySelector(".i-qty").value||0);
+    total += (p*q);
+  });
+  return total;
+}
+function recomputeAddons(){
+  document.getElementById("addonsTotal").value = sumAddons();
+  computeTotals();
+}
 
 /* ===== Coupon helpers & logic ===== */
 function norm(s){return (s||"").toString().trim().toUpperCase();}
@@ -374,22 +464,9 @@ function applyCoupon(){
 }
 
 /* ===== Add-ons sum & totals helpers ===== */
-function sumAddons(){
-  let total=0;
-  document.querySelectorAll("#items .addon-row").forEach(r=>{
-    const p=Number(r.querySelector(".i-price").value||0);
-    const q=Number(r.querySelector(".i-qty").value||0);
-    total += (p*q);
-  });
-  return total;
-}
 function getSubtotal(){
   const base=+document.getElementById("basePrice").value||0;
   return base + sumAddons();
-}
-function recomputeAddons(){
-  document.getElementById("addonsTotal").value = sumAddons();
-  computeTotals();
 }
 
 /* ===== COD gating & charges ===== */
@@ -522,8 +599,8 @@ function buildWhatsAppTemplate(forMode){
   const common = [
     `Order ID: ${document.getElementById("orderId").value || orderIdNow()}`,
     `Name: ${document.getElementById("name").value || ""}`,
-    `Mobile: ${document.getElementById("mobile").value || ""}`,
-    `Alt Mobile: ${document.getElementById("altMobile").value || ""}`,
+    `Mobile: ${cleanMobileForWA(document.getElementById("mobile").value || "")}`,
+    `Alt Mobile: ${cleanMobileForWA(document.getElementById("altMobile").value || "")}`,
     `Email: ${document.getElementById("email").value || ""}`,
     `Address: ${fullAddress}`,
     `Landmark: ${document.getElementById("landmark").value || ""}`,
@@ -689,8 +766,16 @@ document.getElementById("pincode").addEventListener("input",function(){
 
 /* Live updates that might affect totals/eligibility */
 ["name","mobile","altMobile","email","address","landmark","pincode","state","city","product","variant","basePrice","house"]
-.forEach(id=>{const el=document.getElementById(id); if(el){ el.addEventListener("input",()=>{ /* no-op: submit builds fresh text */ }); }});
-document.getElementById("postoffice").addEventListener("change",()=>{});
+.forEach(id=>{const el=document.getElementById(id); if(el){ el.addEventListener("input",()=>{ /* no-op: submit builds fresh text */ computeTotals(); }); }});
+document.getElementById("postoffice").addEventListener("change",()=>{computeTotals();});
+
+/* keep addonSelect UI helper */
+document.getElementById("addonSelect").addEventListener("change", e=>{
+  const opt=e.target.selectedOptions[0];
+  const price=Number(opt?.dataset?.price||0);
+  document.getElementById("addonPrice").value = opt.value ? price : "";
+  document.getElementById("addAddonBtn").disabled = !opt.value;
+});
 </script>
 </body>
 </html>
