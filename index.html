@@ -230,21 +230,28 @@ document.addEventListener('DOMContentLoaded', () => {
       variants:[{name:"128GB", price:7799}] }
   ];
 
-  /* Image map for catalog products */
+  /* Image map for catalog products (supports string or array; first valid src used) */
   const imageMap = {
     "GPZ M55": "M55.jpeg",
     "GPZ M22": "M22.jpeg",
     "GPZ M33": "M33.jpeg",
     "Gamestick M88": "M88.jpeg",
     "GameBox G11 Pro (Regular)": "G11pro.jpeg",
+    "GameBox Plus G10 (Vayava)": ["G10.jpeg","G10b.jpeg"],
+    "GD35 (Vayava)": "Gd35.jpeg",
     "Gamestick Lite (Pandora Mini M8)": "M8.jpeg",
     "Gamestick Pro (Pandora Pro M15)": "M15.jpeg",
+    "Gamestick GD10 (Vayava)": "Gd10.jpeg",
     "Gamestick GD30 v1 (Vayava)": "Gd30.jpeg",
     "Gamestick GD30 v2 (Vayava)": "Gd30.jpeg",
     "Gamestick GD30 v3 (Vayava)": "Gd30v3.jpeg",
-    // fallback names if exact keys differ:
-    "Gamestick GD30 v1": "Gd30.jpeg",
-    "Gamestick GD30 v2": "Gd30.jpeg"
+    "Gamestick GS5 Mini": ["Gs5mini.jpeg","GS5MINI2.jpeg"],
+    // fallback short keys
+    "GD35": "Gd35.jpeg",
+    "G11 Pro": "G11pro.jpeg",
+    "G10": ["G10.jpeg","G10b.jpeg"],
+    "GD10": "Gd10.jpeg",
+    "GS5 Mini": ["Gs5mini.jpeg","GS5MINI2.jpeg"]
   };
 
   /* Per-product videos (YouTube links) */
@@ -290,6 +297,19 @@ document.addEventListener('DOMContentLoaded', () => {
     return price>=lo && price<=hi;
   }
 
+  /* utility: pick first existing image from string or array */
+  function pickImage(srcOrArray){
+    if(!srcOrArray) return null;
+    if(Array.isArray(srcOrArray)){
+      for(const s of srcOrArray){
+        if(!s) continue;
+        return s;
+      }
+      return null;
+    }
+    return srcOrArray;
+  }
+
   /* Render filtered catalog with images & video buttons */
   function renderCatalog(){
     const grid = document.getElementById('productGrid'); if(!grid) return;
@@ -317,9 +337,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const card=document.createElement('section'); card.className='card';
 
-      // image row if mapping exists
+      // image row if mapping exists (supports arrays)
       const imgKey = p.name;
-      const imgSrc = imageMap[imgKey] || imageMap[imgKey.replace(/\s*\(.*\)$/,'')] || null;
+      let imgSrc = null;
+      if(imageMap[imgKey]) imgSrc = pickImage(imageMap[imgKey]);
+      if(!imgSrc){
+        const shortKey = imgKey.replace(/\s*\(.*\)$/,'').trim();
+        if(imageMap[shortKey]) imgSrc = pickImage(imageMap[shortKey]);
+      }
       if(imgSrc){
         const imgDiv=document.createElement('div'); imgDiv.className='imgrow';
         const img=document.createElement('img'); img.src=imgSrc; img.alt=p.name;
