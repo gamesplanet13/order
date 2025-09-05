@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Games Planet — Order (Patched)</title>
-<meta name="description" content="Games Planet order page with overlay filters, per-product videos, and grouped policies. Patched to include PS2 essentials single card."/>
+<meta name="description" content="Games Planet order page with overlay filters, per-product videos, and grouped policies. Patched to include PS2 essentials single card and product images."/>
 <style>
 :root{
   --bg:#0b1020; --panel:#0f1530; --card:#121a33; --muted:#9fb0d3; --text:#eaf1ff;
@@ -115,9 +115,12 @@ body{
         <img src="Fmcb.png" alt="FMCB">
         <img src="Usb.jpg" alt="USB">
         <img src="Usbhdd.jpeg" alt="HDD">
+        <img src="Ps2hdmi.jpeg" alt="PS2 HDMI Adapter">
+        <img src="Ps2wire.jpeg" alt="PS2 Wired Controller">
+        <img src="Ps2wireless.jpeg" alt="PS2 Wireless Controller">
       </div>
       <div class="muted">
-        Essential PS2 media: FMCB / FunTuna memory card, preloaded USB drives and combo packs. Single purchase link for all PS2 essentials.
+        Essential PS2 media: FMCB / FunTuna memory card, preloaded USB drives, combo packs and key accessories.
       </div>
       <div class="variantline" style="margin-top:8px">
         <a class="btn buy" href="https://gamesplanet13.github.io/ps2fmcb/" target="_blank" rel="noopener">Buy Now • FMCB / Games USB / Combo</a>
@@ -241,7 +244,24 @@ document.addEventListener('DOMContentLoaded', () => {
       variants:[{name:"STD", price:1399}] },
   ];
 
-  /* Per-product videos (now show YouTube icon on every video button) */
+  /* Image map for catalog products */
+  const imageMap = {
+    "GPZ M55": "M55.jpeg",
+    "GPZ M22": "M22.jpeg",
+    "GPZ M33": "M33.jpeg",
+    "Gamestick M88": "M88.jpeg",
+    "GameBox G11 Pro (Regular)": "G11pro.jpeg",
+    "Gamestick Lite (Pandora Mini M8)": "M8.jpeg",
+    "Gamestick Pro (Pandora Pro M15)": "M15.jpeg",
+    "Gamestick GD30 v1 (Vayava)": "GD30.jpeg",
+    "Gamestick GD30 v2 (Vayava)": "GD30.jpeg",
+    "Gamestick GD30 v3 (Vayava)": "GD30v3.jpeg",
+    // fallback names if exact keys differ:
+    "Gamestick GD30 v1": "GD30.jpeg",
+    "Gamestick GD30 v2": "GD30.jpeg"
+  };
+
+  /* Per-product videos (YouTube links) */
   const videoMap = {
     "GD35 (Vayava)": [
       {label:"▶️ YouTube • Unboxing", url:"https://youtu.be/v1k6gJtREfk?si=3RHYWRwmI34bxxlv"},
@@ -275,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.videoMap = videoMap;
 
-  /* Sidebar checkbox helpers */
+  /* Sidebar helpers */
   function getChecked(name){
     return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(i=>i.value);
   }
@@ -284,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return price>=lo && price<=hi;
   }
 
-  /* Render filtered catalog with per-product video buttons (YouTube icon on all) */
+  /* Render filtered catalog with images & video buttons */
   function renderCatalog(){
     const grid = document.getElementById('productGrid'); if(!grid) return;
     grid.innerHTML='';
@@ -310,6 +330,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if(chosenVariants.length===0) return;
 
       const card=document.createElement('section'); card.className='card';
+
+      // image row if mapping exists
+      const imgKey = p.name;
+      const imgSrc = imageMap[imgKey] || imageMap[imgKey.replace(/\s*\(.*\)$/,'')] || null;
+      if(imgSrc){
+        const imgDiv=document.createElement('div'); imgDiv.className='imgrow';
+        const img=document.createElement('img'); img.src=imgSrc; img.alt=p.name;
+        imgDiv.appendChild(img);
+        card.appendChild(imgDiv);
+      }
+
       const head=document.createElement('div'); head.className='row';
       const nm=document.createElement('div'); nm.className='name'; nm.textContent=p.name;
       const variants=document.createElement('div'); variants.className='variantline';
@@ -324,7 +355,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if(videoMapLocal[p.name]){
         const vids=document.createElement('div'); vids.className='variantline';
         videoMapLocal[p.name].forEach(v=>{
-          const a=document.createElement('a'); a.className='btn link'; a.textContent=v.label; // already includes ▶️ YouTube
+          const a=document.createElement('a'); a.className='btn link'; a.textContent=v.label; // includes ▶️
           a.href=v.url; a.target="_blank"; a.rel="noopener";
           vids.appendChild(a);
         });
