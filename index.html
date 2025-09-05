@@ -1,9 +1,10 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
 <title>Games Planet — Order (Patched)</title>
-<meta name="description" content="Games Planet order page with overlay filters, per-product videos, and grouped policies. Patched to include PS2 model in combo variants and pass to prefill."/>
+<meta name="description" content="Games Planet order page with overlay filters, per-product videos, and grouped policies. Patched to include PS2 essentials single card."/>
 <style>
 :root{
   --bg:#0b1020; --panel:#0f1530; --card:#121a33; --muted:#9fb0d3; --text:#eaf1ff;
@@ -23,7 +24,7 @@ body{
   overflow-x:hidden;
   word-wrap:break-word;
   overflow-wrap:anywhere;
-}/* Header / Brand */ .topbar{ position:sticky; top:0; z-index:55; backdrop-filter:saturate(120%) blur(8px); background:linear-gradient(180deg,rgba(0,0,0,.35),transparent); border-bottom:1px solid rgba(255,255,255,.08); } .brand{ max-width:1300px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px; } .brand .left{display:flex; align-items:center; gap:10px} .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:900;background:linear-gradient(135deg,var(--accent),#5ecbff);color:#fff;box-shadow:var(--shadow)} .brand h1{font-size:clamp(18px,2.6vw,26px); margin:0} .brand .sub{font-size:12px;color:var(--muted)}
+}/* Header / Brand */ .topbar{ position:sticky; top:0; z-index:55; backdrop-filter:saturate(120%) blur(8px); background:linear-gradient(180deg,rgba(0,0,0,.35),transparent); border-bottom:1px solid rgba(255,255,255,.08); } .brand{ max-width:1300px; margin:0 auto; padding:14px 18px; display:flex; align-items:center; justify-content:space-between; gap:12px } .brand .left{display:flex; align-items:center; gap:10px} .logo{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-weight:900;background:linear-gradient(135deg,var(--accent),#5ecbff);color:#fff;box-shadow:var(--shadow)} .brand h1{font-size:clamp(18px,2.6vw,26px); margin:0} .brand .sub{font-size:12px;color:var(--muted)}
 
 .app{max-width:1300px;margin:0 auto;padding:18px 18px 120px} .togglebar{position:fixed;top:76px;left:12px;z-index:60;display:flex;gap:8px} .tbtn{border:0;background:var(--accent);color:#fff;padding:10px 12px;border-radius:12px;box-shadow:var(--shadow);font-weight:800;cursor:pointer;white-space:normal;line-height:1.1} .tbtn.secondary{background:var(--chip);color:var(--text)}
 
@@ -105,86 +106,72 @@ body{
 </div>
 <div class="backdrop" id="backdrop"></div><div class="app">
   <main class="content">
-    <!-- FMCB (no setup button here per your instruction) -->
+
+    <!-- PS2 Essentials - COMBINED CARD (patched) -->
+    <section class="card" id="ps2-essentials">
+      <span class="badge">PS2 Essentials</span>
+      <h2 class="title">FMCB • Games USB • FMCB + USB Combo (PS2)</h2>
+      <div class="imgrow">
+        <img src="Fmcb.png" alt="FMCB">
+        <img src="Usb.jpg" alt="USB">
+        <img src="Usbhdd.jpeg" alt="HDD">
+      </div>
+      <div class="muted">
+        Essential PS2 media: FMCB / FunTuna memory card, preloaded USB drives and combo packs. Single purchase link for all PS2 essentials.
+      </div>
+      <div class="variantline" style="margin-top:8px">
+        <a class="btn buy" href="https://gamesplanet13.github.io/ps2fmcb/" target="_blank" rel="noopener">Buy Now • FMCB / Games USB / Combo</a>
+      </div>
+    </section>
+
+    <!-- Filtered Catalog -->
     <section class="card">
-      <span class="badge">FMCB / FunTuna Card</span>
-      <h2 class="title">Memory Card for PS2 (Model-wise)</h2>
-      <div class="imgrow"><img src="Fmcb.png" alt="FMCB 8MB Memory Card"></div>
-      <div class="muted">Boot PS2 games from USB using preconfigured FMCB / FunTuna + OPL. Choose your model:</div>
-      <div class="grid" id="fmcbCard"></div>
-    </section><!-- USB Only (includes Setup Video with YouTube icon) -->
-<section class="card">
-  <span class="badge">USB Only</span>
-  <h2 class="title">USB for PlayStation 2 — Game-Loaded</h2>
-  <div class="imgrow"><img src="Usb.jpg" alt="USB"><img src="Usbhdd.jpeg" alt="USB HDD"></div>
-  <div class="muted">Requires FMCB card + latest OPL. Plug directly into PS2 (no hub/splitter).</div>
-  <div class="grid" id="usbList"></div>
-  <div class="variantline" style="margin-top:8px">
-    <a class="btn link" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">▶️ YouTube • Setup / Game List</a>
-    <a class="btn link" href="https://gamesplanet13.github.io/ps2gameselector/" target="_blank" rel="noopener">🟨 Games Selector</a>
-  </div>
-</section>
+      <span class="badge">Catalog</span>
+      <h2 class="title">Products</h2>
+      <div class="grid" id="productGrid"></div>
+    </section>
 
-<!-- Combo (includes Setup Video with YouTube icon) -->
-<section class="card">
-  <span class="badge">Combo Best Value</span>
-  <h2 class="title">FMCB + USB Combo for PS2</h2>
-  <div class="imgrow"><img src="Fmcb.png" alt="FMCB"><img src="Usb.jpg" alt="USB"><img src="Usbhdd.jpeg" alt="HDD"></div>
-  <div class="muted">Fully Plug & Play. Works on PS2 Fat, Slim 7xxxx (FMCB) & Slim 9xxxx (FunTuna).</div>
-  <div class="grid" id="comboList"></div>
-  <div class="variantline" style="margin-top:8px">
-    <a class="btn link" href="https://youtu.be/xGR0vUM1-Jw" target="_blank" rel="noopener">▶️ YouTube • Setup / Game List</a>
-    <a class="btn link" href="https://gamesplanet13.github.io/ps2gameselector/" target="_blank" rel="noopener">🟨 Games Selector</a>
-  </div>
-</section>
+    <!-- Consolidated Policy Blocks (updated emojis + 3 days return) -->
+    <section class="policyblock" id="policy-fmcb">
+      <h3>Policy — FMCB / FunTuna (PS2 Memory Card)</h3>
+      <div class="applyline" id="apply-fmcb"></div>
+      <ul class="tight">
+        <li>🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
+      </ul>
+    </section>
 
-<!-- Filtered Catalog -->
-<section class="card">
-  <span class="badge">Catalog</span>
-  <h2 class="title">Products</h2>
-  <div class="grid" id="productGrid"></div>
-</section>
+    <section class="policyblock" id="policy-media">
+      <h3>Policy — PS2 Media (USB / SSD / HDD)</h3>
+      <div class="applyline" id="apply-media"></div>
+      <ul class="tight">
+        <li>🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
+        <li>🛡️ Warranty (media only): 64GB / 128GB / 128GB SSD – 1 Year; 256GB / 500GB SSD – 1 Year; 500GB HDD – 6 Months; USB enclosure – No Warranty</li>
+      </ul>
+    </section>
 
-<!-- Consolidated Policy Blocks (updated emojis + 3 days return) -->
-<section class="policyblock" id="policy-fmcb">
-  <h3>Policy — FMCB / FunTuna (PS2 Memory Card)</h3>
-  <div class="applyline" id="apply-fmcb"></div>
-  <ul class="tight">
-    <li>🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
-  </ul>
-</section>
+    <section class="policyblock" id="policy-consoles">
+      <h3>Policy — Handheld Consoles, Gamestick & Gamebox</h3>
+      <div class="applyline" id="apply-consoles"></div>
+      <ul class="tight">
+        <li>🔁 3 Days Replacement</li>
+        <li>↩️ 3 Days Returnable — 70% refund (within replacement window)</li>
+        <li>🛠️ 1 Month Software Warranty / Reinstallation (1-side courier charge by customer)</li>
+      </ul>
+    </section>
 
-<section class="policyblock" id="policy-media">
-  <h3>Policy — PS2 Media (USB / SSD / HDD)</h3>
-  <div class="applyline" id="apply-media"></div>
-  <ul class="tight">
-    <li>🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
-    <li>🛡️ Warranty (media only): 64GB / 128GB / 128GB SSD – 1 Year; 256GB / 500GB SSD – 1 Year; 500GB HDD – 6 Months; USB enclosure – No Warranty</li>
-  </ul>
-</section>
+    <section class="policyblock" id="policy-accessories">
+      <h3>Policy — Accessories</h3>
+      <div class="applyline" id="apply-accessories"></div>
+      <ul class="tight">
+        <li>🚫 No Warranty • 🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
+      </ul>
+    </section>
 
-<section class="policyblock" id="policy-consoles">
-  <h3>Policy — Handheld Consoles, Gamestick & Gamebox</h3>
-  <div class="applyline" id="apply-consoles"></div>
-  <ul class="tight">
-    <li>🔁 3 Days Replacement</li>
-    <li>↩️ 3 Days Returnable — 70% refund (within replacement window)</li>
-    <li>🛠️ 1 Month Software Warranty / Reinstallation (1-side courier charge by customer)</li>
-  </ul>
-</section>
-
-<section class="policyblock" id="policy-accessories">
-  <h3>Policy — Accessories</h3>
-  <div class="applyline" id="apply-accessories"></div>
-  <ul class="tight">
-    <li>🚫 No Warranty • 🚫 No Return • 🚫 No Replacement • 🚫 No Refund</li>
-  </ul>
-</section>
-
-<div class="foot">© Games Planet — WhatsApp: +91 79836 24797 • Prices in INR.</div>
+    <div class="foot">© Games Planet — WhatsApp: +91 79836 24797 • Prices in INR.</div>
 
   </main>
-</div><script>
+</div>
+<script>
 document.addEventListener('DOMContentLoaded', () => {
   const fmt = n => "₹"+Number(n).toLocaleString("en-IN");
   function goPrefill(product,variant,base,pack){
@@ -288,93 +275,6 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.videoMap = videoMap;
 
-  /* PS2 quick-purchase blocks */
-  const fmcbModels = [
-    { label:'PS2 Fat (All Models) — FMCB', price:999 },
-    { label:'PS2 Slim 7xxxx (All) — FMCB', price:999 },
-    { label:'PS2 Slim 9xxxx (All) — FunTuna', price:999 },
-  ];
-  const usbVariants = [
-    { v:'64GB PD',   top:  999, opt: 1099 },
-    { v:'128GB PD',  top: 1499, opt: 1649 },
-    { v:'128GB SSD', top: 1999, opt: 2199 },
-    { v:'256GB SSD', top: 2999, opt: 3299 },
-    { v:'500GB HDD', top: 2999, opt: 3299 },
-    { v:'500GB SSD', top: 3999, opt: 4399 },
-  ];
-  const comboVariants = [
-    { v:'64GB PD',   top: 1499, opt: 1649, count:21 },
-    { v:'128GB PD',  top: 1999, opt: 2199, count:41 },
-    { v:'128GB SSD', top: 2499, opt: 2699, count:41 },
-    { v:'256GB SSD', top: 3499, opt: 3849, count:71 },
-    { v:'500GB HDD', top: 3699, opt: 4049, count:175 },
-    { v:'500GB SSD', top: 4699, opt: 5149, count:175 },
-  ];
-
-  /* Renderers */
-  function renderFMCB(){
-    const box=document.getElementById('fmcbCard'); if(!box) return;
-    box.innerHTML='';
-    fmcbModels.forEach(({label,price})=>{
-      const line=document.createElement('div'); line.className='row';
-      const name=document.createElement('div'); name.className='name'; name.textContent=label;
-      const variants=document.createElement('div'); variants.className='variantline';
-      const b=document.createElement('button'); b.className='btn buy'; b.textContent=`Buy Now • ${fmt(price)}`;
-      b.addEventListener('click', ()=> goPrefill('Memory Card', label, price, 'Card Only'));
-      variants.appendChild(b);
-      line.appendChild(name); line.appendChild(variants); box.appendChild(line);
-    });
-  }
-  function renderUSB(){
-    const box=document.getElementById('usbList'); if(!box) return;
-    box.innerHTML='';
-    usbVariants.forEach(({v,top,opt})=>{
-      const line=document.createElement('div'); line.className='row';
-      const name=document.createElement('div'); name.className='name'; name.textContent=v;
-      const variants=document.createElement('div'); variants.className='variantline';
-      const b1=document.createElement('button'); b1.className='btn buy'; b1.textContent=`Buy Now • Top • ${fmt(top)}`;
-      b1.addEventListener('click', ()=> goPrefill('USB for PS2 (Game-Loaded)', v, top, 'Top'));
-      const b2=document.createElement('button'); b2.className='btn buy'; b2.textContent=`Buy Now • Optional • ${fmt(opt)}`;
-      b2.addEventListener('click', ()=> goPrefill('USB for PS2 (Game-Loaded)', v+' — Optional', opt, 'Optional'));
-      variants.appendChild(b1); variants.appendChild(b2);
-      line.appendChild(name); line.appendChild(variants); box.appendChild(line);
-    });
-  }
-  // PATCHED: renderCombo now includes PS2 model as part of each variant so prefill receives model+usb
-  function renderCombo(){
-    const box=document.getElementById('comboList'); if(!box) return;
-    box.innerHTML='';
-    fmcbModels.forEach(({label})=>{
-      // Header for this PS2 model
-      const head=document.createElement('div');
-      head.className='muted';
-      head.style.margin='8px 0 6px';
-      head.style.fontWeight='800';
-      head.textContent=label + " — Choose USB size";
-      box.appendChild(head);
-
-      comboVariants.forEach(({v,top,opt,count})=>{
-        const line=document.createElement('div'); line.className='row';
-        const name=document.createElement('div'); name.className='name';
-        name.innerHTML=`${v} <span style="opacity:.7;font-size:12px;margin-left:6px">Top ${count}</span>`;
-        const variants=document.createElement('div'); variants.className='variantline';
-
-        const b1=document.createElement('button'); b1.className='btn buy';
-        b1.textContent=`Buy Now • Top • ${fmt(top)}`;
-        // Pass model label + usb variant in the 'variant' query param
-        b1.addEventListener('click', ()=> goPrefill('FMCB + USB Combo for PS2', label + ' + ' + v, top, 'Top'));
-
-        const b2=document.createElement('button'); b2.className='btn buy';
-        b2.textContent=`Buy Now • Optional • ${fmt(opt)}`;
-        b2.addEventListener('click', ()=> goPrefill('FMCB + USB Combo for PS2', label + ' + ' + v + ' — Optional', opt, 'Optional'));
-
-        variants.appendChild(b1); variants.appendChild(b2);
-        line.appendChild(name); line.appendChild(variants);
-        box.appendChild(line);
-      });
-    });
-  }
-
   /* Sidebar checkbox helpers */
   function getChecked(name){
     return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked')).map(i=>i.value);
@@ -449,7 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const accApply = document.getElementById('apply-accessories');
     if(!fmcbApply || !mediaApply || !consolesApply || !accApply) return;
 
-    fmcbApply.textContent = "Applies to: Memory Card for PS2 (Model-wise)";
+    fmcbApply.textContent = "Applies to: PS2 Essentials — FMCB, Games USB, FMCB + USB Combo";
     mediaApply.textContent = "Applies to: USB for PlayStation 2 — Game-Loaded, FMCB + USB Combo for PS2";
 
     const consoleNames = catalog
@@ -478,9 +378,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* Initial renders */
-  renderFMCB();
-  renderUSB();
-  renderCombo();
   renderCatalog();
   buildApplyLines();
 });
