@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
   backdrop?.addEventListener('click', closeSB);
   closeTop?.addEventListener('click', closeSB);
 
-  /* Catalog data */
+  /* Catalog data (accessory items removed as requested) */
   const catalog = [
     // Gamebox
     { name:"GameBox G11 Pro (Regular)", category:"Gamebox", type:"Game+Android",
@@ -227,21 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:"Gamestick GD30 v3 (Vayava)", category:"Gamestick", type:"GameOnly",
       variants:[{name:"64GB", price:3699},{name:"128GB", price:5999},{name:"256GB", price:7299}] },
     { name:"Gamestick M88", category:"Gamestick", type:"GameOnly",
-      variants:[{name:"128GB", price:7799}] },
-
-    // Accessories
-    { name:"Wireless Controller for PS4 Compatible (Black)", category:"Accessories", type:"Accessories",
-      variants:[{name:"STD", price:1699}] },
-    { name:"P5 Wireless Controller for PS4 Compatible", category:"Accessories", type:"Accessories",
-      variants:[{name:"STD", price:1899}] },
-    { name:"P5 Spider Man Theme Controller (PS4 Compatible)", category:"Accessories", type:"Accessories",
-      variants:[{name:"STD", price:1999}] },
-    { name:"Wired Controller for PS2 Compatible (Black)", category:"Accessories", type:"Accessories",
-      variants:[{name:"STD", price:549}] },
-    { name:"Wireless Controller for PS2 Compatible", category:"Accessories", type:"Accessories",
-      variants:[{name:"STD", price:749}] },
-    { name:"Wireless Controller for PS3 Compatible (Black)", category:"Accessories", type:"Accessories",
-      variants:[{name:"STD", price:1399}] },
+      variants:[{name:"128GB", price:7799}] }
   ];
 
   /* Image map for catalog products */
@@ -253,9 +239,9 @@ document.addEventListener('DOMContentLoaded', () => {
     "GameBox G11 Pro (Regular)": "G11pro.jpeg",
     "Gamestick Lite (Pandora Mini M8)": "M8.jpeg",
     "Gamestick Pro (Pandora Pro M15)": "M15.jpeg",
-    "Gamestick GD30 v1 (Vayava)": "Gd30.jpeg",
-    "Gamestick GD30 v2 (Vayava)": "Gd30.jpeg",
-    "Gamestick GD30 v3 (Vayava)": "Gd30v3.jpeg",
+    "Gamestick GD30 v1 (Vayava)": "GD30.jpeg",
+    "Gamestick GD30 v2 (Vayava)": "GD30.jpeg",
+    "Gamestick GD30 v3 (Vayava)": "GD30v3.jpeg",
     // fallback names if exact keys differ:
     "Gamestick GD30 v1": "GD30.jpeg",
     "Gamestick GD30 v2": "GD30.jpeg"
@@ -388,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
       .map(p=>p.name).join(', ');
     consolesApply.textContent = "Applies to: " + consoleNames;
 
-    const accNames = catalog.filter(p=> p.category==='Accessories').map(p=> p.name).join(', ');
+    const accNames = catalog.filter(p=> p.category==='Accessories').map(p=>p.name).join(', ');
     accApply.textContent = "Applies to: " + accNames;
   }
 
