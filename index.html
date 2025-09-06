@@ -235,7 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:"GD35 GTA San Andreas HD Edition", category:"Gamebox", type:"GameOnly",
       variants:[{name:"64GB", price:5999},{name:"128GB", price:7699},{name:"256GB", price:8699}] },
 
-    // Gamestick
+    // Gamestick / Handheld (existing)
     { name:"Gamestick Lite (Pandora Mini M8)", category:"Gamestick", type:"GameOnly",
       variants:[{name:"64GB", price:1599}] },
     { name:"Gamestick Pro (Pandora Pro M15)", category:"Gamestick", type:"GameOnly",
@@ -257,7 +257,15 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:"Gamestick GD30 v3 (Vayava)", category:"Gamestick", type:"GameOnly",
       variants:[{name:"64GB", price:3699},{name:"128GB", price:5999},{name:"256GB", price:7299}] },
     { name:"Gamestick M88", category:"Gamestick", type:"GameOnly",
-      variants:[{name:"128GB", price:7799}] }
+      variants:[{name:"128GB", price:7799}] },
+
+    // NEW handhelds you provided
+    { name:"R35s (Budget) — Handheld", category:"Gamestick", type:"Handheld",
+      variants:[{name:"64GB", price:2799}] },
+    { name:"R35s — Handheld", category:"Gamestick", type:"Handheld",
+      variants:[{name:"64GB", price:3299}] },
+    { name:"R36 Ultra — Handheld", category:"Gamestick", type:"Handheld",
+      variants:[{name:"64GB", price:3999}] }
   ];
 
   /* imageMap supports string or array (first valid candidate used) */
@@ -277,6 +285,10 @@ document.addEventListener('DOMContentLoaded', () => {
     "Gamestick GD30 v2 (Vayava)": "Gd30.jpeg",
     "Gamestick GD30 v3 (Vayava)": "Gd30v3.jpeg",
     "Gamestick GS5 Mini": ["Gs5mini.jpeg","GS5MINI2.jpeg"],
+    // NEW handheld images (exact filenames you provided)
+    "R35s (Budget) — Handheld": "R35sb.jpeg",
+    "R35s — Handheld": "R35s.jpeg",
+    "R36 Ultra — Handheld": ["R36U.jpeg","R36s.png","R36sb.jpeg"],
     // fallbacks / short-keys
     "GD35":"Gd35.jpeg",
     "G11 Pro":"G11pro.jpeg",
@@ -327,7 +339,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* tries to load candidates sequentially; hides image if none load */
   function tryLoadImageElement(imgEl, candidates, idx=0){
     if(!candidates || candidates.length===0){ imgEl.style.display='none'; console.warn('No candidates for image element', imgEl); return; }
-    if(idx >= candidates.length){ imgEl.style.display='none'; console.warn('Image load failed for all candidates:', candidates); return; }
+    if(idx >= candidates.length){ imgEl.style.display='none'; console.warn('Image load failed for all candidates:', candidates); 
+      // show small textual hint so user can see missing image in UI
+      const hint = document.createElement('div'); hint.className='small'; hint.textContent = 'Image missing: ' + (Array.isArray(candidates)?candidates[0]:candidates);
+      imgEl.parentElement && imgEl.parentElement.appendChild(hint);
+      return; }
     const src = candidates[idx];
     function onErr(){
       imgEl.removeEventListener('error', onErr);
