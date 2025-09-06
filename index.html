@@ -57,6 +57,7 @@ body{
 .btn{ border:0;padding:9px 12px;border-radius:12px;font-weight:800;cursor:pointer;flex:0 1 auto; white-space:normal; line-height:1.12;text-align:center;min-width:96px;max-width:100%; }
 .btn.buy{background:var(--accent2);color:#08210f}
 .btn.link{background:var(--chip);color:var(--text)}
+.btn.video{background:transparent;border:1px solid rgba(255,255,255,.06);color:var(--text)}
 
 .fh{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:8px 0 6px}
 .fgroup{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
@@ -235,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:"GD35 GTA San Andreas HD Edition", category:"Gamebox", type:"GameOnly",
       variants:[{name:"64GB", price:5999},{name:"128GB", price:7699},{name:"256GB", price:8699}] },
 
-    // Gamestick / Handheld (existing)
+    // Gamestick
     { name:"Gamestick Lite (Pandora Mini M8)", category:"Gamestick", type:"GameOnly",
       variants:[{name:"64GB", price:1599}] },
     { name:"Gamestick Pro (Pandora Pro M15)", category:"Gamestick", type:"GameOnly",
@@ -259,7 +260,7 @@ document.addEventListener('DOMContentLoaded', () => {
     { name:"Gamestick M88", category:"Gamestick", type:"GameOnly",
       variants:[{name:"128GB", price:7799}] },
 
-    // NEW handhelds you provided
+    // NEW handhelds you provided earlier
     { name:"R35s (Budget) — Handheld", category:"Gamestick", type:"Handheld",
       variants:[{name:"64GB", price:2799}] },
     { name:"R35s — Handheld", category:"Gamestick", type:"Handheld",
@@ -312,6 +313,132 @@ document.addEventListener('DOMContentLoaded', () => {
   };
   window.videoMap = videoMap;
 
+  /* linksMap: Buy links and product-specific videos (from user's message) */
+  const linksMap = {
+    "GameBox Plus G10 (Vayava)": {
+      buy: [
+        "https://gamesplanet.shop/products/g10?sku_id=49300002",
+        "https://amzn.to/4afvbOO"
+      ],
+      video: [
+        "https://youtu.be/EGoVlcrre18?si=e5FMmoFI9eMnSMpt",
+        "https://youtu.be/l1uVzH-JWgs?si=pehPyGDR5cNQhOJY"
+      ]
+    },
+    "VAYAVA — GameStick GD10": {
+      buy: [
+        "https://gamesplanet.shop/products/vayava-gamestick-gd10",
+        "https://amzn.to/45sO3uE",
+        "https://amzn.to/45q1P0Z",
+        "https://dl.flipkart.com/s/Xb3FJTNNNN"
+      ],
+      video: [
+        "https://youtu.be/NTgx-SeWFHY?si=S-923d1Ppa_6io-F",
+        "https://youtu.be/t9YSmvB1TTk?si=u6qSLj1BVZ-6aKsF"
+      ]
+    },
+    "Gamestick GD30 v1 (Vayava)": {
+      buy: ["https://gamesplanet.shop/products/gd30"],
+      video: [
+        "https://youtu.be/dJ-C1ACbwik",
+        "https://youtu.be/1JE8JtbtmfA",
+        "https://youtu.be/zBrVUnyjpV0",
+        "https://youtu.be/j36IvDZ2_aw",
+        "https://youtu.be/Y3whg4vhLFs",
+        "https://youtu.be/HQTMQoc8EMA",
+        "https://youtu.be/YPcRREIz4Og"
+      ]
+    },
+    "Gamestick GD30 v3 (Vayava)": {
+      buy: ["https://gamesplanet.shop/products/gd30v3"],
+      video: [
+        "https://youtu.be/Zhdwoi-evDI?si=9E9ElkcbE4YpZ4O7",
+        "https://youtu.be/1JE8JtbtmfA",
+        "https://youtu.be/zBrVUnyjpV0",
+        "https://youtu.be/j36IvDZ2_aw",
+        "https://youtu.be/Y3whg4vhLFs",
+        "https://youtu.be/HQTMQoc8EMA",
+        "https://youtu.be/YPcRREIz4Og"
+      ]
+    },
+    "Gamestick GD30v3 Special": {
+      buy: ["https://gamesplanet.shop/products/gd30v3sp"],
+      video: [
+        "https://www.youtube.com/watch?v=dJ-C1ACbwik",
+        "https://youtu.be/1JE8JtbtmfA",
+        "https://youtu.be/zBrVUnyjpV0",
+        "https://youtu.be/j36IvDZ2_aw",
+        "https://youtu.be/Y3whg4vhLFs",
+        "https://youtu.be/HQTMQoc8EMA",
+        "https://youtu.be/YPcRREIz4Og"
+      ]
+    },
+    "R35s (Budget) — Handheld": {
+      buy: ["https://gamesplanet.shop/products/gpzr35s"],
+      video: ["https://youtu.be/eOEMkNKLSKU?si=Wd_xASTeJUYgZXd8"]
+    },
+    "GPZ M88": {
+      buy: ["https://gamesplanet.shop/products/m88"],
+      video: [
+        "https://youtube.com/shorts/NeWEyEWVw0g?si=DegbcZfRo75H_BaW",
+        "https://youtube.com/shorts/5b6xqpiZyo4?si=0_gVyW7bbKXavCAQ"
+      ]
+    },
+    "GPZ M55": {
+      buy: ["https://wa.me/917983624797?text=I%20want%20to%20buy%20GPZ%20M55"],
+      video: ["https://youtu.be/uMkSclSP5kA?si=zChWREgvdXYk-Gm0"]
+    },
+    "GPZ M33": {
+      buy: [
+        "https://gamesplanet.shop/products/gpzm33",
+        "https://amzn.to/4hQN6j6",
+        "https://bit.ly/m33newG"
+      ],
+      video: [
+        "https://youtu.be/h838JHwNI1k?si=Vo-BL1MWqTo4gF8i",
+        "https://youtu.be/0dW4go5qaDQ?si=erLso2WIpbUNj0gp",
+        "https://youtu.be/TnLw-wLWJ6A?si=8wnMnJFpA_AKbhAs"
+      ]
+    },
+    "GPZ M22": {
+      buy: [
+        "https://gamesplanet.shop/products/gpzm22",
+        "https://bit.ly/GPZm22OG",
+        "https://amzn.to/4hQN6j6"
+      ],
+      video: [
+        "https://youtu.be/bEt1GvDk8JY?si=Ki1TEJNqdiJvOLUM",
+        "https://youtu.be/TnLw-wLWJ6A?si=8wnMnJFpA_AKbhAs"
+      ]
+    },
+    "All products": {
+      video: ["https://youtu.be/IkkCb4FmIBA?si=6y2D93QiecxJiMz7"]
+    },
+    "Gamestick Pro (Pandora Pro M15)": {
+      video: [
+        "https://youtu.be/6lAcHkh4EZI?si=eesU3FcQlO6-uP76",
+        "https://youtu.be/IdNRnqvhRRs?si=k1oUphEPMKiUXivj"
+      ]
+    },
+    "GPZ GAMESTICK PRO P5 (AOKO)": {
+      buy: ["https://gamesplanet.shop/products/p5game","https://amzn.to/4fmYjqB"],
+      video: ["https://youtu.be/UUH26hD7J70"]
+    },
+    "Pandora Mini": {
+      buy: [
+        "https://gamesplanet.shop/products/pandoramini2024",
+        "https://dl.flipkart.com/s/1Vhpk8NNNN",
+        "https://dl.flipkart.com/s/1VANT_NNNN",
+        "https://amzn.to/4eVY8Tp",
+        "https://amzn.to/48pOWnv"
+      ],
+      video: ["https://youtu.be/eteF9FUaHDs"]
+    },
+    "X7m handheld": {
+      video: ["https://youtu.be/oTPiMXuPWwA?si=1hwHVzSWzAz2zRe0"]
+    }
+  };
+
   /* helper: build candidate paths for a filename/array */
   function candidatesFor(nameOrArray){
     const out = [];
@@ -340,7 +467,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* tries to load candidates sequentially; hides image if none load */
   function tryLoadImageElement(imgEl, candidates, idx=0){
     if(!candidates || candidates.length===0){ imgEl.style.display='none'; console.warn('No candidates for image element', imgEl); return; }
-    if(idx >= candidates.length){ imgEl.style.display='none'; console.warn('Image load failed for all candidates:', candidates); 
+    if(idx >= candidates.length){ imgEl.style.display='none'; console.warn('Image load failed for all candidates:', candidates);
       // show small textual hint so user can see missing image in UI
       const hint = document.createElement('div'); hint.className='small'; hint.textContent = 'Image missing: ' + (Array.isArray(candidates)?candidates[0]:candidates);
       imgEl.parentElement && imgEl.parentElement.appendChild(hint);
@@ -371,6 +498,41 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 900);
   }
 
+  /* --- New helpers for links/buttons --- */
+  function labelForLink(url){
+    try{
+      const u = new URL(url);
+      const host = u.hostname.replace('www.','').toLowerCase();
+      if(host.includes('amazon')) return 'Amazon';
+      if(host.includes('flipkart')) return 'Flipkart';
+      if(host.includes('wa.me') || host.includes('whatsapp')) return 'WhatsApp';
+      if(host.includes('youtube') || host.includes('youtu.be')) return 'YouTube';
+      if(host.includes('gamesplanet.shop') || host.includes('gamesplanet')) return 'Website';
+      if(host.includes('bit.ly') || host.includes('amzn.to') || host.includes('dl.flipkart')) return 'Link';
+      return host;
+    }catch(e){
+      return 'Link';
+    }
+  }
+
+  function appendUniqueButtons(container, urls, seenSet, btnClass){
+    urls.forEach(u=>{
+      if(!u) return;
+      if(seenSet.has(u)) return;
+      seenSet.add(u);
+      const a = document.createElement('a');
+      a.href = u;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      a.className = 'btn ' + (btnClass||'link');
+      const lbl = labelForLink(u);
+      // if it's a YouTube link, prefer '▶️ Watch'
+      if(lbl==='YouTube') a.textContent = '▶️ Watch';
+      else a.textContent = lbl + ' • Open';
+      container.appendChild(a);
+    });
+  }
+
   /* PS2 Essentials images injection (robust) */
   (function renderPS2Images(){
     const row = document.getElementById('ps2-imgrow');
@@ -398,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return price>=lo && price<=hi;
   }
 
-  /* renderCatalog with image support */
+  /* renderCatalog with image + buy/video buttons (deduped) */
   function renderCatalog(){
     const grid = document.getElementById('productGrid'); if(!grid) return;
     grid.innerHTML='';
@@ -440,6 +602,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const head = document.createElement('div'); head.className='row';
       const nm = document.createElement('div'); nm.className='name'; nm.textContent = p.name;
       const variants = document.createElement('div'); variants.className='variantline';
+      // variant price buttons (existing behavior)
       chosenVariants.forEach(v=>{
         const b = document.createElement('button'); b.className='btn buy'; b.textContent = `Buy Now • ${fmt(v.price)}`;
         b.addEventListener('click', ()=> goPrefill(p.name, v.name, v.price, 'Top'));
@@ -448,16 +611,89 @@ document.addEventListener('DOMContentLoaded', () => {
       head.appendChild(nm); head.appendChild(variants);
       card.appendChild(head);
 
-      // video links if any
-      if(window.videoMap && window.videoMap[p.name]){
-        const vids = document.createElement('div'); vids.className='variantline';
-        window.videoMap[p.name].forEach(v=>{
-          const a = document.createElement('a'); a.className='btn link'; a.textContent = v.label;
-          a.href = v.url; a.target = "_blank"; a.rel="noopener";
-          vids.appendChild(a);
-        });
-        card.appendChild(vids);
+      // Build Buy + Video buttons logically
+      // 1) Gather candidate buy links and videos from linksMap keyed variants:
+      const seen = new Set(); // to dedupe hrefs
+      const linksContainer = document.createElement('div'); linksContainer.className='variantline';
+      const videosContainer = document.createElement('div'); videosContainer.className='variantline';
+
+      // helper to collect arrays safely
+      function collectLinksForProduct(productName){
+        const out = {buy:[], video:[]};
+        if(!productName) return out;
+        // direct key
+        if(linksMap[productName]){
+          out.buy = out.buy.concat(linksMap[productName].buy||[]);
+          out.video = out.video.concat(linksMap[productName].video||[]);
+        }
+        // try some fallbacks: exact short keys
+        const short = productName.replace(/\s*\(.*\)$/,'');
+        if(linksMap[short]){
+          out.buy = out.buy.concat(linksMap[short].buy||[]);
+          out.video = out.video.concat(linksMap[short].video||[]);
+        }
+        const firstWord = productName.split(' ')[0];
+        if(linksMap[firstWord]){
+          out.buy = out.buy.concat(linksMap[firstWord].buy||[]);
+          out.video = out.video.concat(linksMap[firstWord].video||[]);
+        }
+        return out;
       }
+
+      // Gather from product name
+      const collected = collectLinksForProduct(p.name);
+      // Also gather from known videoMap (existing)
+      const vm = window.videoMap && window.videoMap[p.name] ? window.videoMap[p.name].map(o=>o.url) : [];
+      if(vm && vm.length) collected.video = collected.video.concat(vm);
+
+      // Also some products may have alternate keys in linksMap (e.g. "VAYAVA — GameStick GD10")
+      // Check a few likely synonyms:
+      const synonyms = [
+        'VAYAVA — GameStick GD10',
+        'Gamestick GD30 v1 (Vayava)',
+        'Gamestick GD30 v3 (Vayava)',
+        'Gamestick GD10 (Vayava)',
+        'GameBox Plus G10 (Vayava)',
+        'GPZ M33',
+        'GPZ M22',
+        'GPZ M55',
+        'GPZ M88',
+        'R35s (Budget) — Handheld',
+        'R35s — Handheld',
+        'R36 Ultra — Handheld'
+      ];
+      synonyms.forEach(s=>{
+        if(p.name.includes(s) || s.includes(p.name) || p.name.includes(s.split(' ')[0])){
+          if(linksMap[s]){
+            collected.buy = collected.buy.concat(linksMap[s].buy||[]);
+            collected.video = collected.video.concat(linksMap[s].video||[]);
+          }
+        }
+      });
+
+      // Deduplicate and append buy buttons
+      // Also include fallback: if product has no buy links but a general site exists, skip (we respect only provided links)
+      if(collected.buy && collected.buy.length){
+        appendUniqueButtons(linksContainer, collected.buy, seen, 'link');
+      }
+
+      // Also if product had an existing "Buy via WhatsApp" (like M55), include
+      // appendUniqueButtons will dedupe anyway
+      // Video links (collected.video)
+      if(collected.video && collected.video.length){
+        appendUniqueButtons(videosContainer, collected.video, seen, 'video');
+      }
+
+      // Finally, ensure we don't create duplicate of any variant price button URLs (price buttons are not links)
+      // Attach containers if they have children
+      if(linksContainer.children.length){
+        card.appendChild(linksContainer);
+      }
+      if(videosContainer.children.length){
+        card.appendChild(videosContainer);
+      }
+
+      // Also keep original videoMap rendering fallback (if any) already handled via collected.video
 
       grid.appendChild(card);
     });
@@ -509,7 +745,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCatalog();
   buildApplyLines();
 
-  console.info('Image loader active. If any images fail to appear, open DevTools → Console to see missing filenames and candidate paths attempted.');
+  console.info('Image loader + linksMap active. If any links/images fail to appear, open DevTools → Console to see attempted paths and deduped hrefs.');
 });
 </script>
 </body>
