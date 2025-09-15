@@ -1,5 +1,4 @@
-# Writing the patched index.html to /mnt/data/index_patched.html
-html_content = r'''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
@@ -469,7 +468,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return 'https://wa.me/917983624797?text=' + text;
   }
 
-  /* ------------------ PATCHED renderCatalog (WhatsApp removed; site-labeled buy buttons) ------------------ */
+  /* renderCatalog with single WhatsApp buy button per product */
   function renderCatalog(){
     const grid = document.getElementById('productGrid'); if(!grid) return;
     grid.innerHTML='';
@@ -523,29 +522,32 @@ document.addEventListener('DOMContentLoaded', () => {
       const linksContainer = document.createElement('div'); linksContainer.className='variantline';
       const videosContainer = document.createElement('div'); videosContainer.className='variantline';
 
-      // collect links from linksMap (if present)
+      // collect links from linksMap
       const collected = (linksMap[p.name]) ? { buy: (linksMap[p.name].buy||[]).slice(), video: (linksMap[p.name].video||[]).slice() } : {buy:[],video:[]};
 
-      // FILTER OUT WhatsApp links entirely (user requested to remove WA buy button)
-      const nonWaBuys = (collected.buy || []).filter(u => {
-        try{
-          const host = new URL(u).hostname.toLowerCase();
-          return !(host.includes('wa.me') || host.includes('whatsapp'));
-        }catch(e){
-          // if invalid URL string, keep it (will be shown as generic Link)
-          return true;
-        }
-      });
+      // Append non-whatsapp buys first
+      const waProvided = findWhatsAppUrl(collected.buy);
+      const nonWa = (collected.buy||[]).filter(u => u !== waProvided);
+      appendUniqueButtons(linksContainer, nonWa, seen, 'link');
 
-      // Append all non-WhatsApp buy links labelled by site name (Amazon / Flipkart / Website / Link etc.)
-      appendUniqueButtons(linksContainer, nonWaBuys, seen, 'link');
+      // Append whatsapp single button (provided or fallback)
+      const finalWa = waProvided || waFallback(p.name);
+      if(!seen.has(finalWa)){
+        const a = document.createElement('a');
+        a.href = finalWa;
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.className = 'btn buy';
+        a.textContent = 'Buy on WhatsApp • With Discount';
+        linksContainer.appendChild(a);
+        seen.add(finalWa);
+      }
 
-      // Video links (YouTube) appended as Watch buttons
+      // Video links
       if(collected.video && collected.video.length){
         appendUniqueButtons(videosContainer, collected.video, seen, 'video');
       }
 
-      // Attach containers if they have children
       if(linksContainer.children.length){
         card.appendChild(linksContainer);
       }
@@ -588,11 +590,3 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 </body>
 </html>
-'''
-
-path = '/mnt/data/index_patched.html'
-with open(path, 'w', encoding='utf-8') as f:
-    f.write(html_content)
-
-path
-
