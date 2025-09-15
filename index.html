@@ -3,165 +3,112 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Games Planet — Full Catalog (Header + Catalog + Footer)</title>
+<title>Games Planet — Full Catalog (Patched Final)</title>
 
-<!-- ==== USER'S HEADER STYLES (kept as-is) ==== -->
+<!-- ====== GLOBAL DARK THEME (single color) ====== -->
 <style>
 :root{
-  --bg:#f6f7fb;
-  --card:#ffffff;
-  --muted:#6b7280;
-  --cta:#25D366;
-  --accent:#111827;
-  --danger:#c2410c;
-  --social-bg: #f3f4f6;
-  --yt-red:#FF0000;
+  --bg:#071028;           /* unified page background */
+  --card:#0f1630;
+  --muted:#9fb0d3;
+  --text:#eaf1ff;
+  --accent:#7c4dff;
+  --cta:#3ddc84;
+  --yt:#ff0000;
+  --gamesplanet:#1877f2;
+  --whatsapp:#25d366;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  --amazon-orange:#FF9900;
+  --flipkart-blue:#1877f2;
 }
 *{box-sizing:border-box}
-body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:var(--bg);color:var(--accent);-webkit-font-smoothing:antialiased}
-.container{max-width:1200px;margin:0 auto;padding:18px}
-.hero {
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:28px 12px 6px;
-  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.00));
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:Inter,system-ui,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
 }
-.hero h1 {
-  margin:0;font-weight:900;font-size:clamp(34px,8vw,56px);line-height:1;letter-spacing:-1px;text-transform:uppercase;
+
+/* Container used for header/footer to center, but background kept dark */
+.container{max-width:1200px;margin:0 auto;padding:18px}
+
+/* Header (kept layout but dark) */
+.hero{
+  display:flex;align-items:center;justify-content:center;padding:22px 12px 6px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0));
+  border-bottom:1px solid rgba(255,255,255,0.02);
+}
+.hero h1{
+  margin:0;font-weight:900;font-size:clamp(28px,6vw,44px);line-height:1;letter-spacing:-1px;text-transform:uppercase;
   background: linear-gradient(90deg,#ff416c 0%,#ff7b00 18%,#ffd400 36%,#32d583 54%,#00b4ff 72%,#7b5cff 90%);
   background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
-  animation:gradientShift 14s linear infinite;
-  text-shadow:0 2px 12px rgba(124,58,237,0.10),0 6px 30px rgba(3,105,161,0.06);
+  animation:gradientShift 14s linear infinite;text-shadow:0 2px 12px rgba(0,0,0,0.4);
 }
 @keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-@media (prefers-reduced-motion: reduce){ .hero h1{ animation:none; background-size:100% 100%; } }
-
-header{margin-bottom:18px;text-align:center}
-header h2{margin:0;font-size:20px;font-weight:800}
-header p{color:var(--muted);margin:6px 0 0;font-size:14px}
+header{margin:18px 0 6px 0;text-align:center}
+header h2{margin:0;font-size:18px;font-weight:800;color:var(--text)}
+header p{color:var(--muted);margin:6px 0 0;font-size:13px}
 .header-whatsapp{margin-top:6px;font-weight:700;display:inline-block}
 
-/* Footer & social */
-.site-footer{margin-top:20px;padding:16px;border-radius:10px;background:var(--card);box-shadow:0 6px 20px rgba(6,21,36,0.04);font-size:14px;color:var(--muted)}
-.social-wrap{margin-top:18px;padding:14px;border-radius:10px;background:var(--social-bg);display:flex;flex-direction:column;gap:12px}
-.social-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
-.social-link{display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;color:#fff;text-decoration:none;font-weight:700;border:0;box-shadow:0 6px 18px rgba(2,6,23,0.06)}
-.social-link svg{width:18px;height:18px;display:block;opacity:0.98}
-.btn-website{background:#111827;color:#fff}
-.btn-indiamart{background:#0a9d58;color:#fff}
-.btn-amazon{background:#FF9900;color:#000}
-.btn-youtube{background:var(--yt-red);color:#fff}
-.btn-instagram{background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af);color:#fff}
-.btn-x{background:#0ea5e9;color:#fff}
-.btn-facebook{background:#1877F2;color:#fff}
-.btn-blog{background:#0f172a;color:#fff}
-.map-wrap{border:1px solid #e6e9ef;border-radius:8px;overflow:hidden;padding:12px;background:#fff}
-.map-embed{width:100%;height:300px;border:0;display:block}
-.map-actions{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
-.map-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 12px;border-radius:8px;background:#0f172a;color:#fff;text-decoration:none;font-weight:700;box-shadow:0 6px 18px rgba(2,6,23,0.06)}
-
 /* Floating small buttons (WhatsApp + Call) */
-.float-stack{
-  position:fixed;
-  right:18px;
-  bottom:22px;
-  z-index:1400;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  align-items:center;
-}
-.float-btn{
-  width:52px;
-  height:52px;
-  border-radius:999px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:0 10px 24px rgba(2,6,23,0.18);
-  border:none;
-  cursor:pointer;
-  text-decoration:none;
-  transition:transform .12s ease, box-shadow .12s ease;
-}
-.float-btn:active{ transform:scale(.98); }
-.float-btn:focus{ outline:3px solid rgba(37,211,102,0.18); outline-offset:2px; }
-.float-wa{
-  background:linear-gradient(180deg,#25D366,#1DA851);
-  color:#fff;
-  width:48px;height:48px;
-}
-.float-call{
-  background:#111827;
-  color:#fff;
-  width:48px;height:48px;
-}
-.float-label{
-  display:none;
-  position:relative;
-  right:70px;
-  background:rgba(0,0,0,0.85);
-  color:#fff;
-  padding:8px 10px;
-  border-radius:8px;
-  font-weight:700;
-  font-size:13px;
-  white-space:nowrap;
-}
-.float-item{display:flex;align-items:center;gap:8px;}
-@media (hover:hover) and (pointer:fine){
-  .float-item:hover .float-label{display:block}
-}
+.float-stack{position:fixed;right:18px;bottom:22px;z-index:1400;display:flex;flex-direction:column;gap:10px;align-items:center}
+.float-btn{width:52px;height:52px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;box-shadow:0 10px 24px rgba(2,6,23,0.18);border:none;cursor:pointer;text-decoration:none;transition:transform .12s ease}
+.float-btn:active{ transform:scale(.98) }
+.float-wa{background:linear-gradient(180deg,#25D366,#1DA851);color:#fff}
+.float-call{background:#111827;color:#fff}
+.float-label{display:none;position:relative;right:70px;background:rgba(0,0,0,0.85);color:#fff;padding:8px 10px;border-radius:8px;font-weight:700;font-size:13px;white-space:nowrap}
+.float-item{display:flex;align-items:center;gap:8px}
+@media (hover:hover) and (pointer:fine){ .float-item:hover .float-label{display:block} }
 .phone-link{color:var(--cta);font-weight:800;text-decoration:none}
-</style>
 
-<!-- ==== CATALOG STYLES (scoped under .catalog-wrapper to avoid clash) ==== -->
-<style>
-.catalog-wrapper{background: #071028; color:#eaf1ff; padding:28px 18px; border-radius:12px; margin:18px auto; max-width:1200px;}
+/* ====== CATALOG STYLES ====== */
+.catalog-wrapper{max-width:1200px;margin:18px auto;padding:18px;background:transparent}
 .catalog-header{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
 .catalog-title{font-size:20px;font-weight:800}
-.catalog-sub{color:#9fb0d3;font-size:13px}
+.catalog-sub{color:var(--muted);font-size:13px}
+
+/* grid/cards */
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
-.card{background:#0f1630;border-radius:12px;padding:12px;box-shadow:0 10px 30px rgba(0,0,0,.35);display:flex;flex-direction:column}
-.title{font-weight:800;font-size:15px;margin-bottom:8px;color:#eaf1ff}
+.card{background:var(--card);border-radius:12px;padding:12px;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.title{font-weight:800;font-size:15px;margin-bottom:8px;color:var(--text)}
 .imgrow{margin-bottom:10px;cursor:pointer;overflow:hidden;border-radius:8px;display:block}
-.imgrow img{width:100%;height:140px;object-fit:contain;display:block;background:linear-gradient(180deg,#0b1630,#071028)}
+.imgrow img{width:100%;height:160px;object-fit:contain;display:block;background:linear-gradient(180deg,#071828,#071028)}
 .multi-img-row{display:flex;gap:8px}
-.multi-img-row img{width:32%;height:110px;object-fit:contain;border-radius:6px;background:#081428}
+.multi-img-row img{width:32%;height:120px;object-fit:contain;border-radius:6px;background:#081428;cursor:pointer}
 .variantline{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;text-decoration:none;color:var(--text)}
-.btn.buy{background:#3ddc84;color:#07210f}
-.btn.gamesplanet{background:#1877f2;color:#fff}
-.btn.wa{background:#25d366;color:#07210f}
-.btn.yt{background:#ff0000;color:#fff}
-.smalltext{font-size:12px;color:#9fb0d3;margin-top:4px}
+.btn.buy{background:var(--cta);color:#07210f}
+.btn.gamesplanet{background:var(--gamesplanet);color:#fff}
+.btn.wa{background:var(--whatsapp);color:#07210f}
+.btn.yt{background:var(--yt);color:#fff}
+.smalltext{font-size:12px;color:var(--muted);margin-top:4px}
 .img-button{display:inline-block;vertical-align:middle}
 .img-button img{height:36px;display:block}
-.resp-vid{position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-top:20px}
-.resp-vid iframe{position:absolute;top:0;left:0;width:100%;height:100%}
-.footer-catalog{margin-top:26px;text-align:center;color:#9fb0d3;font-size:13px}
 
-/* Lightbox / Modal styles (catalog) */
-.lb-backdrop{
-  position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px;
-}
+/* lightbox */
+.lb-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:center;justify-content:center;z-index:9999;padding:24px}
 .lb-content{position:relative;max-width:95%;max-height:95%;display:flex;align-items:center;justify-content:center}
 .lb-content img{max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,0.6)}
-.lb-close{
-  position:absolute;top:-12px;right:-12px;background:#fff;color:#000;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:900;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.5)
-}
+.lb-close{position:absolute;top:-12px;right:-12px;background:#fff;color:#000;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;font-weight:900;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.5)}
 @media (max-width:480px){ .imgrow img{height:120px} .multi-img-row img{height:90px} .lb-close{width:34px;height:34px;right:-6px;top:-6px} }
+
+/* footer video small and fit */
+.footer-video-wrap{max-width:1200px;margin:22px auto;padding:0 18px}
+.footer-video-wrap iframe{width:100%;height:300px;border-radius:8px;border:0}
+.footer-block{max-width:1200px;margin:18px auto;padding:18px;color:var(--muted);font-size:13px}
 </style>
 </head>
 <body>
 
-<!-- ==== USER HEADER (exact as provided) ==== -->
+<!-- HEADER (kept content but dark background applied) -->
 <div class="hero" role="banner" aria-label="Games Planet">
   <h1>GAMES PLANET</h1>
 </div>
 
-<div class="container">
+<div class="container" style="background:transparent">
   <header>
     <h2>PS4 Products — All Variants</h2>
     <p>Prepaid only · No COD · Click <strong>Buy Now</strong> to continue to order prefill.</p>
@@ -171,7 +118,7 @@ header p{color:var(--muted);margin:6px 0 0;font-size:14px}
   </header>
 </div>
 
-<!-- ==== CATALOG AREA (Accessories top) ==== -->
+<!-- CATALOG -->
 <div class="catalog-wrapper" role="main" aria-label="Product Catalog">
   <div class="catalog-header">
     <div>
@@ -182,49 +129,21 @@ header p{color:var(--muted);margin:6px 0 0;font-size:14px}
   </div>
 
   <div id="catalog-root"></div>
-
-  <!-- footer inside catalog -->
-  <div class="footer-catalog">© Games Planet — WhatsApp: +91 79836 24797</div>
 </div>
 
-<!-- ==== USER FOOTER (keep as provided) ==== -->
-<div class="container">
-  <div class="site-footer" role="contentinfo" aria-label="After delivery and contact information">
-    <div><strong>After delivery:</strong> Contact us immediately — we will guide you through final setup and show how to run the console and offline games.</div>
-    <div style="margin-top:8px"><strong>Contact:</strong> <a id="footerWa" class="phone-link" href="#" target="_blank" rel="noopener noreferrer">WhatsApp +91 7983624797</a></div>
-    <div style="margin-top:8px"><strong>Note:</strong> This page and policies are part of the sale terms. By contacting or ordering you confirm that you have read and accepted our terms.</div>
-
-    <div class="social-wrap" style="margin-top:14px" aria-label="Social media">
-      <div style="font-weight:800">Connect with us</div>
-      <div class="social-row" role="navigation" aria-label="Social links">
-        <a class="social-link btn-website" href="https://gamesplanet.shop" target="_blank" rel="noopener noreferrer nofollow me" aria-label="Website">Website</a>
-        <a class="social-link btn-amazon" href="https://amzn.to/462ogbG" target="_blank" rel="noopener noreferrer nofollow me" aria-label="Amazon">Amazon Store</a>
-        <a class="social-link btn-youtube" href="https://www.youtube.com/c/singhtechgaming" target="_blank" rel="noopener noreferrer nofollow me" aria-label="YouTube - SinghTechGaming">SinghTechGaming</a>
-        <a class="social-link btn-youtube" href="https://www.youtube.com/@gamesplanet13" target="_blank" rel="noopener noreferrer nofollow me" aria-label="YouTube - GamesPlanet">GamesPlanet</a>
-        <a class="social-link btn-instagram" href="https://www.instagram.com/singhtech1/" target="_blank" rel="noopener noreferrer nofollow me" aria-label="Instagram">Instagram</a>
-        <a class="social-link btn-x" href="https://x.com/singhtechgaming" target="_blank" rel="noopener noreferrer nofollow me" aria-label="X">X</a>
-        <a class="social-link btn-facebook" href="https://www.facebook.com/SINGHTECH1/" target="_blank" rel="noopener noreferrer nofollow me" aria-label="Facebook">Facebook</a>
-        <a class="social-link btn-blog" href="https://singhtechgaming.blogspot.com/" target="_blank" rel="noopener noreferrer nofollow me" aria-label="Blog">Blog</a>
-      </div>
-
-      <div style="font-weight:700; margin-top:8px">Our location</div>
-      <div class="map-wrap" aria-hidden="false" style="display:block; margin-top:8px">
-        <iframe class="map-embed" loading="lazy"
-          src="https://www.google.com/maps?q=28.7831285,79.0245045&z=21&output=embed"
-          title="Google Map - Invent Computers & Games Planet Rampur"></iframe>
-
-        <div class="map-actions">
-          <a class="map-btn" href="https://maps.app.goo.gl/3EdTqEw37URqFSMU8" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
-          <a class="map-btn" href="https://maps.app.goo.gl/3EdTqEw37URqFSMU8" target="_blank" rel="noopener noreferrer">Get directions</a>
-        </div>
-
-        <div style="margin-top:8px;font-size:13px;color:var(--muted)"><strong>Place:</strong> Invent Computers & Games Planet Rampur — <a href="https://maps.app.goo.gl/3EdTqEw37URqFSMU8" target="_blank" rel="noopener noreferrer">Open in Google Maps</a></div>
-      </div>
-    </div>
-  </div>
+<!-- FOOTER VIDEO (smaller/fitted) -->
+<div class="footer-video-wrap">
+  <iframe src="https://www.youtube.com/embed/IkkCb4FmIBA?si=1oAan6WfY3L5-nTh" allowfullscreen loading="lazy" title="Games Planet Footer Video"></iframe>
 </div>
 
-<!-- Floating small buttons (WhatsApp + Call) -->
+<!-- FOOTER BLOCK (kept content but dark) -->
+<div class="footer-block" role="contentinfo" aria-label="After delivery and contact information">
+  <div style="color:var(--text)"><strong>After delivery:</strong> Contact us immediately — we will guide you through final setup and show how to run the console and offline games.</div>
+  <div style="margin-top:8px;color:var(--text)"><strong>Contact:</strong> <a id="footerWa" class="phone-link" href="#" target="_blank" rel="noopener noreferrer">WhatsApp +91 7983624797</a></div>
+  <div style="margin-top:8px;color:var(--muted)"><strong>Note:</strong> This page and policies are part of the sale terms. By contacting or ordering you confirm that you have read and accepted our terms.</div>
+</div>
+
+<!-- Floating small buttons -->
 <div class="float-stack" aria-hidden="false" aria-label="Chat and call actions">
   <div class="float-item">
     <a id="waIconBtn" class="float-btn float-wa" href="#" role="button" aria-label="Chat on WhatsApp (opens in new tab)" target="_blank" rel="noopener noreferrer">
@@ -248,14 +167,14 @@ header p{color:var(--muted);margin:6px 0 0;font-size:14px}
   </div>
 </div>
 
-<!-- ==== CATALOG SCRIPT: products, rendering, lightbox, host detection, prefill links ==== -->
+<!-- ====== CATALOG SCRIPT ====== -->
 <script>
 /* ---------- quick contact setup (header/footer) ---------- */
 const waDigits = '917983624797';
 const waPrefill = encodeURIComponent('Hello, I want to contact Games Planet.');
 const waUrl = `https://api.whatsapp.com/send?phone=${waDigits}&text=${waPrefill}`;
 document.getElementById('headerWa').href = waUrl;
-document.getElementById('footerWa').href = waUrl;
+document.getElementById('footerWa') && (document.getElementById('footerWa').href = waUrl);
 document.getElementById('waIconBtn').href = waUrl;
 document.getElementById('callIconBtn').href = 'tel:+917983624797';
 
@@ -266,54 +185,44 @@ const FLIPKART_PNG = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAFl
 
 /* ---------- helpers ---------- */
 const fmt = n => n ? "₹" + Number(n).toLocaleString('en-IN') : "Price on request";
-
 function hostLabel(url){
   try{
     const low = String(url).toLowerCase();
     const u = new URL(url);
     const h = u.hostname.replace('www.','').toLowerCase();
-
     const treatAsFlipShort = ['bit.ly','rb.gy','tinyurl.com','t.ly','goo.gl','cutt.ly','is.gd'];
     if(treatAsFlipShort.some(s=>h.includes(s))) return 'Flipkart';
-
     if(h.includes('amazon') || h.includes('amzn')) return 'Amazon';
     if(h.includes('flipkart') || h.includes('dl.flipkart')) return 'Flipkart';
     if(h.includes('gamesplanet')) return 'Games Planet';
     if(h.includes('wa.me') || h.includes('whatsapp')) return 'WhatsApp';
-
     if(low.includes('flip') || low.includes('flipkart')) return 'Flipkart';
     if(low.includes('amzn') || low.includes('amazon')) return 'Amazon';
     return h;
   }catch(e){ return 'Link'; }
 }
 
-/* ---------- PRODUCTS (Accessories top) ----------
-   Images filenames must exist in same folder as this index.html (case-sensitive).
-   If a product has no image in your uploads, set img:null (so nothing displays) — done where known.
-*/
+/* ---------- PRODUCTS (Accessories on top, FMCB renamed and showing 3 pics) ---------- */
 const groups = [
-  /* Accessories top (FMCB combo first) */
   {
     title: "🎧 Accessories & Misc",
     items: [
       {
-        name: "FMCB + USB + HDD Combo (GPZ)",
-        imgs: ["fmcb.jpeg","usb.jpeg","hdd.jpeg"], // three thumbnails; must exist
-        variants: [{n:"Combo", p:0}],
-        buy: ["https://gamesplanet13.github.io/ps2fmcb/"],
+        name: "FMCB and USB products for PS2 (GPZ)",
+        imgs: ["fmcb.jpeg","usb.jpeg","hdd.jpeg"], // thumbnails
+        variants: [], // no green combo variant button per user request
+        buy: ["https://gamesplanet13.github.io/ps2fmcb/"], // Games Planet buy now
         videos: []
       },
       {
         name: "PS2 HDMI Converter (GPZ)",
         img: "Ps2hdmi.jpeg",
-        variants: [{n:"Base", p:550}],
+        variants: [{n:"Base", p:550}], // only base variant kept
         buy: ["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"],
         videos: []
       }
     ]
   },
-
-  /* Gamesticks */
   {
     title: "🎮 Gamestick Series",
     items: [
@@ -333,8 +242,6 @@ const groups = [
       { name:"Gamestick Pro (Pandora Pro M15) (GPZ)", img:"M15.jpeg", variants:[{n:"64GB",p:1999}], buy:["https://gamesplanet.shop/products/p5game","https://amzn.to/4fmYjqB"], videos:[{url:"https://youtu.be/UUH26hD7J70",cap:"Must Watch"}] }
     ]
   },
-
-  /* GameBox */
   {
     title: "📦 GameBox Series",
     items: [
@@ -344,8 +251,6 @@ const groups = [
       { name:"GameBox G11 Pro GTA San Andreas Edition (Vayava) (GPZ)", img:"G11pro.jpeg", variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/game-box-g11-pro-ultimate-edition"], videos:[{url:"https://youtu.be/hHTmh4AdaF4?si=uKCuAJEkPyl5e4j-",cap:"GTA Edition Demo"}] }
     ]
   },
-
-  /* Handhelds */
   {
     title: "🕹️ Handheld Consoles",
     items: [
@@ -356,8 +261,6 @@ const groups = [
       { name:"X7M Handheld Single/Dual (GPZ)", img:null, variants:[{n:"Single",p:999},{n:"Dual",p:1099}], buy:[], videos:[{url:"https://youtu.be/oTPiMXuPWwA?si=mqf6Ks6PYt9j51R3",cap:"Demo"}] }
     ]
   },
-
-  /* PlayStation / Legacy */
   {
     title: "🖥️ PlayStation / Legacy Consoles",
     items: [
@@ -367,16 +270,15 @@ const groups = [
   }
 ];
 
-/* ---------- render functions (mount to #catalog-root) ---------- */
+/* ---------- render catalog ---------- */
 function renderCatalog(){
   const root = document.getElementById('catalog-root');
-  root.innerHTML = ''; // clear
-
+  root.innerHTML = '';
   groups.forEach(group=>{
     const sec = document.createElement('section');
     sec.style.margin = '22px 0';
     const h2 = document.createElement('h2'); h2.textContent = group.title;
-    h2.style.color = '#eaf1ff'; h2.style.margin = '0 0 12px 0'; h2.style.fontSize = '18px';
+    h2.style.color = 'var(--text)'; h2.style.margin = '0 0 12px 0'; h2.style.fontSize = '18px';
     sec.appendChild(h2);
 
     const grid = document.createElement('div'); grid.className = 'grid';
@@ -387,7 +289,7 @@ function renderCatalog(){
       // title
       const t = document.createElement('div'); t.className='title'; t.textContent = prod.name; card.appendChild(t);
 
-      // images: support single img or multiple imgs (imgs array)
+      // images: either multiple (imgs) or single (img)
       if(prod.imgs && Array.isArray(prod.imgs) && prod.imgs.length){
         const multi = document.createElement('div'); multi.className='multi-img-row';
         prod.imgs.forEach(src=>{
@@ -405,49 +307,59 @@ function renderCatalog(){
         wrap.addEventListener('click', ()=>{ if(im.src) openLightbox(im.src, prod.name); });
         card.appendChild(wrap);
       }
-      // variants (green buy buttons) - ensure price param included
-      const vline = document.createElement('div'); vline.className='variantline';
-      const fallbackPrice = (prod.variants && prod.variants[0] && typeof prod.variants[0].p === 'number') ? prod.variants[0].p : 0;
-      (prod.variants||[]).forEach(v=>{
-        const sendPrice = (typeof v.p === 'number' && v.p>0) ? v.p : fallbackPrice;
-        const link = `order-prefill.html?product=${encodeURIComponent(prod.name)}&variant=${encodeURIComponent(v.n)}&price=${encodeURIComponent(sendPrice)}`;
-        const a = document.createElement('a'); a.className='btn buy'; a.href = link; a.textContent = `${v.n} • ${fmt(v.p)}`;
-        a.target = '_self';
-        vline.appendChild(a);
-      });
-      card.appendChild(vline);
 
-      // external buy links (show existing). Also add DEFAULT_AMAZON if product lacks amazon
+      // variants (green buy) -- if no variants (like FMCB product) skip this block
+      if(prod.variants && prod.variants.length){
+        const vline = document.createElement('div'); vline.className='variantline';
+        const fallbackPrice = (prod.variants && prod.variants[0] && typeof prod.variants[0].p === 'number') ? prod.variants[0].p : 0;
+        (prod.variants||[]).forEach(v=>{
+          const sendPrice = (typeof v.p === 'number' && v.p>0) ? v.p : fallbackPrice;
+          // include both price and base_price for order-prefill
+          const link = `order-prefill.html?product=${encodeURIComponent(prod.name)}&variant=${encodeURIComponent(v.n)}&price=${encodeURIComponent(sendPrice)}&base_price=${encodeURIComponent(sendPrice)}`;
+          const a = document.createElement('a'); a.className='btn buy'; a.href = link; a.textContent = `${v.n} • ${fmt(v.p)}`;
+          a.target = '_self';
+          vline.appendChild(a);
+        });
+        card.appendChild(vline);
+      }
+
+      // external buy links area
       const ext = document.createElement('div'); ext.className='variantline';
       const existingHasAmazon = (prod.buy||[]).some(u => hostLabel(u) === 'Amazon' || String(u).toLowerCase().includes('amzn'));
       (prod.buy||[]).forEach(u=>{
         const lab = hostLabel(u);
         let el;
         if(lab === 'Games Planet'){
-          el = document.createElement('a'); el.className='btn gamesplanet'; el.href=u; el.textContent='Games Planet'; el.target='_blank'; el.rel='noopener';
+          // For FMCB product we want the button text "Buy Now" instead of "Games Planet"
+          if(prod.name && prod.name.toLowerCase().includes('fmcb')){
+            el = document.createElement('a'); el.className='btn gamesplanet'; el.href = u; el.textContent='Buy Now'; el.target='_blank'; el.rel='noopener';
+          } else {
+            el = document.createElement('a'); el.className='btn gamesplanet'; el.href = u; el.textContent='Games Planet'; el.target='_blank'; el.rel='noopener';
+          }
         } else if(lab === 'Amazon'){
-          el = document.createElement('a'); el.className='img-button'; el.href=u; el.target='_blank'; el.rel='noopener';
+          el = document.createElement('a'); el.className='img-button'; el.href = u; el.target='_blank'; el.rel='noopener';
           const img = document.createElement('img'); img.src = AMAZON_PNG; img.alt='Amazon'; el.appendChild(img);
         } else if(lab === 'Flipkart'){
-          el = document.createElement('a'); el.className='img-button'; el.href=u; el.target='_blank'; el.rel='noopener';
+          el = document.createElement('a'); el.className='img-button'; el.href = u; el.target='_blank'; el.rel='noopener';
           const img = document.createElement('img'); img.src = FLIPKART_PNG; img.alt='Flipkart'; el.appendChild(img);
         } else if(lab === 'WhatsApp'){
-          el = document.createElement('a'); el.className='btn wa'; el.href=u; el.textContent='WhatsApp'; el.target='_blank'; el.rel='noopener';
+          el = document.createElement('a'); el.className='btn wa'; el.href = u; el.textContent='WhatsApp'; el.target='_blank'; el.rel='noopener';
         } else {
-          // short links treated as Flipkart earlier; otherwise generic
-          el = document.createElement('a'); el.className='btn'; el.href=u; el.textContent = (lab==='Short Link' ? 'Open Link' : lab); el.target='_blank'; el.rel='noopener';
+          el = document.createElement('a'); el.className='btn'; el.href = u; el.textContent = (lab==='Short Link' ? 'Open Link' : lab); el.target='_blank'; el.rel='noopener';
         }
         ext.appendChild(el);
       });
-      // add default amazon short link button (png) if not already present
+
+      // add default amazon button if none present
       if(!existingHasAmazon){
         const el = document.createElement('a'); el.className='img-button'; el.href = DEFAULT_AMAZON; el.target='_blank'; el.rel='noopener';
         const img = document.createElement('img'); img.src = AMAZON_PNG; img.alt='Amazon'; el.appendChild(img);
         ext.appendChild(el);
       }
+
       card.appendChild(ext);
 
-      // videos if any
+      // videos (if any)
       if(prod.videos && prod.videos.length){
         const vline2 = document.createElement('div'); vline2.className='variantline';
         prod.videos.forEach(v=>{
@@ -463,11 +375,11 @@ function renderCatalog(){
     });
 
     sec.appendChild(grid);
-    document.getElementById('catalog-root').appendChild(sec);
+    root.appendChild(sec);
   });
 }
 
-/* ---------- Lightbox (catalog) ---------- */
+/* ---------- lightbox (single page) ---------- */
 let lbBackdrop, lbImg, lbClose;
 function createLightbox(){
   lbBackdrop = document.createElement('div'); lbBackdrop.className='lb-backdrop';
@@ -492,16 +404,8 @@ function closeLightbox(){ if(lbBackdrop) lbBackdrop.style.display = 'none'; if(l
 /* ---------- mount ---------- */
 document.addEventListener('DOMContentLoaded', ()=>{
   renderCatalog();
-  // ensure lightbox container exists (created on demand by openLightbox)
 });
+
 </script>
-
-<!-- Footer catalog video (kept) -->
-<div style="max-width:1200px;margin:20px auto;padding:0 18px;">
-  <div class="resp-vid" style="background:#000;border-radius:8px;overflow:hidden">
-    <iframe src="https://www.youtube.com/embed/IkkCb4FmIBA?si=1oAan6WfY3L5-nTh" frameborder="0" allowfullscreen style="width:100%;height:360px"></iframe>
-  </div>
-</div>
-
 </body>
 </html>
