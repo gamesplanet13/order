@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Games Planet — Final Patched Catalog</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Games Planet — Final Patched Catalog (Autoslide 2s)</title>
 <style>
 :root{
   --bg:#071028; --card:#0f1630; --muted:#9fb0d3; --text:#eaf1ff;
@@ -29,7 +29,7 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);
 .gprev{left:8px} .gnext{right:8px}
 .thumbDots{position:absolute;left:50%;transform:translateX(-50%);bottom:8px;display:flex;gap:6px}
 .dot{width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,0.25);cursor:pointer}
-.dot.active{background:var(--accent2)}
+.dot.active{background:var(--accent)}
 .variantline{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;border:0;cursor:pointer;font-weight:700;text-decoration:none;color:var(--text)}
 .btn.buy{background:var(--cta);color:#07210f}
@@ -132,81 +132,77 @@ const AVAILABLE = [
 "m88 (3).jpg","m88 (3).webp","m88 (4).jpg","m88 (4).webp","m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg",
 "map.png","maxresdefault (1).jpg","Ps2hdmi.png","Ps2wire.png","Ps2wireless.png","ps3 slim (1).png","ps3 slim (2).png","ps3controller.png",
 "Ps4slim1tb12.02wht.jpeg","r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg",
-"r35s (6).png","r35s (7).png","R36s.png","R36sb.png","R36U.jpeg","unnamed (1).jpg","X_logo.jpg"
+"r35s (6).png","r35s (7).png","R36s.png","R36sb.png","R36U.jpeg","unnamed (1).jpg","X_logo.jpg","Qr.jpg","YOURQIMAGE.jpg"
 ];
 
-/* ---------- product definitions with image arrays chosen from AVAILABLE ---------- */
-/* I matched filenames heuristically using the provided list. If your filenames differ slightly, rename images to match these strings or tell me to auto-fix. */
+/* ---------- PRODUCTS (mapped to AVAILABLE filenames) ---------- */
+function filterImgs(list){ return list.filter(n=> AVAILABLE.includes(n)); }
+
 const PRODUCTS = [
-  // FMCB & USB combo (gallery: fmcb + usb + hdd)
   {
     section: "Fmcb and usb products for ps2 (GPZ)",
-    name: "Fmcb and usb products for ps2 (GPZ)",
-    imgs: filterImgs(["fmcb.png","Usb.jpg","Usb hdd.jpeg","Usb.jpg","Usb hdd.jpeg"]), // Usb names may be different; filterImgs will remove missing
-    variants: [], // no combo price
-    buy: ["https://gamesplanet13.github.io/ps2fmcb/"],
-    videos: [{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}],
-    caption: "Fmcb + USB + HDD gallery — Buy on Games Planet"
-  },
-
-  // PS2 HDMI converter (base only)
-  {
-    section: "PS2 HDMI Converter (GPZ)",
-    name: "PS2 HDMI Converter (GPZ)",
-    imgs: filterImgs(["Ps2hdmi.png","Ps2hdmi.png"]),
-    variants: [{n:"Base",p:550}],
-    buy: ["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"],
-    videos: []
-  },
-
-  // GameStick / Gamesticks
-  {
-    section:"GameSticks / Handheld-style consoles",
     items: [
-      { name:"GPZ M88 GameStick (GPZ)", imgs: filterImgs(["m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (2).jpg","m88 (3).jpg","m88 (4).jpg","m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg"]), variants:[{n:"128GB",p:7799}], buy:["https://gamesplanet.shop/products/m88"], videos:[{url:"https://youtu.be/gLm7LZjTMOE",cap:"Unboxing/Testing"}] },
-
-      { name:"GPZ M66 (GPZ)", imgs: filterImgs(["m66 (1).jpg","m66 (2).jpg"]), variants:[{n:"64GB",p:2899}], buy:[], videos:[] },
-
-      { name:"GPZ GS5 Mini (GPZ)", imgs: filterImgs(["gs5mini (1).jpeg","gs5mini (2).jpeg","gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg","gs5mini (6).jpg","gs5mini (7).jpg","gs5mini (8).jpg"]), variants:[{n:"64GB",p:3699},{n:"128GB",p:5899},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gs5mini"], videos:[{url:"https://youtu.be/62x06g3BOg0",cap:"Unboxing/Testing"}] },
-
-      { name:"GPZ M22 GameStick (GPZ)", imgs: filterImgs(["m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","m22 (2).jpg","M22.jpg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gpzm22","https://bit.ly/GPZm22OG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/bEt1GvDk8JY",cap:"Unboxing/Demo"},{url:"https://youtu.be/TnLw-wLWJ6A",cap:"Gameplay"}] },
-
-      { name:"GPZ M55 GameStick (GPZ)", imgs: filterImgs(["M55.jpeg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/m55"], videos:[{url:"https://youtu.be/uMkSclSP5kA",cap:"Unboxing"}] },
-
-      { name:"GPZ M33 GameStick (GPZ)", imgs: filterImgs(["m33 (1).jpeg","m33 (1).jpg","m33 (1).png","m33 (5).jpg","m33 (6).jpg","m33 (7).jpg","m33 (8).jpg","m33 (9).jpg","m33 (10).png"]), variants:[{n:"64GB",p:2699},{n:"128GB",p:4999},{n:"256GB",p:5999}], buy:["https://gamesplanet.shop/products/gpzm33","https://bit.ly/m33newG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/h838JHwNI1k",cap:"Unboxing"}] }
+      {
+        name: "Fmcb and usb products for ps2 (GPZ)",
+        imgs: filterImgs(["fmcb.png","Usb.jpg","Usb hdd.jpeg","Usb.jpg","Usb hdd.jpeg","fmcb.png"]),
+        variants: [], // no combo price
+        buy: ["https://gamesplanet13.github.io/ps2fmcb/"],
+        videos: [{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}],
+        caption: "Fmcb + USB + HDD gallery — Buy on Games Planet"
+      }
     ]
   },
 
-  // Vayava / GD series (distinct images for v1, v2, v3 and GD35)
+  {
+    section: "PS2 HDMI Converter (GPZ)",
+    items: [
+      {
+        name: "PS2 HDMI Converter (GPZ)",
+        imgs: filterImgs(["Ps2hdmi.png"]),
+        variants: [{n:"Base",p:550}],
+        buy: ["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"],
+        videos: [],
+        caption: "Converter (base price only). Cable variants removed."
+      }
+    ]
+  },
+
+  {
+    section:"GameSticks / Gamestick-style consoles",
+    items:[
+      { name:"GPZ M88 GameStick (GPZ)", imgs: filterImgs(["m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (2).jpg","m88 (3).jpg","m88 (4).jpg","m88 (5).jpg"]), variants:[{n:"128GB",p:7799}], buy:["https://gamesplanet.shop/products/m88"], videos:[{url:"https://youtu.be/gLm7LZjTMOE",cap:"Unboxing/Testing"}] },
+      { name:"GPZ M66 GameStick (GPZ)", imgs: filterImgs(["m66 (1).jpg","m66 (2).jpg"]), variants:[{n:"64GB",p:2899}], buy:[], videos:[] },
+      { name:"GPZ GS5 Mini (GPZ)", imgs: filterImgs(["gs5mini (1).jpeg","gs5mini (2).jpeg","gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg"]), variants:[{n:"64GB",p:3699},{n:"128GB",p:5899},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gs5mini"], videos:[{url:"https://youtu.be/62x06g3BOg0",cap:"Unboxing/Testing"}] },
+      { name:"GPZ M22 GameStick (GPZ)", imgs: filterImgs(["m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","M22.jpg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gpzm22","https://bit.ly/GPZm22OG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/bEt1GvDk8JY",cap:"Unboxing/Demo"},{url:"https://youtu.be/TnLw-wLWJ6A",cap:"Gameplay"}] },
+      { name:"GPZ M55 GameStick (GPZ)", imgs: filterImgs(["M55.jpeg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/m55"], videos:[{url:"https://youtu.be/uMkSclSP5kA",cap:"Unboxing"}] },
+      { name:"GPZ M33 GameStick (GPZ)", imgs: filterImgs(["m33 (1).jpeg","m33 (1).jpg","m33 (1).png","m33 (5).jpg","m33 (6).jpg"]), variants:[{n:"64GB",p:2699},{n:"128GB",p:4999},{n:"256GB",p:5999}], buy:["https://gamesplanet.shop/products/gpzm33","https://bit.ly/m33newG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/h838JHwNI1k",cap:"Unboxing"}] },
+      { name:"Gamestick Lite (Pandora Mini M8) (GPZ)", imgs: filterImgs(["m8 (1).jpg","m8 (1).png","m8 (2).png"]), variants:[{n:"64GB",p:1599}], buy:["https://gamesplanet.shop/products/pandoramini2024","https://dl.flipkart.com/s/1Vhpk8NNNN","https://amzn.to/4eVY8Tp"], videos:[{url:"https://youtu.be/eteF9FUaHDs",cap:"Unboxing"}] },
+      { name:"Gamestick Pro (Pandora Pro M15) (GPZ)", imgs: filterImgs(["m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg"]), variants:[{n:"64GB",p:1999}], buy:["https://gamesplanet.shop/products/p5game","https://amzn.to/4fmYjqB"], videos:[{url:"https://youtu.be/UUH26hD7J70",cap:"Must Watch Before Buying"}] }
+    ]
+  },
+
   {
     section:"GD-Series (Vayava) — Gamestick",
-    items: [
+    items:[
       { name:"Vayava GD10 (GPZ)", imgs: filterImgs(["Gd10.png"]), variants:[{n:"64GB",p:2399},{n:"128GB",p:4399}], buy:["https://gamesplanet.shop/products/vayava-gamestick-gd10","https://amzn.to/45sO3uE","https://dl.flipkart.com/s/Xb3FJTNNNN"], videos:[{url:"https://youtu.be/NTgx-SeWFHY",cap:"Unboxing"},{url:"https://youtu.be/t9YSmvB1TTk",cap:"Connection Guide"}] },
-
       { name:"Vayava GD30 V1 (GPZ)", imgs: filterImgs(["gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","Gd30.jpeg"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5899},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/dJ-C1ACbwik",cap:"Unboxing/Testing"},{url:"https://youtu.be/1JE8JtbtmfA",cap:"Storage Comparison"}] },
-
       { name:"Vayava GD30 V2 (GPZ)", imgs: filterImgs(["gd30 (2).jpg","gd30 (2).png"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/1JE8JtbtmfA?si=tZoJyBMjob8XSOTF",cap:"Demo / Storage Comparison"}] },
-
       { name:"Vayava GD30 V3 (GPZ)", imgs: filterImgs(["Gd30v3.jpeg","gd30v3 special edition.png"]), variants:[{n:"64GB",p:3899},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30v3"], videos:[{url:"https://youtu.be/Zhdwoi-evDI",cap:"Unboxing"}] },
-
       { name:"Vayava GD35 Standard (GPZ)", imgs: filterImgs(["Gd35.png"]), variants:[{n:"64GB",p:5299},{n:"128GB",p:6999},{n:"256GB",p:7999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[] },
-
       { name:"Vayava GD35 GTA San Andreas Edition (GPZ)", imgs: filterImgs(["gd30v3 special edition.png","Gd35.png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[{url:"https://youtu.be/v1k6gJtREfk",cap:"Unboxing/Guide"},{url:"https://youtu.be/-6jDWfplmkY",cap:"Gameplay"}] }
     ]
   },
 
-  // GameBox
   {
     section:"GameBox Series",
     items:[
       { name:"GameBox G10 Plus (Vayava) (GPZ)", imgs: filterImgs(["g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png"]), variants:[{n:"64GB",p:3599}], buy:["https://gamesplanet.shop/products/g10","https://amzn.to/4afvbOO"], videos:[{url:"https://youtu.be/EGoVlcrre18",cap:"Unboxing"},{url:"https://youtu.be/l1uVzH-JWgs",cap:"Connection"}] },
-      { name:"GameBox G11 Pro Regular (GPZ)", imgs: filterImgs(["G11pro.png","g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","g11pro (4).png"]), variants:[{n:"64GB",p:4599},{n:"128GB",p:6599},{n:"256GB",p:7599}], buy:["https://gamesplanet.shop/products/g11pro","https://amzn.to/47l95sN","https://dl.flipkart.com/s/gQowFIuuuN"], videos:[{url:"https://youtu.be/kJNJ_Kq3NvA",cap:"Unboxing"},{url:"https://youtu.be/HoRVcbKb77Q",cap:"Connection"}] },
+      { name:"GameBox G11 Pro Regular (GPZ)", imgs: filterImgs(["G11pro.png","g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png"]), variants:[{n:"64GB",p:4599},{n:"128GB",p:6599},{n:"256GB",p:7599}], buy:["https://gamesplanet.shop/products/g11pro","https://amzn.to/47l95sN","https://dl.flipkart.com/s/gQowFIuuuN"], videos:[{url:"https://youtu.be/kJNJ_Kq3NvA",cap:"Unboxing"},{url:"https://youtu.be/HoRVcbKb77Q",cap:"Connection"}] },
       { name:"GameBox G11 Pro Special Edition (GPZ)", imgs: filterImgs(["G11pro.png","g11pro (1).png"]), variants:[{n:"64GB",p:6599},{n:"128GB",p:8599},{n:"256GB",p:9599}], buy:["https://gamesplanet.shop/products/g11prosp"], videos:[{url:"https://youtu.be/ILHGhkGNJ2s",cap:"Special Demo"}] },
       { name:"GameBox G11 Pro GTA San Andreas Edition (GPZ)", imgs: filterImgs(["G11pro.png","g11pro (3).png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/game-box-g11-pro-ultimate-edition"], videos:[{url:"https://youtu.be/hHTmh4AdaF4",cap:"GTA Edition Demo"}] }
     ]
   },
 
-  // Handhelds
   {
     section:"Handheld Consoles",
     items:[
@@ -218,7 +214,6 @@ const PRODUCTS = [
     ]
   },
 
-  // PlayStation / Legacy
   {
     section:"PlayStation / Legacy Consoles",
     items:[
@@ -227,7 +222,6 @@ const PRODUCTS = [
     ]
   },
 
-  // Accessories
   {
     section:"Accessories & Misc",
     items:[
@@ -236,116 +230,95 @@ const PRODUCTS = [
   }
 ];
 
-/* utility: return only existing filenames (case-sensitive) from AVAILABLE */
-function filterImgs(list){
-  return list.filter(n=> AVAILABLE.includes(n));
-}
-
-/* render logic with galleries and slider */
-function makeGallery(imgs, prodId){
+/* ---------- gallery creation with autoplay (2s) ---------- */
+const AUTOPLAY_INTERVAL = 2000; // 2000 ms = 2s
+function makeGallery(imgs){
   const container = document.createElement('div');
   container.className = 'gallery';
   if(!imgs || imgs.length===0){
     container.innerHTML = '<div class="placeholder">No image</div>';
-    return container;
+    return { el: container, start: ()=>{}, stop: ()=>{} };
   }
-  // image element
-  const img = document.createElement('img'); img.src = imgs[0]; img.alt = 'product';
-  img.addEventListener('click', ()=> openLightbox(img.src));
-  container.appendChild(img);
 
-  // prev / next
-  if(imgs.length>1){
+  const imgEl = document.createElement('img'); imgEl.src = imgs[0]; imgEl.alt='product';
+  container.appendChild(imgEl);
+
+  let idx = 0;
+  let intervalId = null;
+  function show(i){
+    idx = (i + imgs.length) % imgs.length;
+    imgEl.src = imgs[idx];
+    // update dots
+    const dots = container.querySelectorAll('.dot');
+    dots.forEach((d,j)=> d.classList.toggle('active', j===idx));
+  }
+
+  // prev/next if multiple images
+  if(imgs.length > 1){
     const prev = document.createElement('button'); prev.className='gprev'; prev.textContent='‹';
     const next = document.createElement('button'); next.className='gnext'; next.textContent='›';
     container.appendChild(prev); container.appendChild(next);
 
-    const dots = document.createElement('div'); dots.className='thumbDots';
-    imgs.forEach((_,i)=>{ const d=document.createElement('div'); d.className='dot'+(i===0?' active':''); d.dataset.i=i; d.addEventListener('click', ()=> show(i)); dots.appendChild(d); });
-    container.appendChild(dots);
+    const dotWrap = document.createElement('div'); dotWrap.className='thumbDots';
+    imgs.forEach((_,i)=>{ const d = document.createElement('div'); d.className = 'dot' + (i===0 ? ' active' : ''); d.dataset.i = i; d.addEventListener('click', ()=> show(i)); dotWrap.appendChild(d); });
+    container.appendChild(dotWrap);
 
-    let idx=0;
-    function show(i){
-      idx = i;
-      img.src = imgs[idx];
-      // update dots
-      const all = dots.querySelectorAll('.dot'); all.forEach((el,j)=>el.classList.toggle('active', j===idx));
+    prev.addEventListener('click', ()=> { show(idx-1); resetAutoplay(); });
+    next.addEventListener('click', ()=> { show(idx+1); resetAutoplay(); });
+
+    // autoplay control
+    function startAutoplay(){
+      if(intervalId) return;
+      intervalId = setInterval(()=>{ show(idx+1); }, AUTOPLAY_INTERVAL);
     }
-    prev.addEventListener('click', ()=> show((idx-1+imgs.length)%imgs.length));
-    next.addEventListener('click', ()=> show((idx+1)%imgs.length));
-  }
+    function stopAutoplay(){ if(intervalId){ clearInterval(intervalId); intervalId = null; } }
+    function resetAutoplay(){ stopAutoplay(); startAutoplay(); }
 
-  return container;
+    // pause on hover
+    container.addEventListener('mouseenter', ()=> stopAutoplay());
+    container.addEventListener('mouseleave', ()=> startAutoplay());
+
+    // start initially
+    startAutoplay();
+
+    // click image opens lightbox of current img
+    imgEl.addEventListener('click', ()=> openLightbox(imgs[idx]));
+
+    return { el: container, start: startAutoplay, stop: stopAutoplay };
+  } else {
+    // single image: click to lightbox
+    imgEl.addEventListener('click', ()=> openLightbox(imgs[0]));
+    return { el: container, start: ()=>{}, stop: ()=>{} };
+  }
 }
 
-/* Render whole catalog using PRODUCTS structure */
-function renderCatalog(){
-  const root = document.getElementById('catalog');
-  PRODUCTS.forEach(section=>{
-    const secDiv = document.createElement('div'); secDiv.className='section';
-    const h = document.createElement('h2'); h.textContent = section.section || section.title; secDiv.appendChild(h);
+/* ---------- render ---------- */
+function createCard(prod){
+  const card = document.createElement('div'); card.className = 'card';
+  const t = document.createElement('div'); t.className='title'; t.textContent = prod.name; card.appendChild(t);
 
-    // section may have items array (for groups) or be a single product object
-    const items = section.items || (section.items===undefined && [section]) || section.items;
-    const grid = document.createElement('div'); grid.className='grid';
+  const galleryObj = makeGallery(prod.imgs || (prod.img ? [prod.img] : []));
+  card.appendChild(galleryObj.el);
 
-    (section.items || section.items === undefined ? (section.items || [section]) : section.items).forEach(item=>{
-      // if this section uses "items" inside (handled above), else item is the element
-    });
-
-    // if section has items array (for grouped sections like GameSticks)
-    if(section.items && Array.isArray(section.items)){
-      section.items.forEach(prod => grid.appendChild(createCard(prod, section.section)));
-    } else if(section.name){
-      // single product object
-      grid.appendChild(createCard(section, section.section));
-    } else if(section.items===undefined && section.section && section.items===undefined && section.name===undefined){
-      // nothing
-    }
-
-    secDiv.appendChild(grid);
-    root.appendChild(secDiv);
-  });
-
-  // some PRODUCTS were grouped inside objects with .items => we also need to handle top-level PRODUCTS entries that themselves contain nested "items" arrays earlier (we already did).
-  // But there are also nested PRODUCTS where 'section' contains 'items' (we handled). For entries where section contains 'items' not at top, above covers.
-}
-
-/* create a card for a product object (supporting both item entries and section.items entries) */
-function createCard(prod, fallbackSection){
-  // prod may be an object with .name and .imgs or may be nested
-  const obj = prod.name ? prod : prod;
-  const card = document.createElement('div'); card.className='card';
-  const t = document.createElement('div'); t.className='title'; t.textContent = obj.name || obj.title || fallbackSection || 'Product'; card.appendChild(t);
-
-  // gallery: prefer .imgs, then .img
-  const imgs = obj.imgs || (obj.img ? [obj.img] : []);
-  const gallery = makeGallery(imgs, obj.name ? obj.name.replace(/\s+/g,'_') : 'p');
-  card.appendChild(gallery);
-
-  if(obj.caption){
-    const cap = document.createElement('div'); cap.className='smalltext'; cap.textContent = obj.caption; card.appendChild(cap);
+  if(prod.caption){
+    const cap = document.createElement('div'); cap.className='smalltext'; cap.textContent = prod.caption; card.appendChild(cap);
   }
 
-  // variants (green) — when clicked open confirm overlay and pass base price
-  if(obj.variants && obj.variants.length){
+  if(prod.variants && prod.variants.length){
     const vline = document.createElement('div'); vline.className='variantline';
-    obj.variants.forEach(v=>{
+    prod.variants.forEach(v=>{
       const b = document.createElement('button'); b.className='btn buy'; b.type='button';
       b.textContent = `${v.n} • ${fmt(v.p)}`;
-      b.dataset.product = obj.name;
-      b.dataset.variant = v.n;
-      b.dataset.base = v.p;
+      b.dataset.product = prod.name; b.dataset.variant = v.n; b.dataset.base = v.p;
       b.addEventListener('click', onVariantClick);
       vline.appendChild(b);
     });
     card.appendChild(vline);
   }
 
-  // external buy buttons
-  if(obj.buy && obj.buy.length){
+  if(prod.buy && prod.buy.length){
     const ext = document.createElement('div'); ext.className='variantline';
-    obj.buy.forEach(u=>{
+    prod.buy.forEach(u=>{
       const lab = hostLabel(u);
       if(lab === 'Games Planet'){
         const wrapper=document.createElement('div'); wrapper.style.display='flex'; wrapper.style.flexDirection='column'; wrapper.style.alignItems='center';
@@ -374,10 +347,9 @@ function createCard(prod, fallbackSection){
     card.appendChild(ext);
   }
 
-  // videos
-  if(obj.videos && obj.videos.length){
+  if(prod.videos && prod.videos.length){
     const vline = document.createElement('div'); vline.className='variantline';
-    obj.videos.forEach(v=>{
+    prod.videos.forEach(v=>{
       const wrap=document.createElement('div'); wrap.style.display='flex'; wrap.style.flexDirection='column'; wrap.style.alignItems='center';
       const a=document.createElement('a'); a.className='btn yt'; a.href=v.url; a.target='_blank'; a.textContent='▶️ YouTube';
       const cap=document.createElement('div'); cap.className='smalltext'; cap.textContent=v.cap || '';
@@ -389,45 +361,59 @@ function createCard(prod, fallbackSection){
   return card;
 }
 
-/* ---------- confirm overlay for variant selection ---------- */
+function renderCatalog(){
+  const root = document.getElementById('catalog');
+  PRODUCTS.forEach(section=>{
+    const secDiv = document.createElement('div'); secDiv.className='section';
+    const h = document.createElement('h2'); h.textContent = section.section || section.title; secDiv.appendChild(h);
+    const grid = document.createElement('div'); grid.className='grid';
+
+    if(section.items && Array.isArray(section.items)){
+      section.items.forEach(prod => grid.appendChild(createCard(prod)));
+    } else if(section.name){
+      grid.appendChild(createCard(section));
+    } else if(section.items === undefined && section.name === undefined){
+      // ignore
+    }
+
+    secDiv.appendChild(grid);
+    root.appendChild(secDiv);
+  });
+}
+
+/* ---------- confirm overlay & order-prefill ---------- */
 function onVariantClick(e){
   const btn = e.currentTarget;
-  const product = btn.dataset.product || '';
-  const variant = btn.dataset.variant || '';
-  const base = btn.dataset.base || '';
+  const product = btn.dataset.product;
+  const variant = btn.dataset.variant;
+  const base = btn.dataset.base;
 
-  const content = document.getElementById('confirmContent');
-  content.innerHTML = '';
-
-  // find product image small
-  let prodImg = '';
-  for(const s of PRODUCTS){
-    // section may have items
-    if(s.items && Array.isArray(s.items)){
-      for(const it of s.items){
-        if(it.name === product){ prodImg = (it.imgs && it.imgs[0]) || it.img || ''; break; }
-      }
-    }
-    if(s.name === product) prodImg = (s.imgs && s.imgs[0]) || s.img || prodImg;
-  }
-
+  const box = document.getElementById('confirmContent'); box.innerHTML = '';
   const mini = document.createElement('div'); mini.className='product-mini';
-  if(prodImg){
-    const im = document.createElement('img'); im.src = prodImg; im.alt = product; mini.appendChild(im);
+
+  // find a matching image
+  let foundImg = '';
+  for(const section of PRODUCTS){
+    const items = section.items || [section];
+    for(const it of items){
+      if(it.name === product){ foundImg = (it.imgs && it.imgs[0]) || (it.img && it.img) || ''; break; }
+    }
+    if(foundImg) break;
   }
+  if(foundImg){ const im = document.createElement('img'); im.src = foundImg; im.onerror = ()=>im.style.display='none'; mini.appendChild(im); }
+
   const info = document.createElement('div');
   const n = document.createElement('div'); n.style.fontWeight='800'; n.textContent = product;
   const v = document.createElement('div'); v.className='smalltext'; v.textContent = variant + (base ? (' • ' + fmt(base)) : '');
   info.appendChild(n); info.appendChild(v);
   mini.appendChild(info);
-  content.appendChild(mini);
+  box.appendChild(mini);
 
-  // set confirm link
   const confirmGo = document.getElementById('confirmGo');
   const url = new URL('order-prefill.html', location.href);
   url.searchParams.set('product', product);
   url.searchParams.set('variant', variant);
-  url.searchParams.set('base', base);
+  url.searchParams.set('base', base || '');
   confirmGo.href = url.toString();
 
   document.getElementById('confirmOverlay').style.display = 'flex';
@@ -442,45 +428,9 @@ function openLightbox(src){
 }
 document.getElementById('lbClose').addEventListener('click', ()=>{ document.getElementById('lightbox').style.display='none'; document.getElementById('lightbox').setAttribute('aria-hidden','true'); });
 
-/* ---------- initialize ---------- */
-document.addEventListener('DOMContentLoaded', ()=>{
-  // Render PRODUCTS structure: some entries are groups with .items, some are single product objects
-  const root = document.getElementById('catalog');
+/* ---------- init ---------- */
+document.addEventListener('DOMContentLoaded', ()=>{ renderCatalog(); });
 
-  PRODUCTS.forEach(section => {
-    const sec = document.createElement('div'); sec.className='section';
-    const h = document.createElement('h2'); h.textContent = section.section || section.title || 'Products'; sec.appendChild(h);
-
-    const grid = document.createElement('div'); grid.className='grid';
-
-    if(section.items && Array.isArray(section.items)){
-      section.items.forEach(p => grid.appendChild(createCard(p)));
-    } else if(section.name){
-      grid.appendChild(createCard(section));
-    } else if(section.items){
-      section.items.forEach(p => grid.appendChild(createCard(p)));
-    }
-
-    // also handle grouped entries where PRODUCTS entry itself has nested items field above (some top-level entries)
-    if(section.items === undefined && section.name === undefined && section.items !== undefined){
-      // nothing
-    }
-
-    root.appendChild(sec);
-    sec.appendChild(grid);
-  });
-
-  // Some PRODUCTS entries are top-level grouped objects rather than nested (like "GameSticks" used earlier)
-  // Additionally handle entries inside PRODUCTS where 'section' is undefined but items are inside top-level objects
-  // For safety: if PRODUCTS contains objects with a .section of a grouped category, they are rendered above.
-});
-
-/* Note:
- - The code uses the exact filenames you provided in AVAILABLE list.
- - If any image doesn't appear, rename your image file in the folder to match these names exactly (case-sensitive).
- - Bitly links are treated as Flipkart (show Flipkart icon).
- - Variant (green) buttons open a confirmation overlay; clicking "Confirm your product" will navigate to order-prefill.html with product, variant and base as query params.
-*/
 </script>
 </body>
 </html>
