@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Games Planet — Final Patched Catalog (Autoslide 2s)</title>
+<title>Games Planet — Final Patched Catalog (Lazy + Prefetch)</title>
 <style>
 :root{
   --bg:#071028; --card:#0f1630; --muted:#9fb0d3; --text:#eaf1ff;
@@ -101,15 +101,29 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);
 </div>
 
 <script>
-/* --- icons --- */
-const AMAZON_PNG="https://i.pinimg.com/originals/75/19/72/75197219cb0da0c45ebdb03ff17dddd8.png";
-const FLIPKART_PNG="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAFlX40qspwq8Hc1umoPD-Eqc-1F6UjZUmrQ&usqp=CAU";
+/* ---------- settings ---------- */
+const AUTOPLAY_INTERVAL = 2000; // 2s
+const AUTOPLAY_DELAY_BEFORE_PREFETCH = 600; // how soon to prefetch next after gallery visible (ms)
+const AVAILABLE = [
+  "blog.png","fmcb.png","g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png",
+  "g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","g11pro (4).png","G11pro.png",
+  "gamesvallah.png","Gd10.png","gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","gd30 (2).jpg","gd30 (2).png","Gd30.jpeg",
+  "gd30v3 special edition.png","Gd30v3.jpeg","Gd35.png","gs5mini (1).jpeg","gs5mini (1).jpg","gs5mini (2).jpeg","gs5mini (2).jpg",
+  "gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg","gs5mini (6).jpg","gs5mini (7).jpg","gs5mini (8).jpg",
+  "instagram.png","m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg","m15 (5).jpeg","m15 (6).jpeg",
+  "m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","m22 (2).jpg","M22.jpg","m33 (1).jpeg","m33 (1).jpg","m33 (1).png",
+  "m33 (10).png","m33 (5).jpg","m33 (6).jpg","m33 (7).jpg","m33 (8).jpg","m33 (9).jpg","M55.jpeg","m66 (1).jpg","m66 (2).jpg",
+  "m8 (1).jpg","m8 (1).png","m8 (2).png","m8 (3).png","m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (1).webp","m88 (2).jpg","m88 (2).webp",
+  "m88 (3).jpg","m88 (3).webp","m88 (4).jpg","m88 (4).webp","m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg",
+  "map.png","maxresdefault (1).jpg","Ps2hdmi.png","Ps2wire.png","Ps2wireless.png","ps3 slim (1).png","ps3 slim (2).png","ps3controller.png",
+  "Ps4slim1tb12.02wht.jpeg","r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg",
+  "r35s (6).png","r35s (7).png","R36s.png","R36sb.png","R36U.jpeg","unnamed (1).jpg","X_logo.jpg","Qr.jpg","YOURQIMAGE.jpg"
+];
 
-/* --- helper --- */
+/* helper */
 function fmt(n){ return (n||n===0) ? "₹"+Number(n).toLocaleString('en-IN') : "Price on request"; }
 function hostLabel(url){
-  try{
-    const h=new URL(url).hostname.replace('www.','').toLowerCase();
+  try{ const h=new URL(url).hostname.replace('www.','').toLowerCase();
     if(h.includes('amazon')||h.includes('amzn')) return 'Amazon';
     if(h.includes('flipkart')||h.includes('bit.ly')||h.includes('dl.flipkart')) return 'Flipkart';
     if(h.includes('gamesplanet')) return 'Games Planet';
@@ -117,201 +131,187 @@ function hostLabel(url){
     return h;
   }catch(e){ return 'Link' }
 }
-
-/* ---------- available image filenames (you provided) ---------- */
-const AVAILABLE = [
-"blog.png","fmcb.png","g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png",
-"g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","g11pro (4).png","G11pro.png",
-"gamesvallah.png","Gd10.png","gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","gd30 (2).jpg","gd30 (2).png","Gd30.jpeg",
-"gd30v3 special edition.png","Gd30v3.jpeg","Gd35.png","gs5mini (1).jpeg","gs5mini (1).jpg","gs5mini (2).jpeg","gs5mini (2).jpg",
-"gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg","gs5mini (6).jpg","gs5mini (7).jpg","gs5mini (8).jpg",
-"instagram.png","m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg","m15 (5).jpeg","m15 (6).jpeg",
-"m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","m22 (2).jpg","M22.jpg","m33 (1).jpeg","m33 (1).jpg","m33 (1).png",
-"m33 (10).png","m33 (5).jpg","m33 (6).jpg","m33 (7).jpg","m33 (8).jpg","m33 (9).jpg","M55.jpeg","m66 (1).jpg","m66 (2).jpg",
-"m8 (1).jpg","m8 (1).png","m8 (2).png","m8 (3).png","m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (1).webp","m88 (2).jpg","m88 (2).webp",
-"m88 (3).jpg","m88 (3).webp","m88 (4).jpg","m88 (4).webp","m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg",
-"map.png","maxresdefault (1).jpg","Ps2hdmi.png","Ps2wire.png","Ps2wireless.png","ps3 slim (1).png","ps3 slim (2).png","ps3controller.png",
-"Ps4slim1tb12.02wht.jpeg","r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg",
-"r35s (6).png","r35s (7).png","R36s.png","R36sb.png","R36U.jpeg","unnamed (1).jpg","X_logo.jpg","Qr.jpg","YOURQIMAGE.jpg"
-];
-
-/* ---------- PRODUCTS (mapped to AVAILABLE filenames) ---------- */
 function filterImgs(list){ return list.filter(n=> AVAILABLE.includes(n)); }
 
+/* ---------- data (same as before) ---------- */
+/* For brevity in this snippet I will use a compact product structure referencing filenames you provided.
+   Keep this structure synced with your available images. */
 const PRODUCTS = [
-  {
-    section: "Fmcb and usb products for ps2 (GPZ)",
-    items: [
-      {
-        name: "Fmcb and usb products for ps2 (GPZ)",
-        imgs: filterImgs(["fmcb.png","Usb.jpg","Usb hdd.jpeg","Usb.jpg","Usb hdd.jpeg","fmcb.png"]),
-        variants: [], // no combo price
-        buy: ["https://gamesplanet13.github.io/ps2fmcb/"],
-        videos: [{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}],
-        caption: "Fmcb + USB + HDD gallery — Buy on Games Planet"
-      }
-    ]
-  },
+  { section:"Fmcb and usb products for ps2 (GPZ)", items:[
+    { name:"Fmcb and usb products for ps2 (GPZ)", imgs:filterImgs(["fmcb.png","Usb.jpg","Usb hdd.jpeg","fmcb.png"]), variants:[], buy:["https://gamesplanet13.github.io/ps2fmcb/"], videos:[{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}], caption:"Fmcb + USB + HDD gallery — Buy on Games Planet" }
+  ]},
+  { section:"PS2 HDMI Converter (GPZ)", items:[
+    { name:"PS2 HDMI Converter (GPZ)", imgs:filterImgs(["Ps2hdmi.png"]), variants:[{n:"Base",p:550}], buy:["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"], videos:[], caption:"Converter (base price only). Cable variants removed." }
+  ]},
 
-  {
-    section: "PS2 HDMI Converter (GPZ)",
-    items: [
-      {
-        name: "PS2 HDMI Converter (GPZ)",
-        imgs: filterImgs(["Ps2hdmi.png"]),
-        variants: [{n:"Base",p:550}],
-        buy: ["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"],
-        videos: [],
-        caption: "Converter (base price only). Cable variants removed."
-      }
-    ]
-  },
+  { section:"GameSticks / Gamestick-style consoles", items:[
+    { name:"GPZ M88 GameStick (GPZ)", imgs:filterImgs(["m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (2).jpg","m88 (3).jpg","m88 (4).jpg","m88 (5).jpg"]), variants:[{n:"128GB",p:7799}], buy:["https://gamesplanet.shop/products/m88"], videos:[{url:"https://youtu.be/gLm7LZjTMOE",cap:"Unboxing/Testing"}] },
+    { name:"GPZ M66 GameStick (GPZ)", imgs:filterImgs(["m66 (1).jpg","m66 (2).jpg"]), variants:[{n:"64GB",p:2899}], buy:[], videos:[] },
+    { name:"GPZ GS5 Mini (GPZ)", imgs:filterImgs(["gs5mini (1).jpeg","gs5mini (2).jpeg","gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg"]), variants:[{n:"64GB",p:3699},{n:"128GB",p:5899},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gs5mini"], videos:[{url:"https://youtu.be/62x06g3BOg0",cap:"Unboxing/Testing"}] },
+    { name:"GPZ M22 GameStick (GPZ)", imgs:filterImgs(["m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","M22.jpg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gpzm22","https://bit.ly/GPZm22OG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/bEt1GvDk8JY",cap:"Unboxing/Demo"},{url:"https://youtu.be/TnLw-wLWJ6A",cap:"Gameplay"}] },
+    { name:"GPZ M55 GameStick (GPZ)", imgs:filterImgs(["M55.jpeg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/m55"], videos:[{url:"https://youtu.be/uMkSclSP5kA",cap:"Unboxing"}] },
+    { name:"GPZ M33 GameStick (GPZ)", imgs:filterImgs(["m33 (1).jpeg","m33 (1).jpg","m33 (1).png","m33 (5).jpg","m33 (6).jpg"]), variants:[{n:"64GB",p:2699},{n:"128GB",p:4999},{n:"256GB",p:5999}], buy:["https://gamesplanet.shop/products/gpzm33","https://bit.ly/m33newG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/h838JHwNI1k",cap:"Unboxing"}] },
+    { name:"Gamestick Lite (Pandora Mini M8) (GPZ)", imgs:filterImgs(["m8 (1).jpg","m8 (1).png","m8 (2).png"]), variants:[{n:"64GB",p:1599}], buy:["https://gamesplanet.shop/products/pandoramini2024","https://dl.flipkart.com/s/1Vhpk8NNNN","https://amzn.to/4eVY8Tp"], videos:[{url:"https://youtu.be/eteF9FUaHDs",cap:"Unboxing"}] },
+    { name:"Gamestick Pro (Pandora Pro M15) (GPZ)", imgs:filterImgs(["m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg"]), variants:[{n:"64GB",p:1999}], buy:["https://gamesplanet.shop/products/p5game","https://amzn.to/4fmYjqB"], videos:[{url:"https://youtu.be/UUH26hD7J70",cap:"Must Watch Before Buying"}] }
+  ]},
 
-  {
-    section:"GameSticks / Gamestick-style consoles",
-    items:[
-      { name:"GPZ M88 GameStick (GPZ)", imgs: filterImgs(["m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (2).jpg","m88 (3).jpg","m88 (4).jpg","m88 (5).jpg"]), variants:[{n:"128GB",p:7799}], buy:["https://gamesplanet.shop/products/m88"], videos:[{url:"https://youtu.be/gLm7LZjTMOE",cap:"Unboxing/Testing"}] },
-      { name:"GPZ M66 GameStick (GPZ)", imgs: filterImgs(["m66 (1).jpg","m66 (2).jpg"]), variants:[{n:"64GB",p:2899}], buy:[], videos:[] },
-      { name:"GPZ GS5 Mini (GPZ)", imgs: filterImgs(["gs5mini (1).jpeg","gs5mini (2).jpeg","gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg"]), variants:[{n:"64GB",p:3699},{n:"128GB",p:5899},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gs5mini"], videos:[{url:"https://youtu.be/62x06g3BOg0",cap:"Unboxing/Testing"}] },
-      { name:"GPZ M22 GameStick (GPZ)", imgs: filterImgs(["m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","M22.jpg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gpzm22","https://bit.ly/GPZm22OG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/bEt1GvDk8JY",cap:"Unboxing/Demo"},{url:"https://youtu.be/TnLw-wLWJ6A",cap:"Gameplay"}] },
-      { name:"GPZ M55 GameStick (GPZ)", imgs: filterImgs(["M55.jpeg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/m55"], videos:[{url:"https://youtu.be/uMkSclSP5kA",cap:"Unboxing"}] },
-      { name:"GPZ M33 GameStick (GPZ)", imgs: filterImgs(["m33 (1).jpeg","m33 (1).jpg","m33 (1).png","m33 (5).jpg","m33 (6).jpg"]), variants:[{n:"64GB",p:2699},{n:"128GB",p:4999},{n:"256GB",p:5999}], buy:["https://gamesplanet.shop/products/gpzm33","https://bit.ly/m33newG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/h838JHwNI1k",cap:"Unboxing"}] },
-      { name:"Gamestick Lite (Pandora Mini M8) (GPZ)", imgs: filterImgs(["m8 (1).jpg","m8 (1).png","m8 (2).png"]), variants:[{n:"64GB",p:1599}], buy:["https://gamesplanet.shop/products/pandoramini2024","https://dl.flipkart.com/s/1Vhpk8NNNN","https://amzn.to/4eVY8Tp"], videos:[{url:"https://youtu.be/eteF9FUaHDs",cap:"Unboxing"}] },
-      { name:"Gamestick Pro (Pandora Pro M15) (GPZ)", imgs: filterImgs(["m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg"]), variants:[{n:"64GB",p:1999}], buy:["https://gamesplanet.shop/products/p5game","https://amzn.to/4fmYjqB"], videos:[{url:"https://youtu.be/UUH26hD7J70",cap:"Must Watch Before Buying"}] }
-    ]
-  },
+  { section:"GD-Series (Vayava) — Gamestick", items:[
+    { name:"Vayava GD10 (GPZ)", imgs:filterImgs(["Gd10.png"]), variants:[{n:"64GB",p:2399},{n:"128GB",p:4399}], buy:["https://gamesplanet.shop/products/vayava-gamestick-gd10","https://amzn.to/45sO3uE","https://dl.flipkart.com/s/Xb3FJTNNNN"], videos:[{url:"https://youtu.be/NTgx-SeWFHY",cap:"Unboxing"},{url:"https://youtu.be/t9YSmvB1TTk",cap:"Connection Guide"}] },
+    { name:"Vayava GD30 V1 (GPZ)", imgs:filterImgs(["gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","Gd30.jpeg"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5899},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/dJ-C1ACbwik",cap:"Unboxing/Testing"},{url:"https://youtu.be/1JE8JtbtmfA",cap:"Storage Comparison"}] },
+    { name:"Vayava GD30 V2 (GPZ)", imgs:filterImgs(["gd30 (2).jpg","gd30 (2).png"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/1JE8JtbtmfA?si=tZoJyBMjob8XSOTF",cap:"Demo / Storage Comparison"}] },
+    { name:"Vayava GD30 V3 (GPZ)", imgs:filterImgs(["Gd30v3.jpeg","gd30v3 special edition.png"]), variants:[{n:"64GB",p:3899},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30v3"], videos:[{url:"https://youtu.be/Zhdwoi-evDI",cap:"Unboxing"}] },
+    { name:"Vayava GD35 Standard (GPZ)", imgs:filterImgs(["Gd35.png"]), variants:[{n:"64GB",p:5299},{n:"128GB",p:6999},{n:"256GB",p:7999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[] },
+    { name:"Vayava GD35 GTA San Andreas Edition (GPZ)", imgs:filterImgs(["gd30v3 special edition.png","Gd35.png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[{url:"https://youtu.be/v1k6gJtREfk",cap:"Unboxing/Guide"},{url:"https://youtu.be/-6jDWfplmkY",cap:"Gameplay"}] }
+  ]},
 
-  {
-    section:"GD-Series (Vayava) — Gamestick",
-    items:[
-      { name:"Vayava GD10 (GPZ)", imgs: filterImgs(["Gd10.png"]), variants:[{n:"64GB",p:2399},{n:"128GB",p:4399}], buy:["https://gamesplanet.shop/products/vayava-gamestick-gd10","https://amzn.to/45sO3uE","https://dl.flipkart.com/s/Xb3FJTNNNN"], videos:[{url:"https://youtu.be/NTgx-SeWFHY",cap:"Unboxing"},{url:"https://youtu.be/t9YSmvB1TTk",cap:"Connection Guide"}] },
-      { name:"Vayava GD30 V1 (GPZ)", imgs: filterImgs(["gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","Gd30.jpeg"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5899},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/dJ-C1ACbwik",cap:"Unboxing/Testing"},{url:"https://youtu.be/1JE8JtbtmfA",cap:"Storage Comparison"}] },
-      { name:"Vayava GD30 V2 (GPZ)", imgs: filterImgs(["gd30 (2).jpg","gd30 (2).png"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/1JE8JtbtmfA?si=tZoJyBMjob8XSOTF",cap:"Demo / Storage Comparison"}] },
-      { name:"Vayava GD30 V3 (GPZ)", imgs: filterImgs(["Gd30v3.jpeg","gd30v3 special edition.png"]), variants:[{n:"64GB",p:3899},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30v3"], videos:[{url:"https://youtu.be/Zhdwoi-evDI",cap:"Unboxing"}] },
-      { name:"Vayava GD35 Standard (GPZ)", imgs: filterImgs(["Gd35.png"]), variants:[{n:"64GB",p:5299},{n:"128GB",p:6999},{n:"256GB",p:7999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[] },
-      { name:"Vayava GD35 GTA San Andreas Edition (GPZ)", imgs: filterImgs(["gd30v3 special edition.png","Gd35.png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[{url:"https://youtu.be/v1k6gJtREfk",cap:"Unboxing/Guide"},{url:"https://youtu.be/-6jDWfplmkY",cap:"Gameplay"}] }
-    ]
-  },
+  { section:"GameBox Series", items:[
+    { name:"GameBox G10 Plus (Vayava) (GPZ)", imgs:filterImgs(["g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png"]), variants:[{n:"64GB",p:3599}], buy:["https://gamesplanet.shop/products/g10","https://amzn.to/4afvbOO"], videos:[{url:"https://youtu.be/EGoVlcrre18",cap:"Unboxing"},{url:"https://youtu.be/l1uVzH-JWgs",cap:"Connection"}] },
+    { name:"GameBox G11 Pro Regular (GPZ)", imgs:filterImgs(["G11pro.png","g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png"]), variants:[{n:"64GB",p:4599},{n:"128GB",p:6599},{n:"256GB",p:7599}], buy:["https://gamesplanet.shop/products/g11pro","https://amzn.to/47l95sN","https://dl.flipkart.com/s/gQowFIuuuN"], videos:[{url:"https://youtu.be/kJNJ_Kq3NvA",cap:"Unboxing"},{url:"https://youtu.be/HoRVcbKb77Q",cap:"Connection"}] },
+    { name:"GameBox G11 Pro Special Edition (GPZ)", imgs:filterImgs(["G11pro.png","g11pro (1).png"]), variants:[{n:"64GB",p:6599},{n:"128GB",p:8599},{n:"256GB",p:9599}], buy:["https://gamesplanet.shop/products/g11prosp"], videos:[{url:"https://youtu.be/ILHGhkGNJ2s",cap:"Special Demo"}] },
+    { name:"GameBox G11 Pro GTA San Andreas Edition (GPZ)", imgs:filterImgs(["G11pro.png","g11pro (3).png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/game-box-g11-pro-ultimate-edition"], videos:[{url:"https://youtu.be/hHTmh4AdaF4",cap:"GTA Edition Demo"}] }
+  ]},
 
-  {
-    section:"GameBox Series",
-    items:[
-      { name:"GameBox G10 Plus (Vayava) (GPZ)", imgs: filterImgs(["g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png"]), variants:[{n:"64GB",p:3599}], buy:["https://gamesplanet.shop/products/g10","https://amzn.to/4afvbOO"], videos:[{url:"https://youtu.be/EGoVlcrre18",cap:"Unboxing"},{url:"https://youtu.be/l1uVzH-JWgs",cap:"Connection"}] },
-      { name:"GameBox G11 Pro Regular (GPZ)", imgs: filterImgs(["G11pro.png","g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png"]), variants:[{n:"64GB",p:4599},{n:"128GB",p:6599},{n:"256GB",p:7599}], buy:["https://gamesplanet.shop/products/g11pro","https://amzn.to/47l95sN","https://dl.flipkart.com/s/gQowFIuuuN"], videos:[{url:"https://youtu.be/kJNJ_Kq3NvA",cap:"Unboxing"},{url:"https://youtu.be/HoRVcbKb77Q",cap:"Connection"}] },
-      { name:"GameBox G11 Pro Special Edition (GPZ)", imgs: filterImgs(["G11pro.png","g11pro (1).png"]), variants:[{n:"64GB",p:6599},{n:"128GB",p:8599},{n:"256GB",p:9599}], buy:["https://gamesplanet.shop/products/g11prosp"], videos:[{url:"https://youtu.be/ILHGhkGNJ2s",cap:"Special Demo"}] },
-      { name:"GameBox G11 Pro GTA San Andreas Edition (GPZ)", imgs: filterImgs(["G11pro.png","g11pro (3).png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/game-box-g11-pro-ultimate-edition"], videos:[{url:"https://youtu.be/hHTmh4AdaF4",cap:"GTA Edition Demo"}] }
-    ]
-  },
+  { section:"Handheld Consoles", items:[
+    { name:"R35S Handheld (GPZ)", imgs:filterImgs(["r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg","r35s (6).png","r35s (7).png"]), variants:[{n:"64GB",p:2999},{n:"128GB",p:4999}], buy:["https://gamesplanet.shop/products/gpzr35s"], videos:[{url:"https://youtu.be/eOEMkNKLSKU",cap:"Unboxing"}] },
+    { name:"R36S (GPZ)", imgs:filterImgs(["R36s.png","R36sb.png"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5499}], buy:[], videos:[] },
+    { name:"R36 Ultra (GPZ)", imgs:filterImgs(["R36U.jpeg"]), variants:[{n:"64GB",p:3999}], buy:[], videos:[{url:"https://youtube.com/shorts/OHoFvn3oqnM?si=feNA64nUgk6u72Tq",cap:"Short demo"}] },
+    { name:"Black Hawk (GPZ)", imgs:filterImgs(["YOURQIMAGE.jpg","unnamed (1).jpg"]), variants:[{n:"Base",p:2399}], buy:[], videos:[] },
+    { name:"X7M Single / Dual (GPZ)", imgs:filterImgs(["Qr.jpg","X_logo.jpg"]), variants:[{n:"Single",p:999},{n:"Dual",p:1099}], buy:[], videos:[{url:"https://youtu.be/oTPiMXuPWwA",cap:"Demo"}] }
+  ]},
 
-  {
-    section:"Handheld Consoles",
-    items:[
-      { name:"R35S Handheld (GPZ)", imgs: filterImgs(["r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg","r35s (6).png","r35s (7).png"]), variants:[{n:"64GB",p:2999},{n:"128GB",p:4999}], buy:["https://gamesplanet.shop/products/gpzr35s"], videos:[{url:"https://youtu.be/eOEMkNKLSKU",cap:"Unboxing"}] },
-      { name:"R36S (GPZ)", imgs: filterImgs(["R36s.png","R36sb.png"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5499}], buy:[], videos:[] },
-      { name:"R36 Ultra (GPZ)", imgs: filterImgs(["R36U.jpeg"]), variants:[{n:"64GB",p:3999}], buy:[], videos:[{url:"https://youtube.com/shorts/OHoFvn3oqnM?si=feNA64nUgk6u72Tq",cap:"Short demo"}] },
-      { name:"Black Hawk (GPZ)", imgs: filterImgs(["YOURQIMAGE.jpg","unnamed (1).jpg"]), variants:[{n:"Base",p:2399}], buy:[], videos:[] },
-      { name:"X7M Single / Dual (GPZ)", imgs: filterImgs(["Qr.jpg","X_logo.jpg"]), variants:[{n:"Single",p:999},{n:"Dual",p:1099}], buy:[], videos:[{url:"https://youtu.be/oTPiMXuPWwA",cap:"Demo"}] }
-    ]
-  },
+  { section:"PlayStation / Legacy Consoles", items:[
+    { name:"PlayStation 2 Slim (GPZ)", imgs:filterImgs(["ps3 slim (1).png","ps3 slim (2).png","ps3controller.png","Ps4slim1tb12.02wht.jpeg"]), variants:[{n:"Console",p:5500}], buy:["https://Gamesplanet13.github.io/ps2now"], videos:[{url:"https://youtu.be/py-V7CQjcYM",cap:"Quality Check"},{url:"https://youtu.be/xGR0vUM1-Jw",cap:"Full Game List"},{url:"https://youtu.be/Lb3dRycJbEc",cap:"Gameplay"},{url:"https://youtu.be/bF3M4aGXHSU",cap:"How to Order"}] },
+    { name:"PlayStation 3 (500GB) (GPZ)", imgs:filterImgs(["ps3 slim (1).png","ps3 slim (2).png"]), variants:[{n:"500GB",p:15999}], buy:["https://wa.me/917983624797"], videos:[] }
+  ]},
 
-  {
-    section:"PlayStation / Legacy Consoles",
-    items:[
-      { name:"PlayStation 2 Slim (GPZ)", imgs: filterImgs(["ps3 slim (1).png","ps3 slim (2).png","ps3controller.png","Ps4slim1tb12.02wht.jpeg"]), variants:[{n:"Console",p:5500}], buy:["https://Gamesplanet13.github.io/ps2now"], videos:[{url:"https://youtu.be/py-V7CQjcYM",cap:"Quality Check"},{url:"https://youtu.be/xGR0vUM1-Jw",cap:"Full Game List"},{url:"https://youtu.be/Lb3dRycJbEc",cap:"Gameplay"},{url:"https://youtu.be/bF3M4aGXHSU",cap:"How to Order"}] },
-      { name:"PlayStation 3 (500GB) (GPZ)", imgs: filterImgs(["ps3 slim (1).png","ps3 slim (2).png"]), variants:[{n:"500GB",p:15999}], buy:["https://wa.me/917983624797"], videos:[] }
-    ]
-  },
-
-  {
-    section:"Accessories & Misc",
-    items:[
-      { name:"PS2 Wireless Gamepad (GPZ)", imgs: filterImgs(["Ps2wire.png","Ps2wireless.png"]), variants:[{n:"Single",p:0}], buy:["https://gamesplanet.shop/products/ps2-wireless-gamepad-1?sku_id=51117958"], videos:[] }
-    ]
-  }
+  { section:"Accessories & Misc", items:[
+    { name:"PS2 Wireless Gamepad (GPZ)", imgs:filterImgs(["Ps2wire.png","Ps2wireless.png"]), variants:[{n:"Single",p:0}], buy:["https://gamesplanet.shop/products/ps2-wireless-gamepad-1?sku_id=51117958"], videos:[] }
+  ]}
 ];
 
-/* ---------- gallery creation with autoplay (2s) ---------- */
-const AUTOPLAY_INTERVAL = 2000; // 2000 ms = 2s
+/* ---------- gallery (lazy + autoplay + prefetch) ---------- */
 function makeGallery(imgs){
-  const container = document.createElement('div');
-  container.className = 'gallery';
-  if(!imgs || imgs.length===0){
-    container.innerHTML = '<div class="placeholder">No image</div>';
-    return { el: container, start: ()=>{}, stop: ()=>{} };
-  }
+  const container = document.createElement('div'); container.className='gallery';
+  if(!imgs || imgs.length===0){ container.innerHTML = '<div class="placeholder">No image</div>'; return container; }
 
-  const imgEl = document.createElement('img'); imgEl.src = imgs[0]; imgEl.alt='product';
+  // create img element but use data-src for lazy load
+  const imgEl = document.createElement('img');
+  imgEl.alt = 'product image';
+  imgEl.setAttribute('decoding','async');
+  imgEl.setAttribute('loading','lazy'); // additional hint
+
+  // store dataset list
+  imgEl.dataset.gallery = JSON.stringify(imgs);
+  imgEl.dataset.index = 0;
+  imgEl.src = ''; // will be set by observer/prefetch
+
   container.appendChild(imgEl);
 
-  let idx = 0;
-  let intervalId = null;
-  function show(i){
-    idx = (i + imgs.length) % imgs.length;
-    imgEl.src = imgs[idx];
-    // update dots
-    const dots = container.querySelectorAll('.dot');
-    dots.forEach((d,j)=> d.classList.toggle('active', j===idx));
-  }
-
-  // prev/next if multiple images
-  if(imgs.length > 1){
+  if(imgs.length>1){
     const prev = document.createElement('button'); prev.className='gprev'; prev.textContent='‹';
     const next = document.createElement('button'); next.className='gnext'; next.textContent='›';
     container.appendChild(prev); container.appendChild(next);
 
-    const dotWrap = document.createElement('div'); dotWrap.className='thumbDots';
-    imgs.forEach((_,i)=>{ const d = document.createElement('div'); d.className = 'dot' + (i===0 ? ' active' : ''); d.dataset.i = i; d.addEventListener('click', ()=> show(i)); dotWrap.appendChild(d); });
-    container.appendChild(dotWrap);
+    const dots = document.createElement('div'); dots.className='thumbDots';
+    imgs.forEach((_,i)=>{ const d=document.createElement('div'); d.className='dot' + (i===0? ' active':'' ); d.dataset.i=i; d.addEventListener('click', ()=> show(i)); dots.appendChild(d); });
+    container.appendChild(dots);
 
-    prev.addEventListener('click', ()=> { show(idx-1); resetAutoplay(); });
-    next.addEventListener('click', ()=> { show(idx+1); resetAutoplay(); });
+    let idx=0;
+    let intervalId = null;
+    let started=false;
 
-    // autoplay control
+    function updateImg(i){
+      idx = (i + imgs.length) % imgs.length;
+      imgEl.src = imgs[idx];
+      imgEl.dataset.index = idx;
+      // update dots
+      const all = dots.querySelectorAll('.dot'); all.forEach((el,j)=> el.classList.toggle('active', j===idx));
+    }
+
     function startAutoplay(){
       if(intervalId) return;
-      intervalId = setInterval(()=>{ show(idx+1); }, AUTOPLAY_INTERVAL);
+      intervalId = setInterval(()=> updateImg(idx+1), AUTOPLAY_INTERVAL);
     }
-    function stopAutoplay(){ if(intervalId){ clearInterval(intervalId); intervalId = null; } }
-    function resetAutoplay(){ stopAutoplay(); startAutoplay(); }
+    function stopAutoplay(){ if(intervalId){ clearInterval(intervalId); intervalId=null; } }
+
+    prev.addEventListener('click', ()=> { updateImg(idx-1); resetAutoplay(); });
+    next.addEventListener('click', ()=> { updateImg(idx+1); resetAutoplay(); });
+
+    function resetAutoplay(){ stopAutoplay(); setTimeout(()=> startAutoplay(), AUTOPLAY_INTERVAL); }
 
     // pause on hover
     container.addEventListener('mouseenter', ()=> stopAutoplay());
     container.addEventListener('mouseleave', ()=> startAutoplay());
 
-    // start initially
-    startAutoplay();
+    // clicking image opens lightbox of current src
+    imgEl.addEventListener('click', ()=> openLightbox(imgEl.src));
 
-    // click image opens lightbox of current img
-    imgEl.addEventListener('click', ()=> openLightbox(imgs[idx]));
+    // when gallery enters viewport, load first image immediately and start autoplay & prefetch others gradually
+    const galleryObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          // load first image immediately
+          if(!started){
+            updateImg(0);
+            started=true;
+            // start autoplay after a tiny delay
+            setTimeout(()=> startAutoplay(), 300);
+            // throttle prefetch of remaining images
+            setTimeout(()=> prefetchRemaining(imgs, 1), AUTOPLAY_DELAY_BEFORE_PREFETCH);
+          }
+        }
+      });
+    }, {root:null,threshold:0.2});
+    galleryObserver.observe(container);
 
-    return { el: container, start: startAutoplay, stop: stopAutoplay };
+    return container;
   } else {
-    // single image: click to lightbox
-    imgEl.addEventListener('click', ()=> openLightbox(imgs[0]));
-    return { el: container, start: ()=>{}, stop: ()=>{} };
+    // single image: lazy-load when intersects
+    const singleObserver = new IntersectionObserver((entries, obs)=>{
+      entries.forEach(en=>{
+        if(en.isIntersecting){
+          if(!imgEl.src) imgEl.src = imgs[0];
+          obs.unobserve(en.target);
+        }
+      });
+    }, {root:null,threshold:0.2});
+    singleObserver.observe(container);
+    imgEl.addEventListener('click', ()=> openLightbox(imgEl.src));
+    return container;
   }
 }
 
-/* ---------- render ---------- */
+// prefetch remaining images but spaced out so server not hammered
+function prefetchRemaining(imgs, startIdx){
+  // create tiny delays between fetches
+  for(let i=startIdx;i<imgs.length;i++){
+    setTimeout(()=>{
+      const link = document.createElement('link');
+      link.rel = 'prefetch'; link.href = imgs[i]; link.as = 'image';
+      document.head.appendChild(link);
+      // also create an Image object to warm cache (low priority)
+      const im = new Image(); im.src = imgs[i];
+    }, 600 * (i - startIdx + 1)); // 600ms gaps
+  }
+}
+
+/* ---------- render helpers ---------- */
 function createCard(prod){
-  const card = document.createElement('div'); card.className = 'card';
+  const card = document.createElement('div'); card.className='card';
   const t = document.createElement('div'); t.className='title'; t.textContent = prod.name; card.appendChild(t);
 
-  const galleryObj = makeGallery(prod.imgs || (prod.img ? [prod.img] : []));
-  card.appendChild(galleryObj.el);
+  const imgs = prod.imgs && prod.imgs.length ? prod.imgs : (prod.img ? [prod.img] : []);
+  const gallery = makeGallery(imgs);
+  card.appendChild(gallery);
 
-  if(prod.caption){
-    const cap = document.createElement('div'); cap.className='smalltext'; cap.textContent = prod.caption; card.appendChild(cap);
-  }
+  if(prod.caption){ const cap = document.createElement('div'); cap.className='smalltext'; cap.textContent = prod.caption; card.appendChild(cap); }
 
   if(prod.variants && prod.variants.length){
     const vline = document.createElement('div'); vline.className='variantline';
     prod.variants.forEach(v=>{
       const b = document.createElement('button'); b.className='btn buy'; b.type='button';
-      b.textContent = `${v.n} • ${fmt(v.p)}`;
-      b.dataset.product = prod.name; b.dataset.variant = v.n; b.dataset.base = v.p;
-      b.addEventListener('click', onVariantClick);
-      vline.appendChild(b);
+      b.textContent = `${v.n} • ${fmt(v.p)}`; b.dataset.product = prod.name; b.dataset.variant = v.n; b.dataset.base = v.p;
+      b.addEventListener('click', onVariantClick); vline.appendChild(b);
     });
     card.appendChild(vline);
   }
@@ -327,12 +327,12 @@ function createCard(prod){
         wrapper.appendChild(a); wrapper.appendChild(lbl); ext.appendChild(wrapper);
       } else if(lab === 'Amazon'){
         const wrapper=document.createElement('div'); wrapper.style.display='flex'; wrapper.style.flexDirection='column'; wrapper.style.alignItems='center';
-        const a=document.createElement('a'); a.className='img-button'; a.href=u; a.target='_blank'; a.innerHTML=`<img src="${AMAZON_PNG}" alt="Amazon">`;
+        const a=document.createElement('a'); a.className='img-button'; a.href=u; a.target='_blank'; a.innerHTML=`<img src="https://i.pinimg.com/originals/75/19/72/75197219cb0da0c45ebdb03ff17dddd8.png" alt="Amazon">`;
         const lbl=document.createElement('div'); lbl.className='buy-label'; lbl.textContent='Buy now';
         wrapper.appendChild(a); wrapper.appendChild(lbl); ext.appendChild(wrapper);
       } else if(lab === 'Flipkart'){
         const wrapper=document.createElement('div'); wrapper.style.display='flex'; wrapper.style.flexDirection='column'; wrapper.style.alignItems='center';
-        const a=document.createElement('a'); a.className='img-button'; a.href=u; a.target='_blank'; a.innerHTML=`<img src="${FLIPKART_PNG}" alt="Flipkart">`;
+        const a=document.createElement('a'); a.className='img-button'; a.href=u; a.target='_blank'; a.innerHTML=`<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAFlX40qspwq8Hc1umoPD-Eqc-1F6UjZUmrQ&usqp=CAU" alt="Flipkart">`;
         const lbl=document.createElement('div'); lbl.className='buy-label'; lbl.textContent='Buy now';
         wrapper.appendChild(a); wrapper.appendChild(lbl); ext.appendChild(wrapper);
       } else if(lab === 'WhatsApp'){
@@ -361,6 +361,7 @@ function createCard(prod){
   return card;
 }
 
+/* ---------- render catalog ---------- */
 function renderCatalog(){
   const root = document.getElementById('catalog');
   PRODUCTS.forEach(section=>{
@@ -372,35 +373,31 @@ function renderCatalog(){
       section.items.forEach(prod => grid.appendChild(createCard(prod)));
     } else if(section.name){
       grid.appendChild(createCard(section));
-    } else if(section.items === undefined && section.name === undefined){
-      // ignore
     }
-
     secDiv.appendChild(grid);
     root.appendChild(secDiv);
   });
 }
 
-/* ---------- confirm overlay & order-prefill ---------- */
+/* ---------- confirm overlay ---------- */
 function onVariantClick(e){
   const btn = e.currentTarget;
-  const product = btn.dataset.product;
-  const variant = btn.dataset.variant;
-  const base = btn.dataset.base;
+  const product = btn.dataset.product || '';
+  const variant = btn.dataset.variant || '';
+  const base = btn.dataset.base || '';
 
   const box = document.getElementById('confirmContent'); box.innerHTML = '';
   const mini = document.createElement('div'); mini.className='product-mini';
 
-  // find a matching image
-  let foundImg = '';
-  for(const section of PRODUCTS){
-    const items = section.items || [section];
-    for(const it of items){
-      if(it.name === product){ foundImg = (it.imgs && it.imgs[0]) || (it.img && it.img) || ''; break; }
+  // find small image
+  let foundImg='';
+  for(const s of PRODUCTS){
+    for(const it of (s.items||[])){
+      if(it.name === product){ foundImg = (it.imgs && it.imgs[0]) || ''; break; }
     }
     if(foundImg) break;
   }
-  if(foundImg){ const im = document.createElement('img'); im.src = foundImg; im.onerror = ()=>im.style.display='none'; mini.appendChild(im); }
+  if(foundImg){ const im=document.createElement('img'); im.src=foundImg; im.onerror=()=>im.style.display='none'; mini.appendChild(im); }
 
   const info = document.createElement('div');
   const n = document.createElement('div'); n.style.fontWeight='800'; n.textContent = product;
@@ -422,15 +419,11 @@ function onVariantClick(e){
 document.getElementById('cancelConfirm').addEventListener('click', ()=>{ document.getElementById('confirmOverlay').style.display='none'; document.getElementById('confirmOverlay').setAttribute('aria-hidden','true'); });
 
 /* ---------- lightbox ---------- */
-function openLightbox(src){
-  const lb = document.getElementById('lightbox'); lb.style.display='flex'; lb.setAttribute('aria-hidden','false');
-  document.getElementById('lbImg').src = src;
-}
+function openLightbox(src){ const lb=document.getElementById('lightbox'); lb.style.display='flex'; lb.setAttribute('aria-hidden','false'); document.getElementById('lbImg').src = src; }
 document.getElementById('lbClose').addEventListener('click', ()=>{ document.getElementById('lightbox').style.display='none'; document.getElementById('lightbox').setAttribute('aria-hidden','true'); });
 
 /* ---------- init ---------- */
 document.addEventListener('DOMContentLoaded', ()=>{ renderCatalog(); });
-
 </script>
 </body>
 </html>
