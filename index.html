@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Games Planet — Final Patched Catalog (Lazy + Prefetch)</title>
+<title>Games Planet — Final Patched Catalog (Lazy + Prefetch) — FIXED</title>
 <style>
 :root{
   --bg:#071028; --card:#0f1630; --muted:#9fb0d3; --text:#eaf1ff;
@@ -106,14 +106,14 @@ const AUTOPLAY_INTERVAL = 2000; // 2s
 const AUTOPLAY_DELAY_BEFORE_PREFETCH = 600; // how soon to prefetch next after gallery visible (ms)
 const AVAILABLE = [
   "blog.png","fmcb.png","g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png",
-  "g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","g11pro (4).png","G11pro.png",
+  "g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","G11pro.png",
   "gamesvallah.png","Gd10.png","gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","gd30 (2).jpg","gd30 (2).png","Gd30.jpeg",
   "gd30v3 special edition.png","Gd30v3.jpeg","Gd35.png","gs5mini (1).jpeg","gs5mini (1).jpg","gs5mini (2).jpeg","gs5mini (2).jpg",
   "gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg","gs5mini (6).jpg","gs5mini (7).jpg","gs5mini (8).jpg",
   "instagram.png","m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg","m15 (5).jpeg","m15 (6).jpeg",
   "m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","m22 (2).jpg","M22.jpg","m33 (1).jpeg","m33 (1).jpg","m33 (1).png",
   "m33 (10).png","m33 (5).jpg","m33 (6).jpg","m33 (7).jpg","m33 (8).jpg","m33 (9).jpg","M55.jpeg","m66 (1).jpg","m66 (2).jpg",
-  "m8 (1).jpg","m8 (1).png","m8 (2).png","m8 (3).png","m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (1).webp","m88 (2).jpg","m88 (2).webp",
+  "m8 (1).jpg","m8 (1).png","m8 (2).png","m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (1).webp","m88 (2).jpg","m88 (2).webp",
   "m88 (3).jpg","m88 (3).webp","m88 (4).jpg","m88 (4).webp","m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg",
   "map.png","maxresdefault (1).jpg","Ps2hdmi.png","Ps2wire.png","Ps2wireless.png","ps3 slim (1).png","ps3 slim (2).png","ps3controller.png",
   "Ps4slim1tb12.02wht.jpeg","r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg",
@@ -131,11 +131,42 @@ function hostLabel(url){
     return h;
   }catch(e){ return 'Link' }
 }
-function filterImgs(list){ return list.filter(n=> AVAILABLE.includes(n)); }
+
+// NEW: robust filename resolver that tolerates spaces, percent-encoding and missing spaces
+const AVAILABLE_LOWER = AVAILABLE.map(s=> s.toLowerCase());
+function resolveName(name){
+  if(!name) return name;
+  const tried = new Set();
+  const candidates = [
+    name,
+    name.replace(/\s+/g, ''),           // remove all spaces
+    name.replace(/\s+/g, '%20'),        // percent-encode spaces
+    name.replace(/\s+\(/g, '('),       // remove space before (
+    name.replace(/\s+\)/g, ')'),
+    name.replace(/\(/g, '%28').replace(/\)/g, '%29'), // encode parens
+    name.trim()
+  ];
+  for(const c of candidates){
+    if(!c) continue;
+    const lc = c.toLowerCase();
+    if(tried.has(lc)) continue; tried.add(lc);
+    const idx = AVAILABLE_LOWER.indexOf(lc);
+    if(idx !== -1) return AVAILABLE[idx]; // return original-cased available name
+  }
+  // fallback: return original name so browser attempts to load it (useful if file is present but not listed)
+  return name;
+}
+
+function filterImgs(list){
+  if(!Array.isArray(list)) return [];
+  const resolved = list.map(n => resolveName(n));
+  // dedupe while preserving order
+  const seen = new Set(); const out = [];
+  for(const r of resolved){ if(!seen.has(r)){ seen.add(r); out.push(r); } }
+  return out;
+}
 
 /* ---------- data (same as before) ---------- */
-/* For brevity in this snippet I will use a compact product structure referencing filenames you provided.
-   Keep this structure synced with your available images. */
 const PRODUCTS = [
   { section:"Fmcb and usb products for ps2 (GPZ)", items:[
     { name:"Fmcb and usb products for ps2 (GPZ)", imgs:filterImgs(["fmcb.png","Usb.jpg","Usb hdd.jpeg","fmcb.png"]), variants:[], buy:["https://gamesplanet13.github.io/ps2fmcb/"], videos:[{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}], caption:"Fmcb + USB + HDD gallery — Buy on Games Planet" }
