@@ -105,19 +105,71 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);
 const AUTOPLAY_INTERVAL = 2000; // 2s
 const AUTOPLAY_DELAY_BEFORE_PREFETCH = 600; // how soon to prefetch next after gallery visible (ms)
 const AVAILABLE = [
-  "blog.png","fmcb.png","g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png",
-  "g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","G11pro.png",
-  "gamesvallah.png","Gd10.png","gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","gd30 (2).jpg","gd30 (2).png","Gd30.jpeg",
-  "gd30v3 special edition.png","Gd30v3.jpeg","Gd35.png","gs5mini (1).jpeg","gs5mini (1).jpg","gs5mini (2).jpeg","gs5mini (2).jpg",
-  "gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg","gs5mini (6).jpg","gs5mini (7).jpg","gs5mini (8).jpg",
-  "instagram.png","m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg","m15 (5).jpeg","m15 (6).jpeg",
-  "m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","m22 (2).jpg","M22.jpg","m33 (1).jpeg","m33 (1).jpg","m33 (1).png",
-  "m33 (10).png","m33 (5).jpg","m33 (6).jpg","m33 (7).jpg","m33 (8).jpg","m33 (9).jpg","M55.jpeg","m66 (1).jpg","m66 (2).jpg",
-  "m8 (1).jpg","m8 (1).png","m8 (2).png","m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (1).webp","m88 (2).jpg","m88 (2).webp",
-  "m88 (3).jpg","m88 (3).webp","m88 (4).jpg","m88 (4).webp","m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg",
-  "map.png","maxresdefault (1).jpg","Ps2hdmi.png","Ps2wire.png","Ps2wireless.png","ps3 slim (1).png","ps3 slim (2).png","ps3controller.png",
-  "Ps4slim1tb12.02wht.jpeg","r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg",
-  "r35s (6).png","r35s (7).png","R36s.png","R36sb.png","R36U.jpeg","unnamed (1).jpg","X_logo.jpg","Qr.jpg","YOURQIMAGE.jpg"
+  "blog.png","Fmcb.png","Usb.jpg","Usbhdd.jpeg",
+  "g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png",
+  "G10.jpeg","G10b.jpeg",
+
+  "g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","g11pro (4).png",
+  "G11pro.jpeg","G11pro.png",
+
+  "gamesvallah.png",
+
+  "Gd10.jpeg","Gd10.png",
+
+  "gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png",
+  "gd30 (2).jpg","gd30 (2).png",
+  "Gd30.jpeg","gd30v3 special edition.png","Gd30v3.jpeg",
+
+  "Gd35.jpeg","Gd35.png",
+
+  "gs5mini (1).jpeg","gs5mini (1).jpg","gs5mini (2).jpeg","gs5mini (2).jpg",
+  "gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg","gs5mini (6).jpg",
+  "gs5mini (7).jpg","gs5mini (8).jpg",
+  "Gs5mini.jpeg","GS5MINI2.jpeg",
+
+  "m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg","m15 (5).jpeg","m15 (6).jpeg",
+  "M15.jpeg",
+
+  "m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","m22 (2).jpg","M22.jpeg","M22.jpg",
+
+  "m33 (1).jpeg","m33 (1).jpg","m33 (1).png","m33 (5).jpg","m33 (6).jpg","m33 (7).jpg","m33 (8).jpg","m33 (9).jpg","m33 (10).png",
+  "M33.jpeg",
+
+  "M55.jpeg",
+
+  "m66 (1).jpg","m66 (2).jpg",
+
+  "m8 (1).jpg","m8 (1).png","m8 (2).png","m8 (3).png","M8.jpeg",
+
+  "m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (1).webp",
+  "m88 (2).jpg","m88 (2).webp",
+  "m88 (3).jpg","m88 (3).webp",
+  "m88 (4).jpg","m88 (4).webp",
+  "m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg",
+  "M88.jpeg",
+
+  "map.png","maxresdefault (1).jpg",
+
+  "Ps2hdmi.jpeg","Ps2hdmi.png",
+  "Ps2wire.jpeg","Ps2wire.png",
+  "Ps2wireless.jpeg","Ps2wireless.png",
+
+  "ps3 slim (1).png","ps3 slim (2).png","ps3controller.png",
+  "Ps4slim1tb12.02wht.jpeg",
+
+  "Qr (1).jpg","Qr.jpg",
+
+  "r35s (1).jpeg","r35s (1).jpg","r35s (1).png",
+  "r35s (2).jpeg","r35s (2).jpg",
+  "r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg",
+  "r35s (6).png","r35s (7).png",
+  "R35s.jpeg","R35sb.jpeg",
+
+  "R36s.png","R36sb.jpeg","R36sb.png","R36U.jpeg",
+
+  "unnamed (1).jpg",
+
+  "X_logo.jpg","YOURQRIMAGE.jpg"
 ];
 
 /* helper */
@@ -169,7 +221,7 @@ function filterImgs(list){
 /* ---------- data (same as before) ---------- */
 const PRODUCTS = [
   { section:"Fmcb and usb products for ps2 (GPZ)", items:[
-    { name:"Fmcb and usb products for ps2 (GPZ)", imgs:filterImgs(["fmcb.png","Usb.jpg","Usb hdd.jpeg","fmcb.png"]), variants:[], buy:["https://gamesplanet13.github.io/ps2fmcb/"], videos:[{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}], caption:"Fmcb + USB + HDD gallery — Buy on Games Planet" }
+    { name:"Fmcb and usb products for ps2 (GPZ)", imgs:filterImgs(["Fmcb.png","Usb.jpg","Usbhdd.jpeg","fmcb.png"]), variants:[], buy:["https://gamesplanet13.github.io/ps2fmcb/"], videos:[{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}], caption:"Fmcb + USB + HDD gallery — Buy on Games Planet" }
   ]},
   { section:"PS2 HDMI Converter (GPZ)", items:[
     { name:"PS2 HDMI Converter (GPZ)", imgs:filterImgs(["Ps2hdmi.png"]), variants:[{n:"Base",p:550}], buy:["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"], videos:[], caption:"Converter (base price only). Cable variants removed." }
@@ -206,7 +258,7 @@ const PRODUCTS = [
     { name:"R35S Handheld (GPZ)", imgs:filterImgs(["r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg","r35s (6).png","r35s (7).png"]), variants:[{n:"64GB",p:2999},{n:"128GB",p:4999}], buy:["https://gamesplanet.shop/products/gpzr35s"], videos:[{url:"https://youtu.be/eOEMkNKLSKU",cap:"Unboxing"}] },
     { name:"R36S (GPZ)", imgs:filterImgs(["R36s.png","R36sb.png"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5499}], buy:[], videos:[] },
     { name:"R36 Ultra (GPZ)", imgs:filterImgs(["R36U.jpeg"]), variants:[{n:"64GB",p:3999}], buy:[], videos:[{url:"https://youtube.com/shorts/OHoFvn3oqnM?si=feNA64nUgk6u72Tq",cap:"Short demo"}] },
-    { name:"Black Hawk (GPZ)", imgs:filterImgs(["YOURQIMAGE.jpg","unnamed (1).jpg"]), variants:[{n:"Base",p:2399}], buy:[], videos:[] },
+    { name:"Black Hawk (GPZ)", imgs:filterImgs(["YOURQRIMAGE.jpg","unnamed (1).jpg"]), variants:[{n:"Base",p:2399}], buy:[], videos:[] },
     { name:"X7M Single / Dual (GPZ)", imgs:filterImgs(["Qr.jpg","X_logo.jpg"]), variants:[{n:"Single",p:999},{n:"Dual",p:1099}], buy:[], videos:[{url:"https://youtu.be/oTPiMXuPWwA",cap:"Demo"}] }
   ]},
 
