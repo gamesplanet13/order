@@ -347,7 +347,7 @@ body { padding-bottom: 60px; } /* enough space for 4 buttons */
     msg += `%0A*Total: ₹${total}*`;
 
     const whatsappURL = `https://wa.me/917983624797?text=${msg}`;
-    window.open(whatsappURL, '_blank');
+    GPOrderRecords.send(msg.replace(/%0A/gi,'\n'));
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -472,5 +472,5 @@ function updateTopSummary() {
   All rights reserved © 2017–2025
 </footer>
 
-<script src="https://gamesplanet13.github.io/arcade-accessories-/ps2-style-footer.js?v=20261016-ps2-view"></script></body>
+<script src="https://gamesplanet13.github.io/arcade-accessories-/ps2-style-footer.js?v=20261016-ps2-view"></script><script src="https://gamesplanet13.github.io/arcade-accessories-/orders-config.js?v=20261022-orders"></script><script src="https://gamesplanet13.github.io/arcade-accessories-/unified-postal.js?v=20261022-orders"></script><script src="https://gamesplanet13.github.io/arcade-accessories-/order-records.js?v=20261022-orders"></script></body>
 </html>
