@@ -58,7 +58,7 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);
 .placeholder{color:var(--muted)}
 @media (max-width:520px){ .gallery{height:160px} .product-mini img{height:54px} }
 </style>
-<link rel="stylesheet" href="https://gamesplanet13.github.io/arcade-accessories-/website-theme.css?v=20261023-web"><script defer src="https://gamesplanet13.github.io/arcade-accessories-/website-shell.js?v=20261023-web"></script></head>
+</head>
 <body>
 <div class="container">
   <div class="header">
@@ -105,71 +105,71 @@ body{margin:0;font-family:Inter,system-ui,Arial,sans-serif;background:var(--bg);
 const AUTOPLAY_INTERVAL = 2000; // 2s
 const AUTOPLAY_DELAY_BEFORE_PREFETCH = 600; // how soon to prefetch next after gallery visible (ms)
 const AVAILABLE = [
-  "images/blog.png","images/Fmcb.png","images/Usb.jpg","images/Usbhdd.jpeg",
-  "images/g10 (1).png","images/g10 (2).png","images/g10 (3).png","images/g10 (4).png",
-  "images/G10.jpeg","images/G10b.jpeg",
+  "blog.png","Fmcb.png","Usb.jpg","Usbhdd.jpeg",
+  "g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png",
+  "G10.jpeg","G10b.jpeg",
 
-  "images/g11pro (1).jpg","images/g11pro (1).png","images/g11pro (2).png","images/g11pro (3).png","images/g11pro (4).png",
-  "images/G11pro.jpeg","images/G11pro.png",
+  "g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png","g11pro (4).png",
+  "G11pro.jpeg","G11pro.png",
 
-  "images/gamesvallah.png",
+  "gamesvallah.png",
 
-  "images/Gd10.jpeg","images/Gd10.png",
+  "Gd10.jpeg","Gd10.png",
 
-  "images/gd30 (1).jpeg","images/gd30 (1).jpg","images/gd30 (1).png",
-  "images/gd30 (2).jpg","images/gd30 (2).png",
-  "images/Gd30.jpeg","images/gd30v3 special edition.png","images/Gd30v3.jpeg",
+  "gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png",
+  "gd30 (2).jpg","gd30 (2).png",
+  "Gd30.jpeg","gd30v3 special edition.png","Gd30v3.jpeg",
 
-  "images/Gd35.jpeg","images/Gd35.png",
+  "Gd35.jpeg","Gd35.png",
 
-  "images/gs5mini (1).jpeg","images/gs5mini (1).jpg","images/gs5mini (2).jpeg","images/gs5mini (2).jpg",
-  "images/gs5mini (3).jpg","images/gs5mini (4).jpg","images/gs5mini (5).jpg","images/gs5mini (6).jpg",
-  "images/gs5mini (7).jpg","images/gs5mini (8).jpg",
-  "images/Gs5mini.jpeg","images/GS5MINI2.jpeg",
+  "gs5mini (1).jpeg","gs5mini (1).jpg","gs5mini (2).jpeg","gs5mini (2).jpg",
+  "gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg","gs5mini (6).jpg",
+  "gs5mini (7).jpg","gs5mini (8).jpg",
+  "Gs5mini.jpeg","GS5MINI2.jpeg",
 
-  "images/m15 (1).jpeg","images/m15 (1).png","images/m15 (2).jpeg","images/m15 (3).jpeg","images/m15 (4).jpeg","images/m15 (5).jpeg","images/m15 (6).jpeg",
-  "images/M15.jpeg",
+  "m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg","m15 (5).jpeg","m15 (6).jpeg",
+  "M15.jpeg",
 
-  "images/m22 (1).jpeg","images/m22 (1).jpg","images/m22 (2).jpeg","images/m22 (2).jpg","images/M22.jpeg","images/M22.jpg",
+  "m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","m22 (2).jpg","M22.jpeg","M22.jpg",
 
-  "images/m33 (1).jpeg","images/m33 (1).jpg","images/m33 (1).png","images/m33 (5).jpg","images/m33 (6).jpg","images/m33 (7).jpg","images/m33 (8).jpg","images/m33 (9).jpg","images/m33 (10).png",
-  "images/M33.jpeg",
+  "m33 (1).jpeg","m33 (1).jpg","m33 (1).png","m33 (5).jpg","m33 (6).jpg","m33 (7).jpg","m33 (8).jpg","m33 (9).jpg","m33 (10).png",
+  "M33.jpeg",
 
-  "images/M55.jpeg",
+  "M55.jpeg",
 
-  "images/m66 (1).jpg","images/m66 (2).jpg",
+  "m66 (1).jpg","m66 (2).jpg",
 
-  "images/m8 (1).jpg","images/m8 (1).png","images/m8 (2).png","images/m8 (3).png","images/M8.jpeg",
+  "m8 (1).jpg","m8 (1).png","m8 (2).png","m8 (3).png","M8.jpeg",
 
-  "images/m88 (1).jpeg","images/m88 (1).jpg","images/m88 (1).png","images/m88 (1).webp",
-  "images/m88 (2).jpg","images/m88 (2).webp",
-  "images/m88 (3).jpg","images/m88 (3).webp",
-  "images/m88 (4).jpg","images/m88 (4).webp",
-  "images/m88 (5).jpg","images/m88 (6).jpg","images/m88 (7).jpg","images/m88 (8).jpg","images/m88 (9).jpg",
-  "images/M88.jpeg",
+  "m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (1).webp",
+  "m88 (2).jpg","m88 (2).webp",
+  "m88 (3).jpg","m88 (3).webp",
+  "m88 (4).jpg","m88 (4).webp",
+  "m88 (5).jpg","m88 (6).jpg","m88 (7).jpg","m88 (8).jpg","m88 (9).jpg",
+  "M88.jpeg",
 
-  "images/map.png","images/maxresdefault (1).jpg",
+  "map.png","maxresdefault (1).jpg",
 
-  "images/Ps2hdmi.jpeg","images/Ps2hdmi.png",
-  "images/Ps2wire.jpeg","images/Ps2wire.png",
-  "images/Ps2wireless.jpeg","images/Ps2wireless.png",
+  "Ps2hdmi.jpeg","Ps2hdmi.png",
+  "Ps2wire.jpeg","Ps2wire.png",
+  "Ps2wireless.jpeg","Ps2wireless.png",
 
-  "images/ps3 slim (1).png","images/ps3 slim (2).png","images/ps3controller.png",
-  "images/Ps4slim1tb12.02wht.jpeg",
+  "ps3 slim (1).png","ps3 slim (2).png","ps3controller.png",
+  "Ps4slim1tb12.02wht.jpeg",
 
-  "images/Qr (1).jpg","images/Qr.jpg",
+  "Qr (1).jpg","Qr.jpg",
 
-  "images/r35s (1).jpeg","images/r35s (1).jpg","images/r35s (1).png",
-  "images/r35s (2).jpeg","images/r35s (2).jpg",
-  "images/r35s (3).jpeg","images/r35s (4).jpeg","images/r35s (5).jpeg",
-  "images/r35s (6).png","images/r35s (7).png",
-  "images/R35s.jpeg","images/R35sb.jpeg",
+  "r35s (1).jpeg","r35s (1).jpg","r35s (1).png",
+  "r35s (2).jpeg","r35s (2).jpg",
+  "r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg",
+  "r35s (6).png","r35s (7).png",
+  "R35s.jpeg","R35sb.jpeg",
 
-  "images/R36s.png","images/R36sb.jpeg","images/R36sb.png","images/R36U.jpeg",
+  "R36s.png","R36sb.jpeg","R36sb.png","R36U.jpeg",
 
-  "images/unnamed (1).jpg",
+  "unnamed (1).jpg",
 
-  "images/X_logo.jpg","images/YOURQRIMAGE.jpg"
+  "X_logo.jpg","YOURQRIMAGE.jpg"
 ];
 
 /* helper */
@@ -221,54 +221,54 @@ function filterImgs(list){
 /* ---------- data (same as before) ---------- */
 const PRODUCTS = [
   { section:"Fmcb and usb products for ps2 (GPZ)", items:[
-    { name:"Fmcb and usb products for ps2 (GPZ)", imgs:filterImgs(["images/Fmcb.png","images/Usb.jpg","images/Usbhdd.jpeg","images/fmcb.png"]), variants:[], buy:["https://gamesplanet13.github.io/ps2fmcb/"], videos:[{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}], caption:"Fmcb + USB + HDD gallery — Buy on Games Planet" }
+    { name:"Fmcb and usb products for ps2 (GPZ)", imgs:filterImgs(["Fmcb.png","Usb.jpg","Usbhdd.jpeg","fmcb.png"]), variants:[], buy:["https://gamesplanet13.github.io/ps2fmcb/"], videos:[{url:"https://youtu.be/bpGm0IAeyek?si=f7xIs42a9xzkkTNq",cap:"Intro / Installation"}], caption:"Fmcb + USB + HDD gallery — Buy on Games Planet" }
   ]},
   { section:"PS2 HDMI Converter (GPZ)", items:[
-    { name:"PS2 HDMI Converter (GPZ)", imgs:filterImgs(["images/Ps2hdmi.png"]), variants:[{n:"Base",p:550}], buy:["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"], videos:[], caption:"Converter (base price only). Cable variants removed." }
+    { name:"PS2 HDMI Converter (GPZ)", imgs:filterImgs(["Ps2hdmi.png"]), variants:[{n:"Base",p:550}], buy:["https://gamesplanet.shop/products/ps2-hdmi-converter-with-cable"], videos:[], caption:"Converter (base price only). Cable variants removed." }
   ]},
 
   { section:"GameSticks / Gamestick-style consoles", items:[
-    { name:"GPZ M88 GameStick (GPZ)", imgs:filterImgs(["images/m88 (1).jpeg","images/m88 (1).jpg","images/m88 (1).png","images/m88 (2).jpg","images/m88 (3).jpg","images/m88 (4).jpg","images/m88 (5).jpg"]), variants:[{n:"128GB",p:7799}], buy:["https://gamesplanet.shop/products/m88"], videos:[{url:"https://youtu.be/gLm7LZjTMOE",cap:"Unboxing/Testing"}] },
-    { name:"GPZ M66 GameStick (GPZ)", imgs:filterImgs(["images/m66 (1).jpg","images/m66 (2).jpg"]), variants:[{n:"64GB",p:2899}], buy:[], videos:[] },
-    { name:"GPZ GS5 Mini (GPZ)", imgs:filterImgs(["images/gs5mini (1).jpeg","images/gs5mini (2).jpeg","images/gs5mini (3).jpg","images/gs5mini (4).jpg","images/gs5mini (5).jpg"]), variants:[{n:"64GB",p:3699},{n:"128GB",p:5899},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gs5mini"], videos:[{url:"https://youtu.be/62x06g3BOg0",cap:"Unboxing/Testing"}] },
-    { name:"GPZ M22 GameStick (GPZ)", imgs:filterImgs(["images/m22 (1).jpeg","images/m22 (1).jpg","images/m22 (2).jpeg","images/M22.jpg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gpzm22","https://bit.ly/GPZm22OG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/bEt1GvDk8JY",cap:"Unboxing/Demo"},{url:"https://youtu.be/TnLw-wLWJ6A",cap:"Gameplay"}] },
-    { name:"GPZ M55 GameStick (GPZ)", imgs:filterImgs(["images/M55.jpeg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/m55"], videos:[{url:"https://youtu.be/uMkSclSP5kA",cap:"Unboxing"}] },
-    { name:"GPZ M33 GameStick (GPZ)", imgs:filterImgs(["images/m33 (1).jpeg","images/m33 (1).jpg","images/m33 (1).png","images/m33 (5).jpg","images/m33 (6).jpg"]), variants:[{n:"64GB",p:2699},{n:"128GB",p:4999},{n:"256GB",p:5999}], buy:["https://gamesplanet.shop/products/gpzm33","https://bit.ly/m33newG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/h838JHwNI1k",cap:"Unboxing"}] },
-    { name:"Gamestick Lite (Pandora Mini M8) (GPZ)", imgs:filterImgs(["images/m8 (1).jpg","images/m8 (1).png","images/m8 (2).png"]), variants:[{n:"64GB",p:1599}], buy:["https://gamesplanet.shop/products/pandoramini2024","https://dl.flipkart.com/s/1Vhpk8NNNN","https://amzn.to/4eVY8Tp"], videos:[{url:"https://youtu.be/eteF9FUaHDs",cap:"Unboxing"}] },
-    { name:"Gamestick Pro (Pandora Pro M15) (GPZ)", imgs:filterImgs(["images/m15 (1).jpeg","images/m15 (1).png","images/m15 (2).jpeg","images/m15 (3).jpeg","images/m15 (4).jpeg"]), variants:[{n:"64GB",p:1999}], buy:["https://gamesplanet.shop/products/p5game","https://amzn.to/4fmYjqB"], videos:[{url:"https://youtu.be/UUH26hD7J70",cap:"Must Watch Before Buying"}] }
+    { name:"GPZ M88 GameStick (GPZ)", imgs:filterImgs(["m88 (1).jpeg","m88 (1).jpg","m88 (1).png","m88 (2).jpg","m88 (3).jpg","m88 (4).jpg","m88 (5).jpg"]), variants:[{n:"128GB",p:7799}], buy:["https://gamesplanet.shop/products/m88"], videos:[{url:"https://youtu.be/gLm7LZjTMOE",cap:"Unboxing/Testing"}] },
+    { name:"GPZ M66 GameStick (GPZ)", imgs:filterImgs(["m66 (1).jpg","m66 (2).jpg"]), variants:[{n:"64GB",p:2899}], buy:[], videos:[] },
+    { name:"GPZ GS5 Mini (GPZ)", imgs:filterImgs(["gs5mini (1).jpeg","gs5mini (2).jpeg","gs5mini (3).jpg","gs5mini (4).jpg","gs5mini (5).jpg"]), variants:[{n:"64GB",p:3699},{n:"128GB",p:5899},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gs5mini"], videos:[{url:"https://youtu.be/62x06g3BOg0",cap:"Unboxing/Testing"}] },
+    { name:"GPZ M22 GameStick (GPZ)", imgs:filterImgs(["m22 (1).jpeg","m22 (1).jpg","m22 (2).jpeg","M22.jpg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/gpzm22","https://bit.ly/GPZm22OG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/bEt1GvDk8JY",cap:"Unboxing/Demo"},{url:"https://youtu.be/TnLw-wLWJ6A",cap:"Gameplay"}] },
+    { name:"GPZ M55 GameStick (GPZ)", imgs:filterImgs(["M55.jpeg"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5999},{n:"256GB",p:6999}], buy:["https://gamesplanet.shop/products/m55"], videos:[{url:"https://youtu.be/uMkSclSP5kA",cap:"Unboxing"}] },
+    { name:"GPZ M33 GameStick (GPZ)", imgs:filterImgs(["m33 (1).jpeg","m33 (1).jpg","m33 (1).png","m33 (5).jpg","m33 (6).jpg"]), variants:[{n:"64GB",p:2699},{n:"128GB",p:4999},{n:"256GB",p:5999}], buy:["https://gamesplanet.shop/products/gpzm33","https://bit.ly/m33newG","https://amzn.to/4hQN6j6"], videos:[{url:"https://youtu.be/h838JHwNI1k",cap:"Unboxing"}] },
+    { name:"Gamestick Lite (Pandora Mini M8) (GPZ)", imgs:filterImgs(["m8 (1).jpg","m8 (1).png","m8 (2).png"]), variants:[{n:"64GB",p:1599}], buy:["https://gamesplanet.shop/products/pandoramini2024","https://dl.flipkart.com/s/1Vhpk8NNNN","https://amzn.to/4eVY8Tp"], videos:[{url:"https://youtu.be/eteF9FUaHDs",cap:"Unboxing"}] },
+    { name:"Gamestick Pro (Pandora Pro M15) (GPZ)", imgs:filterImgs(["m15 (1).jpeg","m15 (1).png","m15 (2).jpeg","m15 (3).jpeg","m15 (4).jpeg"]), variants:[{n:"64GB",p:1999}], buy:["https://gamesplanet.shop/products/p5game","https://amzn.to/4fmYjqB"], videos:[{url:"https://youtu.be/UUH26hD7J70",cap:"Must Watch Before Buying"}] }
   ]},
 
   { section:"GD-Series (Vayava) — Gamestick", items:[
-    { name:"Vayava GD10 (GPZ)", imgs:filterImgs(["images/Gd10.jpeg"]), variants:[{n:"64GB",p:2399},{n:"128GB",p:4399}], buy:["https://gamesplanet.shop/products/vayava-gamestick-gd10","https://amzn.to/45sO3uE","https://dl.flipkart.com/s/Xb3FJTNNNN"], videos:[{url:"https://youtu.be/NTgx-SeWFHY",cap:"Unboxing"},{url:"https://youtu.be/t9YSmvB1TTk",cap:"Connection Guide"}] },
-    { name:"Vayava GD30 V1 (GPZ)", imgs:filterImgs(["images/gd30 (1).jpeg","images/gd30 (1).jpg","images/gd30 (1).png","images/Gd30.jpeg"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5899},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/dJ-C1ACbwik",cap:"Unboxing/Testing"},{url:"https://youtu.be/1JE8JtbtmfA",cap:"Storage Comparison"}] },
-    { name:"Vayava GD30 V2 (GPZ)", imgs:filterImgs(["images/gd30 (2).jpg","images/gd30 (2).png"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/1JE8JtbtmfA?si=tZoJyBMjob8XSOTF",cap:"Demo / Storage Comparison"}] },
-    { name:"Vayava GD30 V3 (GPZ)", imgs:filterImgs(["images/Gd30v3.jpeg","images/gd30v3 special edition.png"]), variants:[{n:"64GB",p:3899},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30v3"], videos:[{url:"https://youtu.be/Zhdwoi-evDI",cap:"Unboxing"}] },
-    { name:"Vayava GD35 Standard (GPZ)", imgs:filterImgs(["images/Gd35.png"]), variants:[{n:"64GB",p:5299},{n:"128GB",p:6999},{n:"256GB",p:7999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[] },
-    { name:"Vayava GD35 GTA San Andreas Edition (GPZ)", imgs:filterImgs(["images/gd30v3 special edition.png","images/Gd35.png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[{url:"https://youtu.be/v1k6gJtREfk",cap:"Unboxing/Guide"},{url:"https://youtu.be/-6jDWfplmkY",cap:"Gameplay"}] }
+    { name:"Vayava GD10 (GPZ)", imgs:filterImgs(["Gd10.jpeg"]), variants:[{n:"64GB",p:2399},{n:"128GB",p:4399}], buy:["https://gamesplanet.shop/products/vayava-gamestick-gd10","https://amzn.to/45sO3uE","https://dl.flipkart.com/s/Xb3FJTNNNN"], videos:[{url:"https://youtu.be/NTgx-SeWFHY",cap:"Unboxing"},{url:"https://youtu.be/t9YSmvB1TTk",cap:"Connection Guide"}] },
+    { name:"Vayava GD30 V1 (GPZ)", imgs:filterImgs(["gd30 (1).jpeg","gd30 (1).jpg","gd30 (1).png","Gd30.jpeg"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5899},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/dJ-C1ACbwik",cap:"Unboxing/Testing"},{url:"https://youtu.be/1JE8JtbtmfA",cap:"Storage Comparison"}] },
+    { name:"Vayava GD30 V2 (GPZ)", imgs:filterImgs(["gd30 (2).jpg","gd30 (2).png"]), variants:[{n:"64GB",p:3599},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30"], videos:[{url:"https://youtu.be/1JE8JtbtmfA?si=tZoJyBMjob8XSOTF",cap:"Demo / Storage Comparison"}] },
+    { name:"Vayava GD30 V3 (GPZ)", imgs:filterImgs(["Gd30v3.jpeg","gd30v3 special edition.png"]), variants:[{n:"64GB",p:3899},{n:"128GB",p:5999},{n:"256GB",p:7299}], buy:["https://gamesplanet.shop/products/gd30v3"], videos:[{url:"https://youtu.be/Zhdwoi-evDI",cap:"Unboxing"}] },
+    { name:"Vayava GD35 Standard (GPZ)", imgs:filterImgs(["Gd35.png"]), variants:[{n:"64GB",p:5299},{n:"128GB",p:6999},{n:"256GB",p:7999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[] },
+    { name:"Vayava GD35 GTA San Andreas Edition (GPZ)", imgs:filterImgs(["gd30v3 special edition.png","Gd35.png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/gd35"], videos:[{url:"https://youtu.be/v1k6gJtREfk",cap:"Unboxing/Guide"},{url:"https://youtu.be/-6jDWfplmkY",cap:"Gameplay"}] }
   ]},
 
   { section:"GameBox Series", items:[
-    { name:"GameBox G10 Plus (Vayava) (GPZ)", imgs:filterImgs(["images/g10 (1).png","images/g10 (2).png","images/g10 (3).png","images/g10 (4).png"]), variants:[{n:"64GB",p:3599}], buy:["https://gamesplanet.shop/products/g10","https://amzn.to/4afvbOO"], videos:[{url:"https://youtu.be/EGoVlcrre18",cap:"Unboxing"},{url:"https://youtu.be/l1uVzH-JWgs",cap:"Connection"}] },
-    { name:"GameBox G11 Pro Regular (GPZ)", imgs:filterImgs(["images/G11pro.png","images/g11pro (1).jpg","images/g11pro (1).png","images/g11pro (2).png","images/g11pro (3).png"]), variants:[{n:"64GB",p:4599},{n:"128GB",p:6599},{n:"256GB",p:7599}], buy:["https://gamesplanet.shop/products/g11pro","https://amzn.to/47l95sN","https://dl.flipkart.com/s/gQowFIuuuN"], videos:[{url:"https://youtu.be/kJNJ_Kq3NvA",cap:"Unboxing"},{url:"https://youtu.be/HoRVcbKb77Q",cap:"Connection"}] },
-    { name:"GameBox G11 Pro Special Edition (GPZ)", imgs:filterImgs(["images/G11pro.png","images/g11pro (1).png"]), variants:[{n:"64GB",p:6599},{n:"128GB",p:8599},{n:"256GB",p:9599}], buy:["https://gamesplanet.shop/products/g11prosp"], videos:[{url:"https://youtu.be/ILHGhkGNJ2s",cap:"Special Demo"}] },
-    { name:"GameBox G11 Pro GTA San Andreas Edition (GPZ)", imgs:filterImgs(["images/G11pro.png","images/g11pro (3).png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/game-box-g11-pro-ultimate-edition"], videos:[{url:"https://youtu.be/hHTmh4AdaF4",cap:"GTA Edition Demo"}] }
+    { name:"GameBox G10 Plus (Vayava) (GPZ)", imgs:filterImgs(["g10 (1).png","g10 (2).png","g10 (3).png","g10 (4).png"]), variants:[{n:"64GB",p:3599}], buy:["https://gamesplanet.shop/products/g10","https://amzn.to/4afvbOO"], videos:[{url:"https://youtu.be/EGoVlcrre18",cap:"Unboxing"},{url:"https://youtu.be/l1uVzH-JWgs",cap:"Connection"}] },
+    { name:"GameBox G11 Pro Regular (GPZ)", imgs:filterImgs(["G11pro.png","g11pro (1).jpg","g11pro (1).png","g11pro (2).png","g11pro (3).png"]), variants:[{n:"64GB",p:4599},{n:"128GB",p:6599},{n:"256GB",p:7599}], buy:["https://gamesplanet.shop/products/g11pro","https://amzn.to/47l95sN","https://dl.flipkart.com/s/gQowFIuuuN"], videos:[{url:"https://youtu.be/kJNJ_Kq3NvA",cap:"Unboxing"},{url:"https://youtu.be/HoRVcbKb77Q",cap:"Connection"}] },
+    { name:"GameBox G11 Pro Special Edition (GPZ)", imgs:filterImgs(["G11pro.png","g11pro (1).png"]), variants:[{n:"64GB",p:6599},{n:"128GB",p:8599},{n:"256GB",p:9599}], buy:["https://gamesplanet.shop/products/g11prosp"], videos:[{url:"https://youtu.be/ILHGhkGNJ2s",cap:"Special Demo"}] },
+    { name:"GameBox G11 Pro GTA San Andreas Edition (GPZ)", imgs:filterImgs(["G11pro.png","g11pro (3).png"]), variants:[{n:"64GB",p:5999},{n:"128GB",p:7999},{n:"256GB",p:9999}], buy:["https://gamesplanet.shop/products/game-box-g11-pro-ultimate-edition"], videos:[{url:"https://youtu.be/hHTmh4AdaF4",cap:"GTA Edition Demo"}] }
   ]},
 
   { section:"Handheld Consoles", items:[
-    { name:"R35S Handheld (GPZ)", imgs:filterImgs(["images/r35s (1).jpeg","images/r35s (1).jpg","images/r35s (2).jpeg","images/r35s (2).jpg","images/r35s (3).jpeg","images/r35s (4).jpeg","images/r35s (5).jpeg","images/r35s (6).png","images/r35s (7).png"]), variants:[{n:"64GB",p:2999},{n:"128GB",p:4999}], buy:["https://gamesplanet.shop/products/gpzr35s"], videos:[{url:"https://youtu.be/eOEMkNKLSKU",cap:"Unboxing"}] },
-    { name:"R36S (GPZ)", imgs:filterImgs(["images/R36s.png","images/R36sb.png"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5499}], buy:[], videos:[] },
-    { name:"R36 Ultra (GPZ)", imgs:filterImgs(["images/R36U.jpeg"]), variants:[{n:"64GB",p:3999}], buy:[], videos:[{url:"https://youtube.com/shorts/OHoFvn3oqnM?si=feNA64nUgk6u72Tq",cap:"Short demo"}] },
-    { name:"Black Hawk (GPZ)", imgs:filterImgs(["images/YOURQRIMAGE.jpg","images/unnamed (1).jpg"]), variants:[{n:"Base",p:2399}], buy:[], videos:[] },
-    { name:"X7M Single / Dual (GPZ)", imgs:filterImgs(["images/Qr.jpg","images/X_logo.jpg"]), variants:[{n:"Single",p:999},{n:"Dual",p:1099}], buy:[], videos:[{url:"https://youtu.be/oTPiMXuPWwA",cap:"Demo"}] }
+    { name:"R35S Handheld (GPZ)", imgs:filterImgs(["r35s (1).jpeg","r35s (1).jpg","r35s (2).jpeg","r35s (2).jpg","r35s (3).jpeg","r35s (4).jpeg","r35s (5).jpeg","r35s (6).png","r35s (7).png"]), variants:[{n:"64GB",p:2999},{n:"128GB",p:4999}], buy:["https://gamesplanet.shop/products/gpzr35s"], videos:[{url:"https://youtu.be/eOEMkNKLSKU",cap:"Unboxing"}] },
+    { name:"R36S (GPZ)", imgs:filterImgs(["R36s.png","R36sb.png"]), variants:[{n:"64GB",p:3499},{n:"128GB",p:5499}], buy:[], videos:[] },
+    { name:"R36 Ultra (GPZ)", imgs:filterImgs(["R36U.jpeg"]), variants:[{n:"64GB",p:3999}], buy:[], videos:[{url:"https://youtube.com/shorts/OHoFvn3oqnM?si=feNA64nUgk6u72Tq",cap:"Short demo"}] },
+    { name:"Black Hawk (GPZ)", imgs:filterImgs(["YOURQRIMAGE.jpg","unnamed (1).jpg"]), variants:[{n:"Base",p:2399}], buy:[], videos:[] },
+    { name:"X7M Single / Dual (GPZ)", imgs:filterImgs(["Qr.jpg","X_logo.jpg"]), variants:[{n:"Single",p:999},{n:"Dual",p:1099}], buy:[], videos:[{url:"https://youtu.be/oTPiMXuPWwA",cap:"Demo"}] }
   ]},
 
   { section:"PlayStation / Legacy Consoles", items:[
-    { name:"PlayStation 2 Slim (GPZ)", imgs:filterImgs(["images/ps3 slim (1).png","images/ps3 slim (2).png","images/ps3controller.png","images/Ps4slim1tb12.02wht.jpeg"]), variants:[{n:"Console",p:5500}], buy:["https://Gamesplanet13.github.io/ps2now"], videos:[{url:"https://youtu.be/py-V7CQjcYM",cap:"Quality Check"},{url:"https://youtu.be/xGR0vUM1-Jw",cap:"Full Game List"},{url:"https://youtu.be/Lb3dRycJbEc",cap:"Gameplay"},{url:"https://youtu.be/bF3M4aGXHSU",cap:"How to Order"}] },
-    { name:"PlayStation 3 (500GB) (GPZ)", imgs:filterImgs(["images/ps3 slim (1).png","images/ps3 slim (2).png"]), variants:[{n:"500GB",p:15999}], buy:["https://wa.me/917983624797"], videos:[] }
+    { name:"PlayStation 2 Slim (GPZ)", imgs:filterImgs(["ps3 slim (1).png","ps3 slim (2).png","ps3controller.png","Ps4slim1tb12.02wht.jpeg"]), variants:[{n:"Console",p:5500}], buy:["https://Gamesplanet13.github.io/ps2now"], videos:[{url:"https://youtu.be/py-V7CQjcYM",cap:"Quality Check"},{url:"https://youtu.be/xGR0vUM1-Jw",cap:"Full Game List"},{url:"https://youtu.be/Lb3dRycJbEc",cap:"Gameplay"},{url:"https://youtu.be/bF3M4aGXHSU",cap:"How to Order"}] },
+    { name:"PlayStation 3 (500GB) (GPZ)", imgs:filterImgs(["ps3 slim (1).png","ps3 slim (2).png"]), variants:[{n:"500GB",p:15999}], buy:["https://wa.me/917983624797"], videos:[] }
   ]},
 
   { section:"Accessories & Misc", items:[
-    { name:"PS2 Wireless Gamepad (GPZ)", imgs:filterImgs(["images/Ps2wire.png","images/Ps2wireless.png"]), variants:[{n:"Single",p:0}], buy:["https://gamesplanet.shop/products/ps2-wireless-gamepad-1?sku_id=51117958"], videos:[] }
+    { name:"PS2 Wireless Gamepad (GPZ)", imgs:filterImgs(["Ps2wire.png","Ps2wireless.png"]), variants:[{n:"Single",p:0}], buy:["https://gamesplanet.shop/products/ps2-wireless-gamepad-1?sku_id=51117958"], videos:[] }
   ]}
 ];
 
